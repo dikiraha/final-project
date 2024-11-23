@@ -77,7 +77,7 @@
 <!-- About End -->
 
 <!-- Fact Counter -->
-<div class="container-fluid counter py-5">
+<!-- <div class="container-fluid counter py-5">
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
@@ -130,11 +130,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Fact Counter -->
 
 <!-- Features Start -->
-<div class="container-fluid feature py-5">
+<!-- <div class="container-fluid feature py-5">
     <div class="container py-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize mb-3">Cental <span class="text-primary">Features</span></h1>
@@ -199,11 +199,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Features End -->
 
 <!-- Car Steps Start -->
-<div class="container-fluid steps py-5">
+<!-- <div class="container-fluid steps py-5">
     <div class="container py-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize text-white mb-3">Cental<span class="text-primary"> Process</span></h1>
@@ -234,11 +234,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Car Steps End -->
 
 <!-- Team Start -->
-<div class="container-fluid team py-5">
+<!-- <div class="container-fluid team py-5">
     <div class="container py-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize mb-3">Customer<span class="text-primary"> Suport</span> Center</h1>
@@ -316,7 +316,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Team End -->
 
 <!-- Banner Start -->

@@ -1,9 +1,14 @@
+<?php
+// if (!isset($_SESSION['nama'])) {
+//     header('Location: index.php');
+// }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Cental - Car Rent Website Template</title>
+    <title>Diana Rent Car</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -68,11 +73,13 @@
     <!-- End Navbar -->
 
     <?php
-    if (isset($_GET['views'])) {
-        $views = $_GET['views'];
-        include_once "views/" . $views . ".php";
-    }
+    // if (isset($_GET['views'])) {
+    //     $views = $_GET['views'];
+    //     include_once "views/" . $views . ".php";
+    // }
     ?>
+
+    <?php require("./function/menu.php") ?>
 
     <!-- Footer Start -->
     <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
@@ -143,13 +150,10 @@
         <div class="container">
             <div class="row g-4 align-items-center">
                 <div class="col-md-6 text-center text-md-start mb-md-0">
-                    <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
+                    <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Diana Rent Car</a>, All right reserved.</span>
                 </div>
                 <div class="col-md-6 text-center text-md-end text-body">
-                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                    Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
+                    Designed By <a class="border-bottom text-white" href="#">Kelompok 2</a>
                 </div>
             </div>
         </div>

@@ -42,22 +42,9 @@ if (isset($_GET['views'])) {
                 <div class="navbar-nav mx-auto py-0">
                     <a href="?views=home" class="nav-item nav-link <?= $home ? 'active' : '' ?>">Home</a>
                     <a href="?views=about" class="nav-item nav-link <?= $about ? 'active' : '' ?>">About</a>
-                    <!-- <a href="service.html" class="nav-item nav-link">Service</a>
-                    <a href="blog.html" class="nav-item nav-link">Blog</a> -->
-
-                    <!-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="feature.html" class="dropdown-item">Our Feature</a>
-                            <a href="cars.html" class="dropdown-item">Our Cars</a>
-                            <a href="team.html" class="dropdown-item">Our Team</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                            <a href="404.html" class="dropdown-item">404 Page</a>
-                        </div>
-                    </div> -->
                     <a href="?views=contact" class="nav-item nav-link <?= $contact ? 'active' : '' ?>">Contact</a>
                 </div>
-                <a href="#" class="btn btn-primary rounded-pill py-2 px-4">LOGIN</a>
+                <a href="auth/login.php" class="btn btn-primary rounded-pill py-2 px-4">LOGIN</a>
             </div>
         </nav>
     </div>
