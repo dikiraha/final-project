@@ -12,6 +12,9 @@ if (isset($_GET['views'])) {
         case 'contact':
             include "views/contact.php";
             break;
+        case 'login':
+            include "views/auth/login.php";
+            break;
         default:
             include "page/error.php";
     }
