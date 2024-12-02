@@ -44,7 +44,14 @@ if (isset($_GET['views'])) {
                     <a href="?views=about" class="nav-item nav-link <?= $about ? 'active' : '' ?>">About</a>
                     <a href="?views=contact" class="nav-item nav-link <?= $contact ? 'active' : '' ?>">Contact</a>
                 </div>
-                <a href="auth/login.php" class="btn btn-primary rounded-pill py-2 px-4">LOGIN</a>
+                <?php if (isset($_SESSION['user_role'])): ?>
+                    <!-- Tampilkan jika sudah login -->
+                    <p>Role: <strong><?= htmlspecialchars($_SESSION['user_role']); ?></strong></p>
+                    <a href="auth/logout.php" class="btn btn-danger rounded-pill py-2 px-4">Logout</a>
+                <?php else: ?>
+                    <!-- Tampilkan jika belum login -->
+                    <a href="auth/login.php" class="btn btn-primary rounded-pill py-2 px-4">LOGIN</a>
+                <?php endif; ?>
             </div>
         </nav>
     </div>
