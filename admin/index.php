@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_S
 <body>
     <h1>Welcome to Admin Dashboard</h1>
     <p>Role: <?= $_SESSION['user_role']; ?></p>
-    <a href="../auth/logout.php">Logout</a>
+    <a href="../backend/auth/logout.php">Logout</a>
 </body>
 
 </html>

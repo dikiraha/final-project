@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['user_role'])) {
-    header('Location: ./auth/login.php');
-    exit;
-}
+// if (!isset($_SESSION['user_role'])) {
+//     header('Location: ./auth/login.php');
+//     exit;
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,10 +35,32 @@ if (!isset($_SESSION['user_role'])) {
 
     <!-- Template Stylesheet -->
     <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- Tempat untuk CSS tambahan -->
+    <?php
+    if (isset($_GET['views']) == 'home') {
+        //         echo "<style>
+        //         .categories-img {
+        //     width: 400px;
+        //     height: 300px;
+        //     overflow: hidden; /* Untuk memastikan tidak ada elemen yang keluar */
+        //     border-radius: 8px; /* Sudut melengkung pada kontainer */
+        // }
+
+        // .categories-img img {
+        //     width: 100%;
+        //     height: 100%;
+        //     object-fit: contain; /* Memastikan gambar ditampilkan sepenuhnya tanpa dipotong */
+        //     border-radius: 8px; /* Sudut melengkung pada gambar */
+        // }
+
+
+        //         </style>";
+    }
+    ?>
 </head>
 
 <body>
-
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -82,7 +104,9 @@ if (!isset($_SESSION['user_role'])) {
     // }
     ?>
 
-    <?php require("./function/menu.php") ?>
+    <?php
+    require("./function/menu.php")
+    ?>
 
     <!-- Footer Start -->
     <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">

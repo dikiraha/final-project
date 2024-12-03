@@ -21,7 +21,7 @@ if (isset($_GET['views'])) {
             $contact = false;
     }
 } else {
-    $home = false;
+    $home = true;
     $about = false;
     $contact = false;
 }

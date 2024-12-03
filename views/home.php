@@ -7,23 +7,14 @@
             </p>
         </div>
         <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
+            <!-- MOBIL -->
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/calya.png" class="img-fluid w-100 rounded-top" alt="">
+                        <img src="assets/img/cars/avanza.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
-                        <h4>Toyota Calya</h4>
-                        <!-- <div class="categories-review mb-4">
-                            <div class="me-3">3.5 Review</div>
-                            <div class="d-flex justify-content-center text-secondary">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star text-body"></i>
-                            </div>
-                        </div> -->
+                        <h4>Toyota Avanza</h4>
                         <div class="mb-4">
                             <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
                         </div>
@@ -45,6 +36,247 @@
                     </div>
                 </div>
             </div>
+            <!-- END MOBIL -->
+            <!-- MOBIL -->
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="assets/img/cars/calya.png" class="img-fluid w-100 rounded-top">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>Toyota Calya</h4>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+                        </div>
+                        <div class="row gy-2 gx-0 text-center mb-4">
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MOBIL -->
+            <!-- MOBIL -->
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="assets/img/cars/ertiga.png" class="img-fluid w-100 rounded-top">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>Suzuki Ertiga</h4>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+                        </div>
+                        <div class="row gy-2 gx-0 text-center mb-4">
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MOBIL -->
+            <!-- MOBIL -->
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="assets/img/cars/luxio.png" class="img-fluid w-100 rounded-top">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>Daihatsu Luxio</h4>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+                        </div>
+                        <div class="row gy-2 gx-0 text-center mb-4">
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MOBIL -->
+            <!-- MOBIL -->
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="assets/img/cars/mobilio.png" class="img-fluid w-100 rounded-top">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>Honda Mobilio</h4>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+                        </div>
+                        <div class="row gy-2 gx-0 text-center mb-4">
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MOBIL -->
+            <!-- MOBIL -->
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="assets/img/cars/rush.png" class="img-fluid w-100 rounded-top">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>Toyota Rush</h4>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+                        </div>
+                        <div class="row gy-2 gx-0 text-center mb-4">
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MOBIL -->
+            <!-- MOBIL -->
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="assets/img/cars/sigra.png" class="img-fluid w-100 rounded-top">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>Daihatsu Sigra</h4>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+                        </div>
+                        <div class="row gy-2 gx-0 text-center mb-4">
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MOBIL -->
+            <!-- MOBIL -->
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="assets/img/cars/xenia.png" class="img-fluid w-100 rounded-top">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>Daihatsu Xenia</h4>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+                        </div>
+                        <div class="row gy-2 gx-0 text-center mb-4">
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MOBIL -->
+            <!-- MOBIL -->
+            <div class="categories-item p-4">
+                <div class="categories-item-inner">
+                    <div class="categories-img rounded-top">
+                        <img src="assets/img/cars/xl7.png" class="img-fluid w-100 rounded-top">
+                    </div>
+                    <div class="categories-content rounded-bottom p-4">
+                        <h4>Suzuki XL7</h4>
+                        <div class="mb-4">
+                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+                        </div>
+                        <div class="row gy-2 gx-0 text-center mb-4">
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
+                            </div>
+                            <div class="col-6 border-end border-white">
+                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END MOBIL -->
         </div>
     </div>
 </div>
@@ -377,10 +609,10 @@
             <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
                 <div class="about-img">
                     <div class="img-1">
-                        <img src="assets/img/about-img.jpg" class="img-fluid rounded h-100 w-100" alt="">
+                        <img src="assets/img/about-img.jpg" class="img-fluid rounded h-100 w-100">
                     </div>
                     <div class="img-2">
-                        <img src="assets/img/about-img-1.jpg" class="img-fluid rounded w-100" alt="">
+                        <img src="assets/img/about-img-1.jpg" class="img-fluid rounded w-100">
                     </div>
                 </div>
             </div>
@@ -393,7 +625,7 @@
 <div class="container-fluid counter bg-secondary py-5">
     <div class="container py-5">
         <div class="row g-5">
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="counter-item text-center">
                     <div class="counter-item-icon mx-auto">
                         <i class="fas fa-thumbs-up fa-2x"></i>
@@ -405,7 +637,7 @@
                     <h4 class="text-white mb-0">Happy Clients</h4>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="counter-item text-center">
                     <div class="counter-item-icon mx-auto">
                         <i class="fas fa-car-alt fa-2x"></i>
@@ -417,7 +649,7 @@
                     <h4 class="text-white mb-0">Number of Cars</h4>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
+            <!-- <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="counter-item text-center">
                     <div class="counter-item-icon mx-auto">
                         <i class="fas fa-building fa-2x"></i>
@@ -428,8 +660,8 @@
                     </div>
                     <h4 class="text-white mb-0">Car Center</h4>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
+            </div> -->
+            <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.7s">
                 <div class="counter-item text-center">
                     <div class="counter-item-icon mx-auto">
                         <i class="fas fa-clock fa-2x"></i>
@@ -620,7 +852,7 @@
 <!-- <div class="container-fluid banner pb-5 wow zoomInDown" data-wow-delay="0.1s">
     <div class="container pb-5">
         <div class="banner-item rounded">
-            <img src="assets/img/banner-1.jpg" class="img-fluid rounded w-100" alt="">
+            <img src="assets/img/banner-1.jpg" class="img-fluid rounded w-100">
             <div class="banner-content">
                 <h2 class="text-primary">Rent Your Car</h2>
                 <h1 class="text-white">Interested in Renting?</h1>
@@ -730,7 +962,7 @@
                 <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                 </div>
                 <div class="testimonial-inner p-4">
-                    <img src="assets/img/testimonial-1.jpg" class="img-fluid" alt="">
+                    <img src="assets/img/testimonial-1.jpg" class="img-fluid">
                     <div class="ms-4">
                         <h4>Person Name</h4>
                         <p>Profession</p>
@@ -751,7 +983,7 @@
                 <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                 </div>
                 <div class="testimonial-inner p-4">
-                    <img src="assets/img/testimonial-2.jpg" class="img-fluid" alt="">
+                    <img src="assets/img/testimonial-2.jpg" class="img-fluid">
                     <div class="ms-4">
                         <h4>Person Name</h4>
                         <p>Profession</p>
@@ -772,7 +1004,7 @@
                 <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                 </div>
                 <div class="testimonial-inner p-4">
-                    <img src="assets/img/testimonial-3.jpg" class="img-fluid" alt="">
+                    <img src="assets/img/testimonial-3.jpg" class="img-fluid">
                     <div class="ms-4">
                         <h4>Person Name</h4>
                         <p>Profession</p>

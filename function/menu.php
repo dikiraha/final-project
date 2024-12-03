@@ -16,8 +16,8 @@ if (isset($_GET['views'])) {
             include "views/auth/login.php";
             break;
         default:
-            include "page/error.php";
+            include "views/error.php";
     }
 } else {
-    include "page/index.php";
+    include "views/home.php";
 }

@@ -1,3 +1,9 @@
+<?php
+session_start();
+$loginError = isset($_SESSION['login_error']) ? $_SESSION['login_error'] : null;
+unset($_SESSION['login_error']); // Hapus setelah ditampilkan
+?>
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-wide customizer-hide" dir="ltr" data-theme="theme-default"
@@ -13,9 +19,9 @@
     <meta name="description" content="" />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('img/logo-fiola.png') }}" />
-
     <link rel="icon" type="image/x-icon" href=".././assets/img/drc.jpeg">
+
+    <!-- CSS -->
     <link rel="stylesheet" href=".././assets/fonts/inter/fonts.css">
     <link rel="stylesheet" href=".././assets/vendor/materio/assets/vendor/fonts/materialdesignicons.css">
     <link rel="stylesheet" href=".././assets/vendor/materio/assets/vendor/libs/node-waves/node-waves.css">
@@ -56,13 +62,21 @@
                     <div class="app-brand justify-content-center mt-5">
                         <a href="login.php" class="app-brand-link gap-2">
                             <span class="app-brand-text demo text-heading fw-semibold"
-                                style="color: #9055fd !important; font-size: 36px;">DRC</span>
+                                style="color: #9055fd !important; font-size: 36px;">
+                                <img src="../assets/img/drc.jpeg" alt="" class="img-fluid rounded-circle" style="border-radius: 50%;" width="120px">
+                            </span>
                         </a>
                     </div>
                     <!-- /Logo -->
 
                     <div class="card-body mt-2">
                         <h4 class="mb-5 text-center">Diana Rent Car</h4>
+
+                        <?php if ($loginError): ?>
+                            <div class="alert alert-danger">
+                                <?php echo htmlspecialchars($loginError); ?>
+                            </div>
+                        <?php endif; ?>
                         <!-- @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -73,7 +87,7 @@
                         </div>
                         @endif -->
                         <form id="formAuthentication" class="mb-3" method="post"
-                            action="{{ route('website.auth.authenticate') }}">
+                            action="../backend/auth/login.php">
                             <!-- @csrf -->
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="email" name="email"
