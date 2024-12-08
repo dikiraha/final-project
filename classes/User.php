@@ -12,7 +12,7 @@ class User
         $this->conn = $db->connect();
     }
 
-    public function getAll()
+    public function list()
     {
         $query = "SELECT id, name, email, role, created_at FROM " . $this->table;
         $stmt = $this->conn->query($query);
@@ -29,13 +29,15 @@ class User
 
     public function create($data)
     {
-        $query = "INSERT INTO " . $this->table . " (name, email, password, role) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO " . $this->table . " (uuid, name, email, password, phone_number, role) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
-        $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT); // Hash password
+        // $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT); // Hash password
         return $stmt->execute([
+            $data['uuid'],
             $data['name'],
             $data['email'],
             $data['password'],
+            $data['phone_number'],
             $data['role']
         ]);
     }

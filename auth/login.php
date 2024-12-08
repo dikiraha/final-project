@@ -1,7 +1,12 @@
 <?php
 session_start();
 $loginError = isset($_SESSION['login_error']) ? $_SESSION['login_error'] : null;
-unset($_SESSION['login_error']); // Hapus setelah ditampilkan
+unset($_SESSION['login_error']);
+
+if (isset($_SESSION['user_role'])) {
+    header('Location: ../index.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +65,7 @@ unset($_SESSION['login_error']); // Hapus setelah ditampilkan
                 <div class="card p-2">
                     <!-- Logo -->
                     <div class="app-brand justify-content-center mt-5">
-                        <a href="login.php" class="app-brand-link gap-2">
+                        <a href="../index.php" class="app-brand-link gap-2">
                             <span class="app-brand-text demo text-heading fw-semibold"
                                 style="color: #9055fd !important; font-size: 36px;">
                                 <img src="../assets/img/drc.jpeg" alt="" class="img-fluid rounded-circle" style="border-radius: 50%;" width="120px">
@@ -91,8 +96,8 @@ unset($_SESSION['login_error']); // Hapus setelah ditampilkan
                             <!-- @csrf -->
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="email@drc.com" autofocus />
-                                <label for="email">Email</label>
+                                    placeholder="email@drc.com" autofocus required />
+                                <label for="email">Email <span class="text-danger">*</span></label>
                             </div>
                             <div class="mb-5">
                                 <div class="form-password-toggle">
@@ -100,8 +105,8 @@ unset($_SESSION['login_error']); // Hapus setelah ditampilkan
                                         <div class="form-floating form-floating-outline">
                                             <input type="password" id="password" class="form-control" name="password"
                                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="password" />
-                                            <label for="password">Password</label>
+                                                aria-describedby="password" required />
+                                            <label for="password">Password <span class="text-danger">*</span></label>
                                         </div>
                                         <span class="input-group-text cursor-pointer"><i
                                                 class="mdi mdi-eye-off-outline"></i></span>
@@ -125,7 +130,7 @@ unset($_SESSION['login_error']); // Hapus setelah ditampilkan
 
                         <p class="text-center">
                             <span>New on our platform?</span>
-                            <a href="auth-register-basic.html">
+                            <a href="register.php">
                                 <span>Create an account</span>
                             </a>
                         </p>

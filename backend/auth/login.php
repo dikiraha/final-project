@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($userData && password_verify($password, $userData['password'])) {
         $_SESSION['user_id'] = $userData['id'];
         $_SESSION['user_role'] = $userData['role'];
+        $_SESSION['user_name'] = $userData['name'];
 
         // Redirect berdasarkan role
         if ($userData['role'] === 'admin' || $userData['role'] === 'driver') {
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } else {
         $_SESSION['login_error'] = $userData ? "Password salah!" : "Email tidak ditemukan!";
-        header('Location: ../../auth/login.php'); // Sesuaikan path menuju halaman login frontend
+        header('Location: ../../auth/login.php');
         exit;
     }
 }

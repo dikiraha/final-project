@@ -1,10 +1,5 @@
 <?php
 session_start();
-
-// if (!isset($_SESSION['user_role'])) {
-//     header('Location: ./auth/login.php');
-//     exit;
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +8,8 @@ session_start();
     <meta charset="utf-8">
     <title>Diana Rent Car</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="Diana Rent Car, Sewa Mobil, Rental Mobil, Jasa Supir, Sewa Mobil dan Jasa Supir Karawang, Sewa Mobil Murah" name="keywords">
+    <meta content="Diana Rent Car merupakan Usaha dibidang Sewa Mobil dan Jasa Supir Karawang" name="description">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,36 +21,19 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="assets/lib/animate/animate.min.css" rel="stylesheet">
-    <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="assets/web/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="assets/web/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/web/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/web/css/style.css" rel="stylesheet">
 
     <!-- Tempat untuk CSS tambahan -->
     <?php
     if (isset($_GET['views']) == 'home') {
-        //         echo "<style>
-        //         .categories-img {
-        //     width: 400px;
-        //     height: 300px;
-        //     overflow: hidden; /* Untuk memastikan tidak ada elemen yang keluar */
-        //     border-radius: 8px; /* Sudut melengkung pada kontainer */
-        // }
-
-        // .categories-img img {
-        //     width: 100%;
-        //     height: 100%;
-        //     object-fit: contain; /* Memastikan gambar ditampilkan sepenuhnya tanpa dipotong */
-        //     border-radius: 8px; /* Sudut melengkung pada gambar */
-        // }
-
-
-        //         </style>";
     }
     ?>
 </head>
@@ -69,40 +47,9 @@ session_start();
     </div>
     <!-- Spinner End -->
 
-    <!-- Topbar Start -->
-    <!-- <div class="container-fluid topbar bg-secondary d-none d-xl-block w-100">
-            <div class="container">
-                <div class="row gx-0 align-items-center" style="height: 45px;">
-                    <div class="col-lg-6 text-center text-lg-start mb-lg-0">
-                        <div class="d-flex flex-wrap">
-                            <a href="#" class="text-muted me-4"><i class="fas fa-map-marker-alt text-primary me-2"></i>Find A Location</a>
-                            <a href="tel:+01234567890" class="text-muted me-4"><i class="fas fa-phone-alt text-primary me-2"></i>+01234567890</a>
-                            <a href="mailto:example@gmail.com" class="text-muted me-0"><i class="fas fa-envelope text-primary me-2"></i>Example@gmail.com</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 text-center text-lg-end">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <a href="#" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="btn btn-light btn-sm-square rounded-circle me-3"><i class="fab fa-instagram"></i></a>
-                            <a href="#" class="btn btn-light btn-sm-square rounded-circle me-0"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-    <!-- Topbar End -->
-
     <!-- Start Navbar -->
     <?php require("./layouts/navbar.php") ?>
     <!-- End Navbar -->
-
-    <?php
-    // if (isset($_GET['views'])) {
-    //     $views = $_GET['views'];
-    //     include_once "views/" . $views . ".php";
-    // }
-    ?>
 
     <?php
     require("./function/menu.php")
@@ -195,15 +142,15 @@ session_start();
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/lib/wow/wow.min.js"></script>
-    <script src="assets/lib/easing/easing.min.js"></script>
-    <script src="assets/lib/waypoints/waypoints.min.js"></script>
-    <script src="assets/lib/counterup/counterup.min.js"></script>
-    <script src="assets/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="assets/web/lib/wow/wow.min.js"></script>
+    <script src="assets/web/lib/easing/easing.min.js"></script>
+    <script src="assets/web/lib/waypoints/waypoints.min.js"></script>
+    <script src="assets/web/lib/counterup/counterup.min.js"></script>
+    <script src="assets/web/lib/owlcarousel/owl.carousel.min.js"></script>
 
 
     <!-- Template Javascript -->
-    <script src="assets/js/main.js"></script>
+    <script src="assets/web/js/main.js"></script>
 </body>
 
 </html>
