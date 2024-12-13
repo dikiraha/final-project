@@ -24,17 +24,17 @@ if (isset($_SESSION['user_role'])) {
     <meta name="description" content="" />
 
     <!-- Favicons -->
-    <link rel="icon" type="image/x-icon" href=".././assets/img/drc.jpeg">
+    <link rel="icon" type="image/x-icon" href=".././assets/web/img/drc.jpeg">
 
     <!-- CSS -->
     <link rel="stylesheet" href=".././assets/fonts/inter/fonts.css">
-    <link rel="stylesheet" href=".././assets/vendor/materio/assets/vendor/fonts/materialdesignicons.css">
-    <link rel="stylesheet" href=".././assets/vendor/materio/assets/vendor/libs/node-waves/node-waves.css">
-    <link rel="stylesheet" href=".././assets/vendor/materio/assets/vendor/css/core.css">
-    <link rel="stylesheet" href=".././assets/vendor/materio/assets/vendor/css/theme-default.css">
-    <link rel="stylesheet" href=".././assets/vendor/materio/assets/css/demo.css">
-    <link rel="stylesheet" href=".././assets/vendor/materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href=".././assets/vendor/materio/assets/vendor/css/pages/page-auth.css">
+    <link rel="stylesheet" href=".././assets/vendor/fonts/materialdesignicons.css">
+    <link rel="stylesheet" href=".././assets/vendor/libs/node-waves/node-waves.css">
+    <link rel="stylesheet" href=".././assets/vendor/css/core.css">
+    <link rel="stylesheet" href=".././assets/vendor/css/theme-default.css">
+    <link rel="stylesheet" href=".././assets/css/demo.css">
+    <link rel="stylesheet" href=".././assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href=".././assets/vendor/css/pages/page-auth.css">
 
     <style>
         .spin {
@@ -52,8 +52,8 @@ if (isset($_SESSION['user_role'])) {
         }
     </style>
 
-    <script src=".././assets/vendor/materio/assets/vendor/js/helpers.js"></script>
-    <script src=".././assets/vendor/materio/assets/js/config.js"></script>
+    <script src=".././assets/vendor/js/helpers.js"></script>
+    <script src=".././assets/js/config.js"></script>
 </head>
 
 <body>
@@ -137,13 +137,13 @@ if (isset($_SESSION['user_role'])) {
                     </div>
                 </div>
                 <!-- /Login -->
-                <img src=".././assets/vendor/materio/assets/img/illustrations/tree-3.png" alt="auth-tree"
+                <img src=".././assets/img/illustrations/tree-3.png" alt="auth-tree"
                     class="authentication-image-object-left d-none d-lg-block" />
-                <img src=".././assets/vendor/materio/assets/img/illustrations/auth-basic-mask-light.png"
+                <img src=".././assets/img/illustrations/auth-basic-mask-light.png"
                     class="authentication-image d-none d-lg-block" alt="triangle-bg"
                     data-app-light-img="illustrations/auth-basic-mask-light.png"
                     data-app-dark-img="illustrations/auth-basic-mask-dark.png" />
-                <img src=".././assets/vendor/materio/assets/img/illustrations/tree.png" alt="auth-tree"
+                <img src=".././assets/img/illustrations/tree.png" alt="auth-tree"
                     class="authentication-image-object-right d-none d-lg-block" />
             </div>
         </div>
@@ -153,19 +153,19 @@ if (isset($_SESSION['user_role'])) {
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src=".././assets/vendor/materio/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src=".././assets/vendor/materio/assets/vendor/libs/popper/popper.js"></script>
-    <script src=".././assets/vendor/materio/assets/vendor/js/bootstrap.js"></script>
-    <script src=".././assets/vendor/materio/assets/vendor/libs/node-waves/node-waves.js"></script>
-    <script src=".././assets/vendor/materio/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src=".././assets/vendor/materio/assets/vendor/js/menu.js"></script>
+    <script src=".././assets/vendor/libs/jquery/jquery.js"></script>
+    <script src=".././assets/vendor/libs/popper/popper.js"></script>
+    <script src=".././assets/vendor/js/bootstrap.js"></script>
+    <script src=".././assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src=".././assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src=".././assets/vendor/js/menu.js"></script>
 
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src=".././assets/vendor/materio/assets/js/main.js"></script>
+    <script src=".././assets/js/main.js"></script>
 
     <!-- Page JS -->
 

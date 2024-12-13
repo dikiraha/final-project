@@ -44,7 +44,7 @@ if (isset($_GET['views'])) {
                     <a href="?views=about" class="nav-item nav-link <?= $about ? 'active' : '' ?>">About</a>
                     <a href="?views=contact" class="nav-item nav-link <?= $contact ? 'active' : '' ?>">Contact</a>
                 </div>
-                <?php if (isset($_SESSION['user_name'])): ?>
+                <?php if (isset($_SESSION['user_id'])): ?>
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle rounded-pill py-2 px-4" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <strong><?= htmlspecialchars($_SESSION['user_name']); ?></strong>

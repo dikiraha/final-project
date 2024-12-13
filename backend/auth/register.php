@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userData = $user->getByEmail($email);
         $_SESSION['user_id'] = $userData['id'];
         $_SESSION['user_role'] = $userData['role'];
+        $_SESSION['user_name'] = $userData['name'];
 
         // Redirect ke halaman utama
         header('Location: ../../index.php');

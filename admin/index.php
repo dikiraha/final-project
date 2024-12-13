@@ -38,8 +38,9 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_S
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap"
         rel="stylesheet" />
 
+    <!-- Icon -->
     <link rel="stylesheet" href="../assets/vendor/fonts/remixicon/remixicon.css" />
-
+    <link rel="stylesheet" href=".././assets/vendor/fonts/materialdesignicons.css">
     <!-- Menu waves for no-customizer fix -->
     <link rel="stylesheet" href="../assets/vendor/libs/node-waves/node-waves.css" />
 
@@ -53,6 +54,7 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_S
     <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
     <!-- Page CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
@@ -119,6 +121,21 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_S
 
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#userTable').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
 </body>
 
 </html>

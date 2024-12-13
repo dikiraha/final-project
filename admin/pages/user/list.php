@@ -9,19 +9,21 @@ $users = $userModel->list(); // Ambil data user dari fungsi list()
     <div class="row gy-6">
         <!-- Data Tables -->
         <div class="col-12">
-            <div class="d-flex justify-content-end mb-3">
-                <a href="?views=user_add" class="btn btn-primary btn-sm"><i class="ri-add-fill"></i>Add</a>
-            </div>
-
             <div class="card overflow-hidden">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Basic Layout</h5>
+                    <small class="text-body float-end">
+                        <a href="?views=user_add" class="btn btn-primary btn-sm"><i class="ri-add-fill"></i>Add</a>
+                    </small>
+                </div>
                 <div class="table-responsive">
-                    <table class="table table-sm">
+                    <table id="userTable" class="table table-sm">
                         <thead>
                             <tr>
-                                <th class="text-truncate">User</th>
-                                <th class="text-truncate">Email</th>
-                                <th class="text-truncate">Role</th>
-                                <th class="text-truncate">Option</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,18 +36,15 @@ $users = $userModel->list(); // Ambil data user dari fungsi list()
                                             </div>
                                             <div>
                                                 <h6 class="mb-0 text-truncate"><?php echo htmlspecialchars($user['name']); ?></h6>
-                                                <small class="text-truncate">@<?php echo strtolower(str_replace(' ', '', $user['name'])); ?></small>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-truncate"><?php echo htmlspecialchars($user['email']); ?></td>
-                                    <td class="text-truncate">
-                                        <div class="d-flex align-items-center">
-                                            <i class="ri-vip-crown-line ri-22px text-primary me-2"></i>
-                                            <span><?php echo htmlspecialchars($user['role']); ?></span>
-                                        </div>
-                                    </td>
+                                    <td><?php echo htmlspecialchars($user['email']); ?></td>
+                                    <td><?php echo htmlspecialchars($user['role']); ?></td>
                                     <td>
+                                        <a href="" class="btn btn-info btn-sm">
+                                            <i class="ri-information-line"></i> Detail
+                                        </a>
                                         <a href="" class="btn btn-warning btn-sm">
                                             <i class="ri-edit-box-line"></i> Edit
                                         </a>
@@ -60,6 +59,5 @@ $users = $userModel->list(); // Ambil data user dari fungsi list()
                 </div>
             </div>
         </div>
-        <!--/ Data Tables -->
     </div>
 </div>
