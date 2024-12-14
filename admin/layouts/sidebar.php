@@ -170,10 +170,9 @@ if (isset($_GET['views'])) {
             <span class="menu-header-text">Apps &amp; Pages</span>
         </li>
         <!-- Apps -->
-        <li class="menu-item">
+        <li class="menu-item <?= $booking_list ? 'active' : '' ?>">
             <a
-                href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-email.html"
-                target="_blank"
+                href="?views=booking_list"
                 class="menu-link">
                 <i class="menu-icon tf-icons ri-coupon-line"></i>
                 <div data-i18n="Booking">Booking</div>
