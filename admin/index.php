@@ -7,6 +7,46 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_S
 }
 ?>
 
+<?php
+// Array untuk menyimpan stack CSS, JS, inline style, dan script
+$cssStack = [];
+$jsStack = [];
+$inlineStyles = [];
+$inlineScripts = [];
+
+// Fungsi untuk menambahkan CSS ke stack
+function pushCss($css)
+{
+    global $cssStack;
+    $cssStack[] = $css;
+}
+
+// Fungsi untuk menambahkan JavaScript ke stack
+function pushJs($js)
+{
+    global $jsStack;
+    $jsStack[] = $js;
+}
+
+// Fungsi untuk menambahkan kode inline CSS
+function pushInlineStyle($style)
+{
+    global $inlineStyles;
+    $inlineStyles[] = $style;
+}
+
+// Fungsi untuk menambahkan kode inline JavaScript
+function pushInlineScript($script)
+{
+    global $inlineScripts;
+    $inlineScripts[] = $script; // Menyimpan script ke dalam stack
+}
+
+// Include file konten spesifik
+$page = $_GET['page'] ?? 'home';
+$contentFile = $page . '.php';
+?>
+
 <!doctype html>
 
 <html
@@ -24,7 +64,8 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_S
         name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>DRC &mdash; Dashboard</title>
+    <title>DRC &mdash; <?php echo isset($title) ? $title : 'Dashboard'; ?></title>
+
 
     <meta name="description" content="" />
 
@@ -56,11 +97,30 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_S
     <!-- Page CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
     <!-- Helpers -->
     <script src="../assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+
+    <?php
+    // Render stack CSS
+    foreach ($cssStack as $css) {
+        echo "<link rel='stylesheet' href='$css'>\n";
+    }
+
+    // Render inline styles
+    if (!empty($inlineStyles)) {
+        echo "<style>\n";
+        foreach ($inlineStyles as $style) {
+            echo "$style\n";
+        }
+        echo "</style>\n";
+    }
+    ?>
 </head>
 
 <body>
@@ -122,19 +182,32 @@ if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_S
     <!-- Place this tag before closing body tag for github widget button. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <?php
+    // Render stack JavaScript
+    foreach ($jsStack as $js) {
+        echo "<script src='$js'></script>\n";
+    }
+
+    // Render inline scripts
+    if (!empty($inlineScripts)) {
+        foreach ($inlineScripts as $script) {
+            echo $script . "\n"; // Tampilkan script langsung
+        }
+    }
+    ?>
     <script>
-        $(document).ready(function() {
-            $('#userTable').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
+        <?php
+        // Check if there's a Toastr message set in session
+        if (isset($_SESSION['toastr'])):
+            $type = $_SESSION['toastr']['type']; // success, error, info, warning
+            $message = $_SESSION['toastr']['message'];
+            unset($_SESSION['toastr']);
+        ?>
+            toastr.<?php echo $type; ?>("<?php echo $message; ?>");
+        <?php endif; ?>
     </script>
 </body>
 

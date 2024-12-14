@@ -6,8 +6,11 @@ if (isset($_GET['views'])) {
         case 'user_list':
             include "./pages/user/list.php";
             break;
-        case 'user_add':
-            include "./pages/user/add.php";
+        case 'user_create':
+            include "./pages/user/create.php";
+            break;
+        case 'user_edit':
+            include "./pages/user/edit.php";
             break;
         case 'about':
             include "views/about.php";
@@ -19,7 +22,7 @@ if (isset($_GET['views'])) {
             include "views/auth/login.php";
             break;
         default:
-            include "views/error.php";
+            include "./pages/error.php";
     }
 } else {
     include "./home.php";

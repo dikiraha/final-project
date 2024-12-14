@@ -28,6 +28,11 @@ session_start();
     <!-- Customized Bootstrap Stylesheet -->
     <link href="assets/web/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Materio CSS -->
+    <!-- <link rel="stylesheet" href="assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="assets/css/demo.css" /> -->
+
     <!-- Template Stylesheet -->
     <link href="assets/web/css/style.css" rel="stylesheet">
 

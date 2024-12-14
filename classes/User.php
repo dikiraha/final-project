@@ -14,7 +14,7 @@ class User
 
     public function list()
     {
-        $query = "SELECT id, name, email, role, created_at FROM " . $this->table;
+        $query = "SELECT * FROM " . $this->table;
         $stmt = $this->conn->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -54,11 +54,11 @@ class User
         ]);
     }
 
-    public function delete($id)
+    public function delete($uuid)
     {
-        $query = "DELETE FROM " . $this->table . " WHERE id = ?";
+        $query = "DELETE FROM " . $this->table . " WHERE uuid = ?";
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$id]);
+        return $stmt->execute([$uuid]);
     }
 
     public function getByEmail($email)

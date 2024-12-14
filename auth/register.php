@@ -96,7 +96,7 @@ if (isset($_SESSION['user_role'])) {
                             <!-- @csrf -->
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="name" name="name"
-                                    placeholder="Nama Lengkap" autofocus required />
+                                    placeholder="Nama Lengkap" autofocus required onkeyup="formatFullName(this)" />
                                 <label for="name">Nama <span class="text-danger">*</span></label>
                             </div>
                             <div class="form-floating form-floating-outline mb-3">
@@ -203,6 +203,16 @@ if (isset($_SESSION['user_role'])) {
                 }
             });
         });
+    </script>
+
+    <script>
+        function formatFullName(element) {
+            let words = element.value.toLowerCase().split(" ");
+            for (let i = 0; i < words.length; i++) {
+                words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+            }
+            element.value = words.join(" ");
+        }
     </script>
 </body>
 

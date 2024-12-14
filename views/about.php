@@ -13,7 +13,7 @@
                         <div class="col-lg-6">
                             <div class="about-item-inner border p-4">
                                 <div class="about-icon mb-4">
-                                    <img src="assets/img/about-icon-1.png" class="img-fluid w-50 h-50" alt="Icon">
+                                    <img src="assets/web/img/about-icon-1.png" class="img-fluid w-50 h-50" alt="Icon">
                                 </div>
                                 <h5 class="mb-3">Our Vision</h5>
                                 <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -22,7 +22,7 @@
                         <div class="col-lg-6">
                             <div class="about-item-inner border p-4">
                                 <div class="about-icon mb-4">
-                                    <img src="assets/img/about-icon-2.png" class="img-fluid h-50 w-50" alt="Icon">
+                                    <img src="assets/web/img/about-icon-2.png" class="img-fluid h-50 w-50" alt="Icon">
                                 </div>
                                 <h5 class="mb-3">Our Mision</h5>
                                 <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-lg-7">
                             <div class="d-flex align-items-center">
-                                <img src="assets/img/attachment-img.jpg" class="img-fluid rounded-circle border border-4 border-secondary" style="width: 100px; height: 100px;" alt="Image">
+                                <img src="assets/web/img/attachment-img.jpg" class="img-fluid rounded-circle border border-4 border-secondary" style="width: 100px; height: 100px;" alt="Image">
                                 <div class="ms-4">
                                     <h4>William Burgess</h4>
                                     <p class="mb-0">Carveo Founder</p>
@@ -64,10 +64,10 @@
             <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
                 <div class="about-img">
                     <div class="img-1">
-                        <img src="assets/img/about-img.jpg" class="img-fluid rounded h-100 w-100" alt="">
+                        <img src="assets/web/img/about-img.jpg" class="img-fluid rounded h-100 w-100" alt="">
                     </div>
                     <div class="img-2">
-                        <img src="assets/img/about-img-1.jpg" class="img-fluid rounded w-100" alt="">
+                        <img src="assets/web/img/about-img-1.jpg" class="img-fluid rounded w-100" alt="">
                     </div>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                 </div>
             </div>
             <div class="col-lg-12 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                <img src="assets/img/features-img.png" class="img-fluid w-100" style="object-fit: cover;" alt="Img">
+                <img src="assets/web/img/features-img.png" class="img-fluid w-100" style="object-fit: cover;" alt="Img">
             </div>
             <div class="col-xl-4">
                 <div class="row gy-4 gx-0">
@@ -249,7 +249,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="team-item p-4 pt-0">
                     <div class="team-img">
-                        <img src="assets/img/team-1.jpg" class="img-fluid rounded w-100" alt="Image">
+                        <img src="assets/web/img/team-1.jpg" class="img-fluid rounded w-100" alt="Image">
                     </div>
                     <div class="team-content pt-4">
                         <h4>MARTIN DOE</h4>
@@ -266,7 +266,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="team-item p-4 pt-0">
                     <div class="team-img">
-                        <img src="assets/img/team-2.jpg" class="img-fluid rounded w-100" alt="Image">
+                        <img src="assets/web/img/team-2.jpg" class="img-fluid rounded w-100" alt="Image">
                     </div>
                     <div class="team-content pt-4">
                         <h4>MARTIN DOE</h4>
@@ -283,7 +283,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="team-item p-4 pt-0">
                     <div class="team-img">
-                        <img src="assets/img/team-3.jpg" class="img-fluid rounded w-100" alt="Image">
+                        <img src="assets/web/img/team-3.jpg" class="img-fluid rounded w-100" alt="Image">
                     </div>
                     <div class="team-content pt-4">
                         <h4>MARTIN DOE</h4>
@@ -300,7 +300,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
                 <div class="team-item p-4 pt-0">
                     <div class="team-img">
-                        <img src="assets/img/team-4.jpg" class="img-fluid rounded w-100" alt="Image">
+                        <img src="assets/web/img/team-4.jpg" class="img-fluid rounded w-100" alt="Image">
                     </div>
                     <div class="team-content pt-4">
                         <h4>MARTIN DOE</h4>
@@ -323,7 +323,7 @@
 <div class="container-fluid banner pb-5 wow zoomInDown" data-wow-delay="0.1s">
     <div class="container pb-5">
         <div class="banner-item rounded">
-            <img src="assets/img/banner-1.jpg" class="img-fluid rounded w-100" alt="">
+            <img src="assets/web/img/banner-1.jpg" class="img-fluid rounded w-100" alt="">
             <div class="banner-content">
                 <h2 class="text-primary">Rent Your Car</h2>
                 <h1 class="text-white">Interested in Renting?</h1>

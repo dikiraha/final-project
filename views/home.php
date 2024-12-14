@@ -11,7 +11,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/avanza.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/avanza.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Toyota Avanza</h4>
@@ -41,7 +41,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/calya.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/calya.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Toyota Calya</h4>
@@ -71,7 +71,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/ertiga.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/ertiga.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Suzuki Ertiga</h4>
@@ -101,7 +101,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/luxio.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/luxio.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Daihatsu Luxio</h4>
@@ -131,7 +131,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/mobilio.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/mobilio.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Honda Mobilio</h4>
@@ -161,7 +161,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/rush.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/rush.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Toyota Rush</h4>
@@ -191,7 +191,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/sigra.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/sigra.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Daihatsu Sigra</h4>
@@ -221,7 +221,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/xenia.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/xenia.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Daihatsu Xenia</h4>
@@ -251,7 +251,7 @@
             <div class="categories-item p-4">
                 <div class="categories-item-inner">
                     <div class="categories-img rounded-top">
-                        <img src="assets/img/cars/xl7.png" class="img-fluid w-100 rounded-top">
+                        <img src="storage/car/xl7.png" class="img-fluid w-100 rounded-top">
                     </div>
                     <div class="categories-content rounded-bottom p-4">
                         <h4>Suzuki XL7</h4>
@@ -292,7 +292,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-                <img src="assets/img/carousel-2.jpg" class="img-fluid w-100" alt="First slide" />
+                <img src="assets/web/img/carousel-2.jpg" class="img-fluid w-100" alt="First slide" />
                 <div class="carousel-caption">
                     <div class="container py-4">
                         <div class="row g-5">
@@ -381,7 +381,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="assets/img/carousel-1.jpg" class="img-fluid w-100" alt="First slide" />
+                <img src="assets/web/img/carousel-1.jpg" class="img-fluid w-100" alt="First slide" />
                 <div class="carousel-caption">
                     <div class="container py-4">
                         <div class="row g-5">
@@ -510,7 +510,7 @@
                 </div>
             </div>
             <div class="col-lg-12 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
-                <img src="assets/img/features-img.png" class="img-fluid w-100" style="object-fit: cover;" alt="Img">
+                <img src="assets/web/img/features-img.png" class="img-fluid w-100" style="object-fit: cover;" alt="Img">
             </div>
             <div class="col-xl-4">
                 <div class="row gy-4 gx-0">
@@ -558,7 +558,7 @@
                         <div class="col-lg-6">
                             <div class="about-item-inner border p-4">
                                 <div class="about-icon mb-4">
-                                    <img src="assets/img/about-icon-1.png" class="img-fluid w-50 h-50" alt="Icon">
+                                    <img src="assets/web/img/about-icon-1.png" class="img-fluid w-50 h-50" alt="Icon">
                                 </div>
                                 <h5 class="mb-3">Our Vision</h5>
                                 <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -567,7 +567,7 @@
                         <div class="col-lg-6">
                             <div class="about-item-inner border p-4">
                                 <div class="about-icon mb-4">
-                                    <img src="assets/img/about-icon-2.png" class="img-fluid h-50 w-50" alt="Icon">
+                                    <img src="assets/web/img/about-icon-2.png" class="img-fluid h-50 w-50" alt="Icon">
                                 </div>
                                 <h5 class="mb-3">Our Mision</h5>
                                 <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -596,7 +596,7 @@
                         </div>
                         <div class="col-lg-7">
                             <div class="d-flex align-items-center">
-                                <img src="assets/img/attachment-img.jpg" class="img-fluid rounded-circle border border-4 border-secondary" style="width: 100px; height: 100px;" alt="Image">
+                                <img src="assets/web/img/attachment-img.jpg" class="img-fluid rounded-circle border border-4 border-secondary" style="width: 100px; height: 100px;" alt="Image">
                                 <div class="ms-4">
                                     <h4>William Burgess</h4>
                                     <p class="mb-0">Carveo Founder</p>
@@ -609,10 +609,10 @@
             <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
                 <div class="about-img">
                     <div class="img-1">
-                        <img src="assets/img/about-img.jpg" class="img-fluid rounded h-100 w-100">
+                        <img src="assets/web/img/about-img.jpg" class="img-fluid rounded h-100 w-100">
                     </div>
                     <div class="img-2">
-                        <img src="assets/img/about-img-1.jpg" class="img-fluid rounded w-100">
+                        <img src="assets/web/img/about-img-1.jpg" class="img-fluid rounded w-100">
                     </div>
                 </div>
             </div>
@@ -795,7 +795,7 @@
             <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="blog-item">
                     <div class="blog-img">
-                        <img src="assets/img/blog-1.jpg" class="img-fluid rounded-top w-100" alt="Image">
+                        <img src="assets/web/img/blog-1.jpg" class="img-fluid rounded-top w-100" alt="Image">
                     </div>
                     <div class="blog-content rounded-bottom p-4">
                         <div class="blog-date">30 Dec 2025</div>
@@ -812,7 +812,7 @@
             <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="blog-item">
                     <div class="blog-img">
-                        <img src="assets/img/blog-2.jpg" class="img-fluid rounded-top w-100" alt="Image">
+                        <img src="assets/web/img/blog-2.jpg" class="img-fluid rounded-top w-100" alt="Image">
                     </div>
                     <div class="blog-content rounded-bottom p-4">
                         <div class="blog-date">25 Dec 2025</div>
@@ -829,7 +829,7 @@
             <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="blog-item">
                     <div class="blog-img">
-                        <img src="assets/img/blog-3.jpg" class="img-fluid rounded-top w-100" alt="Image">
+                        <img src="assets/web/img/blog-3.jpg" class="img-fluid rounded-top w-100" alt="Image">
                     </div>
                     <div class="blog-content rounded-bottom p-4">
                         <div class="blog-date">27 Dec 2025</div>
@@ -852,7 +852,7 @@
 <!-- <div class="container-fluid banner pb-5 wow zoomInDown" data-wow-delay="0.1s">
     <div class="container pb-5">
         <div class="banner-item rounded">
-            <img src="assets/img/banner-1.jpg" class="img-fluid rounded w-100">
+            <img src="assets/web/img/banner-1.jpg" class="img-fluid rounded w-100">
             <div class="banner-content">
                 <h2 class="text-primary">Rent Your Car</h2>
                 <h1 class="text-white">Interested in Renting?</h1>
@@ -879,7 +879,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="team-item p-4 pt-0">
                     <div class="team-img">
-                        <img src="assets/img/team-1.jpg" class="img-fluid rounded w-100" alt="Image">
+                        <img src="assets/web/img/team-1.jpg" class="img-fluid rounded w-100" alt="Image">
                     </div>
                     <div class="team-content pt-4">
                         <h4>MARTIN DOE</h4>
@@ -896,7 +896,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="team-item p-4 pt-0">
                     <div class="team-img">
-                        <img src="assets/img/team-2.jpg" class="img-fluid rounded w-100" alt="Image">
+                        <img src="assets/web/img/team-2.jpg" class="img-fluid rounded w-100" alt="Image">
                     </div>
                     <div class="team-content pt-4">
                         <h4>MARTIN DOE</h4>
@@ -913,7 +913,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="team-item p-4 pt-0">
                     <div class="team-img">
-                        <img src="assets/img/team-3.jpg" class="img-fluid rounded w-100" alt="Image">
+                        <img src="assets/web/img/team-3.jpg" class="img-fluid rounded w-100" alt="Image">
                     </div>
                     <div class="team-content pt-4">
                         <h4>MARTIN DOE</h4>
@@ -930,7 +930,7 @@
             <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
                 <div class="team-item p-4 pt-0">
                     <div class="team-img">
-                        <img src="assets/img/team-4.jpg" class="img-fluid rounded w-100" alt="Image">
+                        <img src="assets/web/img/team-4.jpg" class="img-fluid rounded w-100" alt="Image">
                     </div>
                     <div class="team-content pt-4">
                         <h4>MARTIN DOE</h4>
@@ -962,7 +962,7 @@
                 <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                 </div>
                 <div class="testimonial-inner p-4">
-                    <img src="assets/img/testimonial-1.jpg" class="img-fluid">
+                    <img src="assets/web/img/testimonial-1.jpg" class="img-fluid">
                     <div class="ms-4">
                         <h4>Person Name</h4>
                         <p>Profession</p>
@@ -983,7 +983,7 @@
                 <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                 </div>
                 <div class="testimonial-inner p-4">
-                    <img src="assets/img/testimonial-2.jpg" class="img-fluid">
+                    <img src="assets/web/img/testimonial-2.jpg" class="img-fluid">
                     <div class="ms-4">
                         <h4>Person Name</h4>
                         <p>Profession</p>
@@ -1004,7 +1004,7 @@
                 <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
                 </div>
                 <div class="testimonial-inner p-4">
-                    <img src="assets/img/testimonial-3.jpg" class="img-fluid">
+                    <img src="assets/web/img/testimonial-3.jpg" class="img-fluid">
                     <div class="ms-4">
                         <h4>Person Name</h4>
                         <p>Profession</p>

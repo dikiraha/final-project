@@ -1,7 +1,7 @@
 <?php
 $home = false;
 $user_list = false;
-$user_add = false;
+$user_create = false;
 $mobil_list = false;
 
 if (isset($_GET['views'])) {
@@ -13,8 +13,8 @@ if (isset($_GET['views'])) {
         case 'user_list':
             $user_list = true;
             break;
-        case 'user_add':
-            $user_add = true;
+        case 'user_create':
+            $user_create = true;
             break;
         case 'mobil_list':
             $mobil_list = true;
@@ -22,13 +22,13 @@ if (isset($_GET['views'])) {
         default:
             $home = false;
             $user_list = false;
-            $user_add = false;
+            $user_create = false;
             $mobil_list = false;
     }
 } else {
     $home = true;
     $user_list = false;
-    $user_add = false;
+    $user_create = false;
     $mobil_list = false;
 }
 ?>
@@ -191,7 +191,7 @@ if (isset($_GET['views'])) {
             </a>
         </li>
 
-        <li class="menu-item <?= $user_list || $user_add ? 'active' : '' ?>">
+        <li class="menu-item <?= $user_list || $user_create ? 'active' : '' ?>">
             <a href="?views=user_list" class="menu-link">
                 <i class="menu-icon tf-icons ri-group-line"></i>
                 <div data-i18n="Users">Users</div>
