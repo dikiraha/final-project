@@ -176,7 +176,7 @@ if (isset($_GET['views'])) {
                 class="menu-link">
                 <i class="menu-icon tf-icons ri-coupon-line"></i>
                 <div data-i18n="Booking">Booking</div>
-                <!-- <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">1</div> -->
+                <div class="badge bg-danger fs-tiny rounded-pill ms-auto">1</div>
             </a>
         </li>
 

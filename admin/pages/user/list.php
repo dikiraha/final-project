@@ -84,7 +84,7 @@ pushInlineScript('
                                         </a>
 
                                         <!-- Link Edit -->
-                                        <a href="?views=user_edit/<?php echo urlencode($user['uuid']); ?>" class="btn btn-warning btn-sm">
+                                        <a href="index.php?views=user_edit&uuid=<?php echo urlencode($user['uuid']); ?>" class="btn btn-warning btn-sm">
                                             <i class="ri-edit-box-line"></i> Edit
                                         </a>
 

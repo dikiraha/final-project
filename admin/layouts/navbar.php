@@ -44,8 +44,8 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-0 small">John Doe</h6>
-                                    <small class="text-muted">Admin</small>
+                                    <h6 class="mb-0 small"><?= htmlspecialchars($_SESSION['user_name']); ?></h6>
+                                    <small class="text-muted"><?= htmlspecialchars($_SESSION['user_role']); ?></small>
                                 </div>
                             </div>
                         </a>
@@ -57,22 +57,6 @@
                         <a class="dropdown-item" href="#">
                             <i class="ri-user-3-line ri-22px me-2"></i>
                             <span class="align-middle">My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <i class="ri-settings-4-line ri-22px me-2"></i>
-                            <span class="align-middle">Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="#">
-                            <span class="d-flex align-items-center align-middle">
-                                <i class="flex-shrink-0 ri-file-text-line ri-22px me-3"></i>
-                                <span class="flex-grow-1 align-middle">Billing</span>
-                                <span
-                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger h-px-20 d-flex align-items-center justify-content-center">4</span>
-                            </span>
                         </a>
                     </li>
                     <li>

@@ -2,7 +2,7 @@
 require_once '../classes/User.php';
 
 $user = new User();
-$id = $_GET['id'];
+$id = $_GET['uuid'];
 $userData = $user->getById($id);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

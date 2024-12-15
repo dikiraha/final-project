@@ -10,7 +10,14 @@ if (isset($_GET['views'])) {
             include "./pages/user/create.php";
             break;
         case 'user_edit':
-            include "./pages/user/edit.php";
+            // Pastikan UUID tersedia sebelum memuat halaman edit
+            if (isset($_GET['uuid'])) {
+                $uuid = $_GET['uuid'];
+                include "./pages/user/edit.php";
+            } else {
+                // Redirect atau tampilkan pesan error jika UUID tidak tersedia
+                include "./pages/error.php";
+            }
             break;
         case 'about':
             include "views/about.php";
