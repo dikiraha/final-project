@@ -24,6 +24,8 @@ session_start();
     <link href="assets/web/lib/animate/animate.min.css" rel="stylesheet">
     <link href="assets/web/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/img/drc.png" />
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="assets/web/css/bootstrap.min.css" rel="stylesheet">

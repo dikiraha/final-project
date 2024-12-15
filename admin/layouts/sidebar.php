@@ -1,8 +1,11 @@
 <?php
 $home = false;
+$booking_list = false;
 $user_list = false;
 $user_create = false;
+$user_edit = false;
 $mobil_list = false;
+$sk_list = false;
 
 if (isset($_GET['views'])) {
     $views = $_GET['views'];
@@ -10,26 +13,29 @@ if (isset($_GET['views'])) {
         case 'home':
             $home = true;
             break;
+        case 'booking_list':
+            $booking_list = true;
+            break;
         case 'user_list':
             $user_list = true;
             break;
         case 'user_create':
             $user_create = true;
             break;
+        case 'user_edit':
+            $user_edit = true;
+            break;
         case 'mobil_list':
             $mobil_list = true;
             break;
+        case 'sk_list':
+            $sk_list = true;
+            break;
         default:
             $home = false;
-            $user_list = false;
-            $user_create = false;
-            $mobil_list = false;
     }
 } else {
     $home = true;
-    $user_list = false;
-    $user_create = false;
-    $mobil_list = false;
 }
 ?>
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -190,7 +196,14 @@ if (isset($_GET['views'])) {
             </a>
         </li>
 
-        <li class="menu-item <?= $user_list || $user_create ? 'active' : '' ?>">
+        <li class="menu-item <?= $sk_list ? 'active' : '' ?>">
+            <a href="?views=sk_list" class="menu-link">
+                <i class="menu-icon tf-icons ri-file-list-3-line"></i>
+                <div data-i18n="Syarat & Ketentuan">Syarat & Ketentuan</div>
+            </a>
+        </li>
+
+        <li class="menu-item <?= $user_list || $user_create || $user_edit ? 'active' : '' ?>">
             <a href="?views=user_list" class="menu-link">
                 <i class="menu-icon tf-icons ri-group-line"></i>
                 <div data-i18n="Users">Users</div>
