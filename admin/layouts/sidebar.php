@@ -1,6 +1,6 @@
 <?php
 $home = false;
-$booking_list = false;
+$transaksi_list = false;
 $user_list = false;
 $user_create = false;
 $user_edit = false;
@@ -13,8 +13,8 @@ if (isset($_GET['views'])) {
         case 'home':
             $home = true;
             break;
-        case 'booking_list':
-            $booking_list = true;
+        case 'transaksi_list':
+            $transaksi_list = true;
             break;
         case 'user_list':
             $user_list = true;
@@ -176,13 +176,23 @@ if (isset($_GET['views'])) {
             <span class="menu-header-text">Apps &amp; Pages</span>
         </li>
         <!-- Apps -->
-        <li class="menu-item <?= $booking_list ? 'active' : '' ?>">
+        <li class="menu-item <?= $transaksi_list ? 'active' : '' ?>">
             <a
-                href="?views=booking_list"
+                href="?views=transaksi_list"
                 class="menu-link">
                 <i class="menu-icon tf-icons ri-coupon-line"></i>
-                <div data-i18n="Booking">Booking</div>
+                <div data-i18n="Transaksi">Transaksi</div>
                 <div class="badge bg-danger fs-tiny rounded-pill ms-auto">1</div>
+            </a>
+        </li>
+
+        <li class="menu-item <?= $laporan_list ? 'active' : '' ?>">
+            <a
+                href="?views=laporan_list"
+                class="menu-link">
+                <i class="menu-icon tf-icons ri-file-copy-2-line"></i>
+                <div data-i18n="Laporan">Laporan</div>
+                <!-- <div class="badge bg-danger fs-tiny rounded-pill ms-auto">1</div>   -->
             </a>
         </li>
 
@@ -192,7 +202,7 @@ if (isset($_GET['views'])) {
         <li class="menu-item <?= $mobil_list ? 'active' : '' ?>">
             <a href="?views=mobil_list" class="menu-link">
                 <i class="menu-icon tf-icons ri-roadster-fill"></i>
-                <div data-i18n="Mobil">Mobil</div>
+                <div data-i18n="Data Mobil">Data Mobil</div>
             </a>
         </li>
 
