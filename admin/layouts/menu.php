@@ -17,6 +17,20 @@ if (isset($_GET['views'])) {
                 include "./pages/error.php";
             }
             break;
+        case 'car_list':
+            include "./pages/car/list.php";
+            break;
+        case 'car_create':
+            include "./pages/car/create.php";
+            break;
+        case 'car_edit':
+            if (isset($_GET['uuid'])) {
+                $uuid = $_GET['uuid'];
+                include "./pages/car/edit.php";
+            } else {
+                include "./pages/error.php";
+            }
+            break;
         case 'sk_list':
             include "./pages/sk/list.php";
             break;

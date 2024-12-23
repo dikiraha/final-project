@@ -4,7 +4,7 @@ $transaksi_list = false;
 $user_list = false;
 $user_create = false;
 $user_edit = false;
-$mobil_list = false;
+$car_list = false;
 $sk_list = false;
 
 if (isset($_GET['views'])) {
@@ -25,8 +25,14 @@ if (isset($_GET['views'])) {
         case 'user_edit':
             $user_edit = true;
             break;
-        case 'mobil_list':
-            $mobil_list = true;
+        case 'car_list':
+            $car_list = true;
+            break;
+        case 'car_create':
+            $car_create = true;
+            break;
+        case 'car_edit':
+            $car_edit = true;
             break;
         case 'sk_list':
             $sk_list = true;
@@ -199,8 +205,8 @@ if (isset($_GET['views'])) {
         <!-- Master -->
         <li class="menu-header mt-7"><span class="menu-header-text">Master</span></li>
 
-        <li class="menu-item <?= $mobil_list ? 'active' : '' ?>">
-            <a href="?views=mobil_list" class="menu-link">
+        <li class="menu-item <?= $car_list || $car_create || $car_edit ? 'active' : '' ?>">
+            <a href="?views=car_list" class="menu-link">
                 <i class="menu-icon tf-icons ri-roadster-fill"></i>
                 <div data-i18n="Data Mobil">Data Mobil</div>
             </a>

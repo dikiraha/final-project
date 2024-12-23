@@ -1,3 +1,10 @@
+<?php
+require_once 'classes/Car.php';
+
+$carModel = new Car();
+$cars = $carModel->list(); // Ambil semua data mobil dari database
+?>
+
 <!-- Car categories Start -->
 <div class="container-fluid categories pb-5">
     <div class="container pb-5">
@@ -7,276 +14,44 @@
             </p>
         </div>
         <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/avanza.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Toyota Avanza</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
+            <?php foreach ($cars as $car): ?>
+                <!-- MOBIL -->
+                <div class="categories-item p-4">
+                    <div class="categories-item-inner">
+                        <div class="categories-img rounded-top">
+                            <img src="./assets/uploads/car/<?php echo htmlspecialchars($car['photo']); ?>" class="img-fluid w-100 rounded-top car-image" style="height: 200px; object-fit: cover;" alt="<?php echo htmlspecialchars($car['merk']); ?>">
                         </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
+                        <div class="categories-content rounded-bottom p-4">
+                            <h4><?php echo htmlspecialchars($car['merk']); ?></h4>
+                            <div class="mb-4">
+                                <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">
+                                    IDR <?php echo number_format($car['harga'], 0, ',', '.'); ?>/hari
+                                </h4>
                             </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
+                            <div class="row gy-2 gx-0 text-center mb-4">
+                                <div class="col-6 border-end border-white">
+                                    <i class="fa fa-users text-dark"></i>
+                                    <span class="text-body ms-1"><?php echo htmlspecialchars($car['jumlah_kursi']); ?> Seat</span>
+                                </div>
+                                <div class="col-6 border-end border-white">
+                                    <i class="fa fa-car text-dark"></i>
+                                    <span class="text-body ms-1"><?php echo htmlspecialchars($car['transmisi']); ?></span>
+                                </div>
+                                <div class="col-6 border-end border-white">
+                                    <i class="fa fa-calendar text-dark"></i>
+                                    <span class="text-body ms-1"><?php echo htmlspecialchars($car['tahun']); ?></span>
+                                </div>
+                                <div class="col-6 border-end border-white">
+                                    <i class="fa fa-door-closed text-dark"></i>
+                                    <span class="text-body ms-1"><?php echo htmlspecialchars($car['jumlah_pintu']); ?> Pintu</span>
+                                </div>
                             </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
+                            <a href="booking.php?uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
                         </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END MOBIL -->
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/calya.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Toyota Calya</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
-                        </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
                     </div>
                 </div>
-            </div>
-            <!-- END MOBIL -->
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/ertiga.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Suzuki Ertiga</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
-                        </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END MOBIL -->
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/luxio.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Daihatsu Luxio</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
-                        </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END MOBIL -->
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/mobilio.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Honda Mobilio</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
-                        </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END MOBIL -->
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/rush.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Toyota Rush</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
-                        </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END MOBIL -->
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/sigra.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Daihatsu Sigra</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
-                        </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END MOBIL -->
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/xenia.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Daihatsu Xenia</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
-                        </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END MOBIL -->
-            <!-- MOBIL -->
-            <div class="categories-item p-4">
-                <div class="categories-item-inner">
-                    <div class="categories-img rounded-top">
-                        <img src="storage/car/xl7.png" class="img-fluid w-100 rounded-top">
-                    </div>
-                    <div class="categories-content rounded-bottom p-4">
-                        <h4>Suzuki XL7</h4>
-                        <div class="mb-4">
-                            <h4 class="bg-white text-primary rounded-pill py-2 px-4 mb-0">IDR 700.000/hari</h4>
-                        </div>
-                        <div class="row gy-2 gx-0 text-center mb-4">
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-users text-dark"></i> <span class="text-body ms-1">4 Seat</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">AT/MT</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-car text-dark"></i> <span class="text-body ms-1">2015</span>
-                            </div>
-                            <div class="col-6 border-end border-white">
-                                <i class="fa fa-cogs text-dark"></i> <span class="text-body ms-1">Pintu</span>
-                            </div>
-                        </div>
-                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- END MOBIL -->
+                <!-- END MOBIL -->
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

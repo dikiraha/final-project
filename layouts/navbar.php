@@ -50,6 +50,11 @@ if (isset($_GET['views'])) {
                             <strong><?= htmlspecialchars($_SESSION['user_name']); ?></strong>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                            <?php if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin'): ?>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="admin/index.php">Admin Page</a>
+                                </li>
+                            <?php endif; ?>
                             <li>
                                 <a class="dropdown-item text-danger" href="backend/auth/logout.php">Logout</a>
                             </li>

@@ -54,6 +54,12 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
+                        <a class="dropdown-item" href="../index.php">
+                            <i class="ri-pages-line ri-22px me-2"></i>
+                            <span class="align-middle">Landing Page</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="dropdown-item" href="#">
                             <i class="ri-user-3-line ri-22px me-2"></i>
                             <span class="align-middle">My Profile</span>
