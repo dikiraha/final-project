@@ -3,6 +3,13 @@ require_once 'classes/Car.php';
 
 $carModel = new Car();
 $cars = $carModel->list();
+
+// Query untuk mendapatkan jumlah mobil
+$totalCars = $carModel->getTotalCars();
+
+// Query untuk mendapatkan total kilometer
+$totalKilometers = $carModel->getTotalKilometers();
+?>
 ?>
 
 <!-- Car categories Start -->
@@ -32,16 +39,16 @@ $cars = $carModel->list();
                                     <span class="text-body ms-1"><?php echo htmlspecialchars($car['jumlah_kursi']); ?> Seat</span>
                                 </div>
                                 <div class="col-6 border-end border-white">
+                                    <i class="fa fa-door-closed text-dark"></i>
+                                    <span class="text-body ms-1"><?php echo htmlspecialchars($car['jumlah_pintu']); ?> Pintu</span>
+                                </div>
+                                <div class="col-6 border-end border-white">
                                     <i class="fa fa-car text-dark"></i>
                                     <span class="text-body ms-1"><?php echo htmlspecialchars($car['transmisi']); ?></span>
                                 </div>
                                 <div class="col-6 border-end border-white">
                                     <i class="fa fa-calendar text-dark"></i>
                                     <span class="text-body ms-1"><?php echo htmlspecialchars($car['tahun']); ?></span>
-                                </div>
-                                <div class="col-6 border-end border-white">
-                                    <i class="fa fa-door-closed text-dark"></i>
-                                    <span class="text-body ms-1"><?php echo htmlspecialchars($car['jumlah_pintu']); ?> Pintu</span>
                                 </div>
                             </div>
                             <a href="booking.php?uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
@@ -140,25 +147,27 @@ $cars = $carModel->list();
                     <h4 class="text-white mb-0">Pelanggan Senang</h4>
                 </div>
             </div>
+
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="counter-item text-center">
                     <div class="counter-item-icon mx-auto">
                         <i class="fas fa-car-alt fa-2x text-white"></i>
                     </div>
                     <div class="counter-counting my-3">
-                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up">56</span>
+                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?= $totalCars ?></span>
                         <span class="h1 fw-bold text-white">+</span>
                     </div>
                     <h4 class="text-white mb-0">Jumlah Mobil</h4>
                 </div>
             </div>
+
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.7s">
                 <div class="counter-item text-center">
                     <div class="counter-item-icon mx-auto">
                         <i class="fas fa-clock fa-2x text-white"></i>
                     </div>
                     <div class="counter-counting my-3">
-                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up">589</span>
+                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?= number_format($totalKilometers, 0, ',', '.') ?></span>
                         <span class="h1 fw-bold text-white">+</span>
                     </div>
                     <h4 class="text-white mb-0">Total kilometer</h4>
@@ -275,93 +284,11 @@ $cars = $carModel->list();
 </div>
 <!-- Car Steps End -->
 
-<!-- Team Start -->
-<div class="container-fluid team pb-5 mt-5">
-    <div class="container pb-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-            <h1 class="display-5 text-capitalize mb-3">Customer<span class="text-primary"> Suport</span> Center</h1>
-            </p>
-        </div>
-        <div class="row g-4">
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item p-4 pt-0">
-                    <div class="team-img">
-                        <img src="assets/web/img/team-1.jpg" class="img-fluid rounded w-100" alt="Image">
-                    </div>
-                    <div class="team-content pt-4">
-                        <h4>MARTIN DOE</h4>
-                        <p>Profession</p>
-                        <div class="team-icon d-flex justify-content-center">
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item p-4 pt-0">
-                    <div class="team-img">
-                        <img src="assets/web/img/team-2.jpg" class="img-fluid rounded w-100" alt="Image">
-                    </div>
-                    <div class="team-content pt-4">
-                        <h4>MARTIN DOE</h4>
-                        <p>Profession</p>
-                        <div class="team-icon d-flex justify-content-center">
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item p-4 pt-0">
-                    <div class="team-img">
-                        <img src="assets/web/img/team-3.jpg" class="img-fluid rounded w-100" alt="Image">
-                    </div>
-                    <div class="team-content pt-4">
-                        <h4>MARTIN DOE</h4>
-                        <p>Profession</p>
-                        <div class="team-icon d-flex justify-content-center">
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item p-4 pt-0">
-                    <div class="team-img">
-                        <img src="assets/web/img/team-4.jpg" class="img-fluid rounded w-100" alt="Image">
-                    </div>
-                    <div class="team-content pt-4">
-                        <h4>MARTIN DOE</h4>
-                        <p>Profession</p>
-                        <div class="team-icon d-flex justify-content-center">
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-square btn-light rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Team End -->
-
 <!-- Testimonial Start -->
-<div class="container-fluid testimonial pb-5">
+<div class="container-fluid testimonial pb-5 mt-5">
     <div class="container pb-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize mb-3">Ulasan<span class="text-primary"> Pengguna</span></h1>
-            <!-- <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio, -->
             </p>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">

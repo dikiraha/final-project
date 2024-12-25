@@ -96,4 +96,26 @@ class Car
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([$uuid]);
     }
+
+    public function getTotalCars()
+    {
+        $sql = "SELECT COUNT(*) AS total FROM cars";
+        // Jalankan query dan kembalikan hasilnya
+        // Misalnya menggunakan PDO
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'];
+    }
+
+    // Fungsi untuk mendapatkan total kilometer
+    public function getTotalKilometers()
+    {
+        $sql = "SELECT SUM(km) AS total_km FROM cars";
+        // Jalankan query dan kembalikan hasilnya
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_km'];
+    }
 }
