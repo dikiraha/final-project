@@ -69,7 +69,7 @@ git clone https://github.com/dikiraha/final-project.git
 
 ```bash
 private $host = 'localhost';
-private $dbname = 'diana_rent_car';
+private $dbname = 'dianarentcar';
 private $username = 'root';
 private $password = '';
 ```
