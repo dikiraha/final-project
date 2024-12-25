@@ -12,7 +12,7 @@
                         <div class="col-lg-6">
                             <div class="about-item-inner border p-4">
                                 <div class="about-icon mb-4">
-                                    <img src="assets/web/img/about-icon-1.png" class="img-fluid w-50 h-50" alt="Icon">
+                                    <img src="assets/web/img/about-icon-1.png" class="img-fluid w-50 h-50" alt="Icon" style="filter: brightness(0) invert(1);">
                                 </div>
                                 <h5 class="mb-3">Visi Kami</h5>
                                 <p class="mb-0">Menjadi penyedia layanan sewa mobil terbaik di Indonesia dengan mengutamakan kepuasan pelanggan dan pelayanan yang profesional.</p>
@@ -21,7 +21,7 @@
                         <div class="col-lg-6">
                             <div class="about-item-inner border p-4">
                                 <div class="about-icon mb-4">
-                                    <img src="assets/web/img/about-icon-2.png" class="img-fluid h-50 w-50" alt="Icon">
+                                    <img src="assets/web/img/about-icon-2.png" class="img-fluid h-50 w-50" alt="Icon" style="filter: brightness(0) invert(1);">
                                 </div>
                                 <h5 class="mb-3">Misi Kami</h5>
                                 <p class="mb-0">Memberikan solusi transportasi yang aman dan nyaman bagi pelanggan, serta memastikan setiap perjalanan menjadi pengalaman yang menyenangkan.</p>

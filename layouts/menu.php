@@ -15,6 +15,9 @@ if (isset($_GET['views'])) {
         case 'login':
             include "views/auth/login.php";
             break;
+        case 'edit_profile':
+            include "views/edit_profile.php";
+            break;
         default:
             include "views/error.php";
     }

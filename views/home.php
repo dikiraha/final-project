@@ -2,14 +2,10 @@
 require_once 'classes/Car.php';
 
 $carModel = new Car();
+
 $cars = $carModel->list();
-
-// Query untuk mendapatkan jumlah mobil
 $totalCars = $carModel->getTotalCars();
-
-// Query untuk mendapatkan total kilometer
 $totalKilometers = $carModel->getTotalKilometers();
-?>
 ?>
 
 <!-- Car categories Start -->
@@ -67,7 +63,6 @@ $totalKilometers = $carModel->getTotalKilometers();
     <div class="container py-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize mb-3">Fitur <span class="text-primary">Utama</span></h1>
-            <!-- <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut amet nemo expedita asperiores commodi accusantium at cum harum, excepturi, quia tempora cupiditate! Adipisci facilis modi quisquam quia distinctio, -->
             </p>
         </div>
         <div class="row g-4 align-items-center">

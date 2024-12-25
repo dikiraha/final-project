@@ -4,7 +4,7 @@ require_once 'Database.php';
 class Car
 {
     private $conn;
-    private $table = 'cars';
+    private $table = 'tm_cars';
 
     public function __construct()
     {
@@ -99,7 +99,7 @@ class Car
 
     public function getTotalCars()
     {
-        $sql = "SELECT COUNT(*) AS total FROM cars";
+        $sql = "SELECT COUNT(*) AS total FROM tm_cars";
         // Jalankan query dan kembalikan hasilnya
         // Misalnya menggunakan PDO
         $stmt = $this->conn->prepare($sql);
@@ -111,7 +111,7 @@ class Car
     // Fungsi untuk mendapatkan total kilometer
     public function getTotalKilometers()
     {
-        $sql = "SELECT SUM(km) AS total_km FROM cars";
+        $sql = "SELECT SUM(km) AS total_km FROM tm_cars";
         // Jalankan query dan kembalikan hasilnya
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();

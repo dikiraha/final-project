@@ -28,7 +28,6 @@ if (isset($_GET['views'])) {
 ?>
 
 <!-- Navbar & Hero Start -->
-<!-- Navbar & Hero Start -->
 <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -56,18 +55,18 @@ if (isset($_GET['views'])) {
                                 </li>
                             <?php endif; ?>
                             <li>
+                                <a class="dropdown-item text-danger" href="?views=edit_profile">Edit Profile</a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item text-danger" href="backend/auth/logout.php">Logout</a>
                             </li>
                         </ul>
                     </div>
                 <?php else: ?>
-                    <!-- Tampilkan jika belum login -->
                     <a href="auth/login.php" class="btn btn-primary rounded-pill py-2 px-4">LOGIN</a>
                 <?php endif; ?>
             </div>
         </nav>
     </div>
 </div>
-<!-- Navbar & Hero End -->
-
 <!-- Navbar & Hero End -->
