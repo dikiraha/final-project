@@ -1,54 +1,44 @@
 <!-- Contact Start -->
-<div class="container-fluid contact py-5">
-    <div class="container py-5">
+<div class="container-fluid contact">
+    <div class="container">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
-            <h1 class="display-5 text-capitalize text-primary mb-3">Contact Us</h1>
-            <p class="mb-0">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a class="text-primary fw-bold" href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
+            <h1 class="display-5 text-capitalize">Hubungi <span class="text-primary">Kami</span></h1>
         </div>
         <div class="row g-5">
             <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="row g-5">
-                    <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="col-md-4 col-lg-4 col-xl-4">
                         <div class="contact-add-item p-4">
                             <div class="contact-icon mb-4">
-                                <i class="fas fa-map-marker-alt fa-2x"></i>
+                                <i class="fas fa-map-marker-alt fa-2x text-white"></i>
                             </div>
                             <div>
-                                <h4>Address</h4>
-                                <p class="mb-0">123 Street New York.USA</p>
+                                <h4>Alamat</h4>
+                                <p class="mb-0">Perum de Palumbon Residence Blok E No. 18 Jl. Manunggal VII</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-md-4 col-lg-4 col-xl-4 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="contact-add-item p-4">
                             <div class="contact-icon mb-4">
-                                <i class="fas fa-envelope fa-2x"></i>
+                                <i class="fas fa-envelope fa-2x text-white"></i>
                             </div>
                             <div>
-                                <h4>Mail Us</h4>
-                                <p class="mb-0">info@example.com</p>
+                                <h4>Email</h4>
+                                <p class="mb-0">admin@dianarentcar.my.id</p>
+                                <p class="mb-0">cs@dianarentcar.my.id</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="col-md-4 col-lg-4 col-xl-4 wow fadeInUp" data-wow-delay="0.5s">
                         <div class="contact-add-item p-4">
                             <div class="contact-icon mb-4">
-                                <i class="fa fa-phone-alt fa-2x"></i>
+                                <i class="fa fa-phone-alt fa-2x text-white"></i>
                             </div>
                             <div>
-                                <h4>Telephone</h4>
-                                <p class="mb-0">(+012) 3456 7890</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.7s">
-                        <div class="contact-add-item p-4">
-                            <div class="contact-icon mb-4">
-                                <i class="fab fa-firefox-browser fa-2x"></i>
-                            </div>
-                            <div>
-                                <h4>Yoursite@ex.com</h4>
-                                <p class="mb-0">(+012) 3456 7890</p>
+                                <h4>Telepon</h4>
+                                <p class="mb-0">+628561344499</p>
+                                <p class="mb-0">+62895369715444</p>
                             </div>
                         </div>
                     </div>

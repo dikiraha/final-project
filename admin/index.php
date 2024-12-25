@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_role']) || ($_SESSION['user_role'] !== 'admin' && $_SESSION['user_role'] !== 'driver')) {
-    header('Location: ../login.php');
+    header('Location: ../auth/login.php');
     exit;
 }
 ?>

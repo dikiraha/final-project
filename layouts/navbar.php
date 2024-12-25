@@ -28,12 +28,12 @@ if (isset($_GET['views'])) {
 ?>
 
 <!-- Navbar & Hero Start -->
+<!-- Navbar & Hero Start -->
 <div class="container-fluid nav-bar sticky-top px-0 px-lg-4 py-2 py-lg-0">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a href="" class="navbar-brand p-0">
-                <h1 class="display-6 text-primary"><i class="fas fa-car-alt me-3"></i></i>DRC</h1>
-                <!-- <img src="assets/img/logo.png" alt="Logo"> -->
+            <a href="index.php" class="navbar-brand p-0">
+                <h1 class="display-6 text-primary"><i class="fas fa-car-alt me-3"></i>DRC</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
@@ -68,4 +68,6 @@ if (isset($_GET['views'])) {
         </nav>
     </div>
 </div>
+<!-- Navbar & Hero End -->
+
 <!-- Navbar & Hero End -->
