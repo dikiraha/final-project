@@ -42,7 +42,11 @@ CREATE TABLE IF NOT EXISTS `tm_cars` (
   UNIQUE KEY `no_plat` (`no_plat`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table dianarentcar.tm_cars: ~0 rows (approximately)
+INSERT INTO `tm_cars` (`id`, `uuid`, `merk`, `tipe`, `jumlah_kursi`, `jumlah_pintu`, `warna`, `no_plat`, `tahun`, `km`, `jenis_bensin`, `harga`, `denda`, `transmisi`, `status`, `photo`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+	(2, 'cbb64a84-ac8d-420e-b9a8-42ecc645ecd4', 'Daihatsu', 'Sigra', 6, 4, 'Putih', 'T 1234 TT', '2020', 2134124, 'Pertamax', 20000, 2000, 'Automatic', 'Not Active', '676ce2a44a6d5-sigra.png', 15, NULL, '2024-12-26 11:59:16', '2024-12-26 12:24:30'),
+	(3, '695ccf4d-6c29-4650-aba3-a2117191c3e3', 'zToyota', 'Avanza', 6, 4, 'Putih', 'T 2345 PP', '2020', 231231, 'Pertamax', 200000, 2000, 'Automatic', 'Active', '676ce7c67a446-avanza.png', 15, NULL, '2024-12-26 12:21:10', '2024-12-26 12:37:42'),
+	(4, 'a34923d4-5433-4783-9c0d-94bf9b358ab9', 'Toyota', 'Calya', 4, 4, 'Putih', 'T 1234 PP', '2024', 231312, 'Pertamax', 200000, 25000, 'Automatic', 'Active', '676ceb64ddff3-calya.png', 15, NULL, '2024-12-26 12:36:36', '2024-12-26 12:36:36');
 
 -- Dumping structure for table dianarentcar.tm_photos
 CREATE TABLE IF NOT EXISTS `tm_photos` (
@@ -55,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `tm_photos` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table dianarentcar.tm_photos: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.tm_profiles
 CREATE TABLE IF NOT EXISTS `tm_profiles` (
@@ -81,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `tm_profiles` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table dianarentcar.tm_profiles: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.tm_settings
 CREATE TABLE IF NOT EXISTS `tm_settings` (
@@ -110,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `tm_settings` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table dianarentcar.tm_settings: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.tt_bookings
 CREATE TABLE IF NOT EXISTS `tt_bookings` (
@@ -132,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `tt_bookings` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table dianarentcar.tt_bookings: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.tt_payments
 CREATE TABLE IF NOT EXISTS `tt_payments` (
@@ -150,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `tt_payments` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table dianarentcar.tt_payments: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.users
 CREATE TABLE IF NOT EXISTS `users` (
@@ -167,7 +171,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Data exporting was unselected.
+-- Dumping data for table dianarentcar.users: ~2 rows (approximately)
+INSERT INTO `users` (`id`, `uuid`, `name`, `email`, `phone_number`, `role`, `password`, `created_at`, `updated_at`) VALUES
+	(15, 'a72c4551-846e-42b8-a0d3-d1417d630050', 'Diki Nugraha', 'admin@admin.com', '082125008160', 'admin', '$2y$10$bBylPZFyCmZKih7jw2.0MepdXwlaYGoRNy.FqCHbYWRI7XrJiY0Xm', '2024-12-14 05:16:59', '2024-12-14 05:17:11'),
+	(25, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b47', 'Emul Mulyana', 'emul@drc.com', '082125008160', 'user', '$2y$10$2bopaKjk4yBergNDw7/R9OO0UqvNFSFnrBtpvNjVELPfKUovFU4ye', '2024-12-16 13:37:29', '2024-12-16 13:37:29');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

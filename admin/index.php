@@ -64,7 +64,7 @@ $contentFile = $page . '.php';
         name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>DRC &mdash; <?php echo isset($title) ? $title : 'Dashboard'; ?></title>
+    <title>Diana Rent Car &mdash; <?php echo isset($title) ? $title : 'Admin'; ?></title>
 
 
     <meta name="description" content="" />

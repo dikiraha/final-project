@@ -51,7 +51,7 @@ pushInlineScript('
                     </small>
                 </div>
                 <div class="table-responsive" style="padding: 0 1.25rem 2rem 1.25rem;">
-                    <table id="userTable" class="table table-bordered table-sm" width="100%">
+                    <table id="userTable" class="table table-bordered table-striped table-sm" width="100%">
                         <thead>
                             <tr>
                                 <th>No</th>

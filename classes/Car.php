@@ -109,7 +109,7 @@ class Car
 
     public function getTotalCars()
     {
-        $sql = "SELECT COUNT(*) AS total FROM tm_cars";
+        $sql = "SELECT COUNT(*) AS total FROM tm_cars WHERE status = 'Active'";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
@@ -119,11 +119,11 @@ class Car
 
     public function getTotalKilometers()
     {
-        $sql = "SELECT SUM(km) AS total_km FROM tm_cars";
+        $sql = "SELECT SUM(km) AS total_km FROM tm_cars WHERE status = 'Active'";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['total_km'];
+        return $result['total_km'] ?? 0; // Gunakan null coalescing operator untuk mencegah null
     }
 }
