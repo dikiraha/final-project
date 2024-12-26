@@ -19,6 +19,14 @@ class User
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function detail($uuid)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE uuid = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$uuid]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function edit($uuid)
     {
         $query = "SELECT * FROM " . $this->table . " WHERE uuid = ?";
@@ -42,19 +50,7 @@ class User
         ]);
     }
 
-    public function update($id, $data)
-    {
-        $query = "UPDATE " . $this->table . " SET name = ?, email = ?, role = ? WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([
-            $data['name'],
-            $data['email'],
-            $data['role'],
-            $id
-        ]);
-    }
-
-    public function updateByUuid($uuid, $data)
+    public function update($uuid, $data)
     {
         $query = "UPDATE " . $this->table . " 
                 SET name = ?, email = ?, phone_number = ?, role = ?" .

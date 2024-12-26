@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Lakukan update
-    $isUpdated = $user->updateByUuid($uuid, $updateData);
+    $isUpdated = $user->update($uuid, $updateData);
 
     if ($isUpdated) {
         $_SESSION['toastr'] = [

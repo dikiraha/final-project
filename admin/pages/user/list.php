@@ -1,17 +1,13 @@
 <?php
-require_once '../classes/User.php'; // Pastikan path ini sesuai
+require_once '../classes/User.php';
 
 $userModel = new User();
-$users = $userModel->list(); // Ambil data user dari fungsi list()
+
+$users = $userModel->list();
 $no = 1;
 ?>
 
 <?php
-// Tambahkan file CSS dan JS untuk halaman ini
-// pushCss('page1.css');
-// pushJs('page1.js');
-
-// Tambahkan kode inline style
 pushInlineStyle("
     body {
         background-color: #f0f8ff;
@@ -21,9 +17,7 @@ pushInlineStyle("
     }
 ");
 
-// Tambahkan kode inline script
 pushInlineScript('
-    
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -39,9 +33,9 @@ pushInlineScript('
     </script>
 ');
 ?>
+
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row gy-6">
-        <!-- Data Tables -->
         <div class="col-12">
             <div class="card overflow-hidden">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -78,20 +72,20 @@ pushInlineScript('
                                     <td><?php echo htmlspecialchars($user['email']); ?></td>
                                     <td><?php echo htmlspecialchars($user['role']); ?></td>
                                     <td>
-                                        <!-- Link Detail -->
-                                        <a href="?views=user_detail/<?php echo urlencode($user['uuid']); ?>" class="btn btn-info btn-sm">
-                                            <i class="ri-information-line"></i> Detail
+                                        <a href="?views=user_detail&uuid=<?php echo urlencode($user['uuid']); ?>" class="btn btn-info btn-xs" data-toggle="tooltip"
+                                            title="Detail">
+                                            <i class="ri-information-line"></i>
                                         </a>
 
-                                        <!-- Link Edit -->
-                                        <a href="index.php?views=user_edit&uuid=<?php echo urlencode($user['uuid']); ?>" class="btn btn-warning btn-sm">
-                                            <i class="ri-edit-box-line"></i> Edit
+                                        <a href="index.php?views=user_edit&uuid=<?php echo urlencode($user['uuid']); ?>" class="btn btn-warning btn-xs" data-toggle="tooltip"
+                                            title="Edit">
+                                            <i class="ri-edit-box-line"></i>
                                         </a>
 
-                                        <!-- Link Delete -->
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                            data-delete-url="../backend/user/delete.php?uuid=<?php echo urlencode($user['uuid']); ?>">
-                                            <i class="ri-delete-bin-line"></i> Delete
+                                        <button type="button" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-delete-url="../backend/user/delete.php?uuid=<?php echo urlencode($user['uuid']); ?>" data-toggle="tooltip"
+                                            title="Delete">
+                                            <i class="ri-delete-bin-line"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -117,7 +111,6 @@ pushInlineScript('
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <!-- Tombol Submit yang diarahkan ke link delete -->
                 <a id="confirmDeleteButton" href="#" class="btn btn-danger">Hapus</a>
             </div>
         </div>
@@ -125,22 +118,18 @@ pushInlineScript('
 </div>
 
 <script>
-    // Event listener untuk modal
     const deleteModal = document.getElementById('deleteModal');
     const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
     deleteModal.addEventListener('show.bs.modal', function(event) {
-        // Tombol yang memicu modal
         const button = event.relatedTarget;
 
-        // Ambil URL delete dari tombol
         const deleteUrl = button.getAttribute('data-delete-url');
 
-        // Update href tombol konfirmasi
         confirmDeleteButton.setAttribute('href', deleteUrl);
     });
 
-    // Toastr messages
+    // Toastr
     <?php if (isset($_SESSION['success_message'])): ?>
         toastr.success("<?php echo $_SESSION['success_message']; ?>");
         <?php unset($_SESSION['success_message']); ?>

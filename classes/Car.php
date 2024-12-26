@@ -21,7 +21,7 @@ class Car
 
     public function getDetail($uuid)
     {
-        $query = $this->conn->prepare("SELECT * FROM tm_cars WHERE uuid = :uuid");
+        $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE uuid = :uuid");
         $query->execute(['uuid' => $uuid]);
         return $query->fetch(PDO::FETCH_ASSOC);
     }
@@ -109,7 +109,7 @@ class Car
 
     public function getTotalCars()
     {
-        $sql = "SELECT COUNT(*) AS total FROM tm_cars WHERE status = 'Active'";
+        $sql = "SELECT COUNT(*) AS total FROM " . $this->table . " WHERE status = 'Active'";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
@@ -119,7 +119,7 @@ class Car
 
     public function getTotalKilometers()
     {
-        $sql = "SELECT SUM(km) AS total_km FROM tm_cars WHERE status = 'Active'";
+        $sql = "SELECT SUM(km) AS total_km FROM " . $this->table . " WHERE status = 'Active'";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();

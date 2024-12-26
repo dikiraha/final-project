@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $harga = $_POST['harga'];
     $denda = $_POST['denda'];
     $transmisi = $_POST['transmisi'];
+    $status = $_POST['status'];
 
-    // Ambil data mobil lama
     $existingCar = $car->edit($uuid);
 
     if (!$existingCar) {
@@ -31,8 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Upload photo jika ada
-    $photoName = $existingCar['photo']; // Gunakan foto lama secara default
+    $photoName = $existingCar['photo'];
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = '../../uploads/';
         $photoName = uniqid() . '-' . basename($_FILES['photo']['name']);
@@ -48,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Data untuk update
     $updateData = [
         'merk' => $merk,
         'tipe' => $tipe,
@@ -62,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'harga' => $harga,
         'denda' => $denda,
         'transmisi' => $transmisi,
+        'status' => $status,
         'photo' => $photoName,
         'updated_by' => $_SESSION['user_id'] ?? null
     ];

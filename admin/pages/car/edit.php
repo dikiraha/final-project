@@ -104,7 +104,14 @@ $car = $getCar->edit($uuid);
                             <label for="transmisi">Transmisi</label>
                         </div>
 
-
+                        <div class="form-floating form-floating-outline mb-3">
+                            <select class="form-select" id="status" name="status" aria-label="Transmisi">
+                                <option value="" disabled>-- Pilih --</option>
+                                <option value="Active" <?php echo ($car['status'] === 'Active') ? 'selected' : ''; ?>>Active</option>
+                                <option value="Not Active" <?php echo ($car['status'] === 'Not Active') ? 'selected' : ''; ?>>Not Active</option>
+                            </select>
+                            <label for="status">Status</label>
+                        </div>
 
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>

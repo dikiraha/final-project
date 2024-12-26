@@ -1,17 +1,13 @@
 <?php
-require_once '../classes/Sk.php'; // Pastikan path ini sesuai
+require_once '../classes/Setting.php';
 
-$skModel = new Sk();
-$sks = $skModel->list(); // Ambil data sk dari fungsi list()
+$settingModel = new Setting();
+
+$settings = $settingModel->list();
 $no = 1;
 ?>
 
 <?php
-// Tambahkan file CSS dan JS untuk halaman ini
-// pushCss('page1.css');
-// pushJs('page1.js');
-
-// Tambahkan kode inline style
 pushInlineStyle("
     body {
         background-color: #f0f8ff;
@@ -21,13 +17,11 @@ pushInlineStyle("
     }
 ");
 
-// Tambahkan kode inline script
 pushInlineScript('
-    
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $("#skTable").DataTable({
+            $("#settingsTable").DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
@@ -39,48 +33,58 @@ pushInlineScript('
     </script>
 ');
 ?>
+
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row gy-6">
-        <!-- Data Tables -->
         <div class="col-12">
             <div class="card overflow-hidden">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">List Syarat & Ketentuan</h5>
-                    <small class="text-body float-end">
-                        <a href="?views=sk_create" class="btn btn-primary btn-sm"><i class="ri-add-fill"></i>Create</a>
-                    </small>
+                    <h5 class="mb-0">List Settings</h5>
+                    <?php if (empty($settings)): ?>
+                        <small class="text-body float-end">
+                            <a href="?views=setting_create" class="btn btn-primary btn-sm"><i class="ri-add-fill"></i>Create</a>
+                        </small>
+                    <?php endif; ?>
                 </div>
                 <div class="table-responsive" style="padding: 0 1.25rem 2rem 1.25rem;">
-                    <table id="skTable" class="table table-bordered table-sm" width="100%">
+                    <table id="settingsTable" class="table table-bordered table-striped table-sm" width="100%">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Context</th>
-                                <th>Content</th>
+                                <th>Owner</th>
+                                <th>Bank</th>
+                                <th>Account Number</th>
+                                <th>Email</th>
+                                <th>Phone Number 1</th>
+                                <th>Phone Number 2</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($sks as $sk): ?>
+                            <?php foreach ($settings as $setting): ?>
                                 <tr>
                                     <td class="text-center"><?php echo $no++; ?></td>
-                                    <td><?php echo htmlspecialchars($sk['context']); ?></td>
-                                    <td><?php echo htmlspecialchars($sk['content']); ?></td>
+                                    <td><?php echo htmlspecialchars($setting['owner']); ?></td>
+                                    <td><?php echo htmlspecialchars($setting['bank']); ?></td>
+                                    <td><?php echo htmlspecialchars($setting['account_number']); ?></td>
+                                    <td><?php echo htmlspecialchars($setting['email']); ?></td>
+                                    <td><?php echo htmlspecialchars($setting['phone_number_1']); ?></td>
+                                    <td><?php echo htmlspecialchars($setting['phone_number_2']); ?></td>
                                     <td>
-                                        <!-- Link Detail -->
-                                        <a href="?views=sk_detail/<?php echo urlencode($sk['uuid']); ?>" class="btn btn-info btn-sm">
-                                            <i class="ri-information-line"></i> Detail
+                                        <a href="?views=setting_detail&id=<?php echo urlencode($setting['id']); ?>" class="btn btn-info btn-xs" data-toggle="tooltip"
+                                            title="Detail">
+                                            <i class="ri-information-line"></i>
                                         </a>
 
-                                        <!-- Link Edit -->
-                                        <a href="index.php?views=sk_edit&uuid=<?php echo urlencode($sk['uuid']); ?>" class="btn btn-warning btn-sm">
-                                            <i class="ri-edit-box-line"></i> Edit
+                                        <a href="?views=setting_edit&id=<?php echo urlencode($setting['id']); ?>" class="btn btn-warning btn-xs" data-toggle="tooltip"
+                                            title="Edit">
+                                            <i class="ri-edit-box-line"></i>
                                         </a>
 
-                                        <!-- Link Delete -->
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                            data-delete-url="../backend/sk/delete.php?uuid=<?php echo urlencode($sk['uuid']); ?>">
-                                            <i class="ri-delete-bin-line"></i> Delete
+                                        <button type="button" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-delete-url="../backend/setting/delete.php?uuid=<?php echo urlencode($setting['uuid']); ?>" data-toggle="tooltip"
+                                            title="Delete">
+                                            <i class="ri-delete-bin-line"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -106,7 +110,6 @@ pushInlineScript('
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                <!-- Tombol Submit yang diarahkan ke link delete -->
                 <a id="confirmDeleteButton" href="#" class="btn btn-danger">Hapus</a>
             </div>
         </div>
@@ -114,22 +117,18 @@ pushInlineScript('
 </div>
 
 <script>
-    // Event listener untuk modal
     const deleteModal = document.getElementById('deleteModal');
     const confirmDeleteButton = document.getElementById('confirmDeleteButton');
 
     deleteModal.addEventListener('show.bs.modal', function(event) {
-        // Tombol yang memicu modal
         const button = event.relatedTarget;
 
-        // Ambil URL delete dari tombol
         const deleteUrl = button.getAttribute('data-delete-url');
 
-        // Update href tombol konfirmasi
         confirmDeleteButton.setAttribute('href', deleteUrl);
     });
 
-    // Toastr messages
+    // Toastr
     <?php if (isset($_SESSION['success_message'])): ?>
         toastr.success("<?php echo $_SESSION['success_message']; ?>");
         <?php unset($_SESSION['success_message']); ?>

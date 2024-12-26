@@ -4,7 +4,6 @@ require_once '../classes/User.php';
 $getUser = new User();
 $uuid = $_GET['uuid'];
 $user = $getUser->edit($uuid);
-
 ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -31,8 +30,9 @@ $user = $getUser->edit($uuid);
                                 name="name"
                                 placeholder="Nama Lengkap"
                                 value="<?php echo htmlspecialchars($user['name']); ?>"
-                                onkeyup="formatFullName(this)" />
-                            <label for="name">Name</label>
+                                onkeyup="formatFullName(this)"
+                                required />
+                            <label for="name">Name <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
@@ -42,8 +42,9 @@ $user = $getUser->edit($uuid);
                                 id="email"
                                 name="email"
                                 placeholder="email@mail.com"
-                                value="<?php echo htmlspecialchars($user['email']); ?>" />
-                            <label for="email">Email</label>
+                                value="<?php echo htmlspecialchars($user['email']); ?>"
+                                required />
+                            <label for="email">Email <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
@@ -53,18 +54,19 @@ $user = $getUser->edit($uuid);
                                 name="phone_number"
                                 class="form-control phone-mask"
                                 placeholder="081234567890"
-                                value="<?php echo htmlspecialchars($user['phone_number']); ?>" />
-                            <label for="phone_number">No. Handphone</label>
+                                value="<?php echo htmlspecialchars($user['phone_number']); ?>"
+                                required />
+                            <label for="phone_number">No. Handphone <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <select class="form-select" id="role" name="role" aria-label="Role">
+                            <select class="form-select" id="role" name="role" aria-label="Role" required>
                                 <option value="" disabled>-- Pilih --</option>
                                 <option value="admin" <?php echo ($user['role'] === 'admin') ? 'selected' : ''; ?>>Admin</option>
                                 <option value="driver" <?php echo ($user['role'] === 'driver') ? 'selected' : ''; ?>>Driver</option>
                                 <option value="user" <?php echo ($user['role'] === 'user') ? 'selected' : ''; ?>>User</option>
                             </select>
-                            <label for="role">Role</label>
+                            <label for="role">Role <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">

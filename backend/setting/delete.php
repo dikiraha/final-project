@@ -1,5 +1,5 @@
 <?php
-require_once '../../classes/User.php';
+require_once '../../classes/Setting.php';
 session_start();
 
 require_once '../../vendor/autoload.php';
@@ -10,9 +10,9 @@ if (isset($_GET['uuid'])) {
     $uuid = $_GET['uuid'];
 
     if (Guid::isValid($uuid)) {
-        $user = new User();
+        $setting = new Setting();
 
-        $deleted = $user->delete($uuid);
+        $deleted = $setting->delete($uuid);
 
         if ($deleted) {
             $_SESSION['toastr'] = [
@@ -32,13 +32,13 @@ if (isset($_GET['uuid'])) {
         ];
     }
 
-    header("Location: ../../admin/index.php?views=user_list");
+    header("Location: ../../admin/index.php?views=setting_list");
     exit;
 } else {
     $_SESSION['toastr'] = [
         'type' => 'error',
         'message' => 'Error'
     ];
-    header("Location: ../../admin/index.php?views=user_list");
+    header("Location: ../../admin/index.php?views=setting_list");
     exit;
 }

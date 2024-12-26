@@ -11,7 +11,7 @@ $totalKilometers = $carModel->getTotalKilometers();
 <!-- Car categories Start -->
 <div class="container-fluid categories pb-5">
     <div class="container pb-5">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize">Tipe <span class="text-primary">Kendaraan</span></h1>
         </div>
         <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
@@ -53,6 +53,11 @@ $totalKilometers = $carModel->getTotalKilometers();
                 </div>
                 <!-- END MOBIL -->
             <?php endforeach; ?>
+        </div>
+        <div class="wow fadeInUp mt-3" data-wow-delay="0.1s">
+            <div class="d-flex justify-content-center">
+                <a href="?views=car" class="btn btn-primary">Lihat Semua Mobil</a>
+            </div>
         </div>
     </div>
 </div>

@@ -18,6 +18,9 @@ if (isset($_GET['views'])) {
         case 'edit_profile':
             include "views/edit_profile.php";
             break;
+        case 'car':
+            include "views/car.php";
+            break;
         default:
             include "views/error.php";
     }

@@ -13,12 +13,12 @@
                 <div class="card-body">
                     <form action="../backend/user/store.php" method="POST">
                         <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" onkeyup="formatFullName(this)" />
-                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" onkeyup="formatFullName(this)" required />
+                            <label for="name">Nama <span class="text-danger">*</span></label>
                         </div>
                         <div class="form-floating form-floating-outline mb-3">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="email@mail.com" />
-                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="email@mail.com" required />
+                            <label for="email">Email <span class="text-danger">*</span></label>
                         </div>
                         <div class="form-floating form-floating-outline mb-3">
                             <input
@@ -26,21 +26,21 @@
                                 id="phone_number"
                                 name="phone_number"
                                 class="form-control phone-mask"
-                                placeholder="081234567890" />
-                            <label for="phone_number">No. Handphone</label>
+                                placeholder="081234567890" required />
+                            <label for="phone_number">No. Handphone <span class="text-danger">*</span></label>
                         </div>
                         <div class="form-floating form-floating-outline mb-3">
-                            <select class="form-select" id="role" name="role" aria-label="Role">
+                            <select class="form-select" id="role" name="role" aria-label="Role" required>
                                 <option value="" disabled selected>-- Pilih --</option>
                                 <option value="admin">Admin</option>
                                 <option value="driver">Driver</option>
                                 <option value="user">User</option>
                             </select>
-                            <label for="role">Role</label>
+                            <label for="role">Role <span class="text-danger">*</span></label>
                         </div>
                         <div class="form-floating form-floating-outline mb-3">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="**********" />
-                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="**********" required />
+                            <label for="password">Password <span class="text-danger">*</span></label>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

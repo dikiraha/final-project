@@ -1,3 +1,18 @@
+<?php
+require_once 'classes/Setting.php';
+
+$settingModel = new Setting();
+$setting = $settingModel->list()[0]; // Assuming there's only one row in the table
+$about_footer = $setting['about_footer'];
+$address = $setting['address'];
+$email = $setting['email'];
+$phone_number_1 = $setting['phone_number_1'];
+$phone_number_2 = $setting['phone_number_2'];
+$facebook = $setting['facebook'];
+$instagram = $setting['instagram'];
+$twitter = $setting['twitter'];
+$tiktok = $setting['tiktok'];
+?>
 <!-- Footer Start -->
 <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
     <div class="container">
@@ -6,7 +21,7 @@
                 <div class="footer-item d-flex flex-column">
                     <div class="footer-item">
                         <h4 class="text-white mb-4">About</h4>
-                        <p class="mb-3">Kami menyediakan layanan penyewaan mobil berkualitas dan jasa supir profesional untuk memenuhi kebutuhan perjalanan Anda. Dengan armada yang terawat dan layanan terbaik, kami siap menemani perjalanan Anda dengan nyaman dan aman.</p>
+                        <p class="mb-3"><?php echo htmlspecialchars($about_footer); ?></p>
                     </div>
                 </div>
             </div>
@@ -37,15 +52,27 @@
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="footer-item d-flex flex-column">
                     <h4 class="text-white mb-4">Info Kontak</h4>
-                    <a href="https://maps.app.goo.gl/hHdMvZpLid1f6yETA" target="_blank"><i class="fa fa-map-marker-alt me-2"></i> Perum de Palumbon Residence Blok E No. 18 Jl. Manunggal VII RT. 04/12, Kel. Palumbonsari, Kec. Karawang Timur, Kab. Karawang</a>
-                    <a href="mailto:cs@dianarentcar.my.id"><i class="fas fa-envelope me-2"></i> cs@dianarentcar.my.id</a>
-                    <a href="wa.me/628561344499"><i class="fab fa-whatsapp me-2"></i> +628561344499</a>
-                    <a href="tel:+62895369715444"><i class="fas fa-phone me-2"></i> +62895369715444</a>
+                    <a href="https://maps.app.goo.gl/hHdMvZpLid1f6yETA" target="_blank"><i class="fa fa-map-marker-alt me-2"></i> <?php echo htmlspecialchars($address); ?></a>
+                    <a href="mailto:<?php echo htmlspecialchars($email); ?>"><i class="fas fa-envelope me-2"></i> <?php echo htmlspecialchars($email); ?></a>
+                    <?php
+                    $phone_number_1_62 = ltrim($phone_number_1, '0');
+                    $phone_number = '62' . $phone_number_1_62;
+                    ?>
+                    <a href="https://wa.me/<?php echo htmlspecialchars($phone_number); ?>" target="_blank"><i class="fab fa-whatsapp me-2"></i> <?php echo htmlspecialchars($phone_number_1); ?></a>
+                    <a href="tel:<?php echo htmlspecialchars($phone_number_2); ?>"><i class="fas fa-phone me-2"></i> <?php echo htmlspecialchars($phone_number_2); ?></a>
                     <div class="d-flex">
-                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href="https://www.facebook.com/groups/1244100965622454/user/100009793860190/" target="_blank"><i class="fab fa-facebook-f text-white"></i></a>
-                        <!-- <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-twitter text-white"></i></a>
-                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-instagram text-white"></i></a>
-                            <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i class="fab fa-linkedin-in text-white"></i></a> -->
+                        <?php if (!empty($facebook)): ?>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href="<?php echo htmlspecialchars($facebook); ?>" target="_blank"><i class="fab fa-facebook-f text-white"></i></a>
+                        <?php endif; ?>
+                        <?php if (!empty($twitter)): ?>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href="<?php echo htmlspecialchars($twitter); ?>" target="_blank"><i class="fab fa-twitter text-white"></i></a>
+                        <?php endif; ?>
+                        <?php if (!empty($instagram)): ?>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href="<?php echo htmlspecialchars($instagram); ?>" target="_blank"><i class="fab fa-instagram text-white"></i></a>
+                        <?php endif; ?>
+                        <?php if (!empty($tiktok)): ?>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-0" href="<?php echo htmlspecialchars($tiktok); ?>" target="_blank"><i class="fab fa-tiktok text-white"></i></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

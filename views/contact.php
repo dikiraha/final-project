@@ -1,3 +1,17 @@
+<?php
+require_once 'classes/Setting.php';
+
+$settingModel = new Setting();
+$setting = $settingModel->list()[0]; // Assuming there's only one row in the table
+$address = $setting['address'];
+$email = $setting['email'];
+$phone_number_1 = $setting['phone_number_1'];
+$phone_number_2 = $setting['phone_number_2'];
+$facebook = $setting['facebook'];
+$instagram = $setting['instagram'];
+$twitter = $setting['twitter'];
+$tiktok = $setting['tiktok'];
+?>
 <!-- Contact Start -->
 <div class="container-fluid contact">
     <div class="container">
@@ -14,7 +28,7 @@
                             </div>
                             <div>
                                 <h4>Alamat</h4>
-                                <p class="mb-0">Perum de Palumbon Residence Blok E No. 18 Jl. Manunggal VII</p>
+                                <p class="mb-0"><?php echo htmlspecialchars($address); ?></p>
                             </div>
                         </div>
                     </div>
@@ -25,8 +39,7 @@
                             </div>
                             <div>
                                 <h4>Email</h4>
-                                <p class="mb-0">admin@dianarentcar.my.id</p>
-                                <p class="mb-0">cs@dianarentcar.my.id</p>
+                                <p class="mb-0"><?php echo htmlspecialchars($email); ?></p>
                             </div>
                         </div>
                     </div>
@@ -37,71 +50,63 @@
                             </div>
                             <div>
                                 <h4>Telepon</h4>
-                                <p class="mb-0">+628561344499</p>
-                                <p class="mb-0">+62895369715444</p>
+                                <p class="mb-0"><?php echo htmlspecialchars($phone_number_1); ?></p>
+                                <p class="mb-0"><?php echo htmlspecialchars($phone_number_2); ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-xl-12 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="bg-secondary p-5 rounded">
-                    <h4 class="text-primary mb-4">Send Your Message</h4>
+                    <h4 class="text-primary mb-4">Kirim Pesan Anda</h4>
                     <form>
                         <div class="row g-4">
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                    <label for="name">Your Name</label>
+                                    <label for="name">Nama Lengkap</label>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
                                     <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                    <label for="email">Your Email</label>
+                                    <label for="email">Email</label>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
                                     <input type="phone" class="form-control" id="phone" placeholder="Phone">
-                                    <label for="phone">Your Phone</label>
+                                    <label for="phone">Nomor Handphone</label>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-xl-6">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="project" placeholder="Project">
-                                    <label for="project">Your Project</label>
+                                    <label for="project">Project Anda</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
                                     <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    <label for="subject">Subject</label>
+                                    <label for="subject">Subjek</label>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
                                     <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 160px"></textarea>
-                                    <label for="message">Message</label>
+                                    <label for="message">Pesan</label>
                                 </div>
 
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-light w-100 py-3">Send Message</button>
+                                <button class="btn btn-light w-100 py-3">Kirim Pesan</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-12 col-xl-1 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="d-flex flex-xl-column align-items-center justify-content-center">
-                    <a class="btn btn-xl-square btn-light rounded-circle mb-0 mb-xl-4 me-4 me-xl-0" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-xl-square btn-light rounded-circle mb-0 mb-xl-4 me-4 me-xl-0" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-xl-square btn-light rounded-circle mb-0 mb-xl-4 me-4 me-xl-0" href=""><i class="fab fa-instagram"></i></a>
-                    <a class="btn btn-xl-square btn-light rounded-circle mb-0 mb-xl-0 me-0 me-xl-0" href=""><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-            <div class="col-12 col-xl-5 wow fadeInUp" data-wow-delay="0.1s">
+            <!-- <div class="col-12 col-xl-5 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="p-5 bg-light rounded">
                     <div class="bg-white rounded p-4 mb-4">
                         <h4 class="mb-3">Our Branch 01</h4>
@@ -137,7 +142,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-12">
                 <div class="rounded">
                     <iframe class="rounded w-100"

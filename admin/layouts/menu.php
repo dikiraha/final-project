@@ -17,6 +17,14 @@ if (isset($_GET['views'])) {
                 include "./pages/error.php";
             }
             break;
+        case 'user_detail':
+            if (isset($_GET['uuid'])) {
+                $uuid = $_GET['uuid'];
+                include "./pages/user/detail.php";
+            } else {
+                include "./pages/error.php";
+            }
+            break;
         case 'car_list':
             include "./pages/car/list.php";
             break;
@@ -31,20 +39,27 @@ if (isset($_GET['views'])) {
                 include "./pages/error.php";
             }
             break;
-        case 'sk_list':
-            include "./pages/sk/list.php";
+        case 'setting_list':
+            include "./pages/setting/list.php";
             break;
-        case 'sk_create':
-            include "./pages/sk/create.php";
+        case 'setting_create':
+            include "./pages/setting/create.php";
             break;
-        case 'about':
-            include "views/about.php";
+        case 'setting_edit':
+            if (isset($_GET['uuid'])) {
+                $uuid = $_GET['uuid'];
+                include "./pages/setting/edit.php";
+            } else {
+                include "./pages/error.php";
+            }
             break;
-        case 'contact':
-            include "views/contact.php";
-            break;
-        case 'login':
-            include "views/auth/login.php";
+        case 'setting_detail':
+            if (isset($_GET['uuid'])) {
+                $uuid = $_GET['uuid'];
+                include "./pages/setting/detail.php";
+            } else {
+                include "./pages/error.php";
+            }
             break;
         default:
             include "./pages/error.php";
