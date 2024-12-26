@@ -16,11 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $warna = $_POST['warna'];
     $no_plat = $_POST['no_plat'];
     $tahun = $_POST['tahun'];
-    $km = $_POST['km'];
+
+    $km = isset($_POST['km']) ? str_replace('.', '', $_POST['km']) : 0;
+
     $jenis_bensin = $_POST['jenis_bensin'];
     $harga = $_POST['harga'];
     $denda = $_POST['denda'];
     $transmisi = $_POST['transmisi'];
+    $status = $_POST['status'];
 
     // Upload photo
     $photoName = null;
@@ -41,7 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $uuid = Uuid::uuid4()->toString();
 
-    // Buat mobil baru
     $isCreated = $car->create([
         'uuid' => $uuid,
         'merk' => $merk,
@@ -56,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'harga' => $harga,
         'denda' => $denda,
         'transmisi' => $transmisi,
+        'status' => $status,
         'photo' => $photoName,
         'created_by' => $_SESSION['user_id'] ?? null
     ]);
@@ -63,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($isCreated) {
         $_SESSION['toastr'] = [
             'type' => 'success',
-            'message' => 'Car created successfully'
+            'message' => 'Create Successfully'
         ];
         header('Location: ../../admin/?views=car_list');
         exit;

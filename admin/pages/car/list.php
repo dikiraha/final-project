@@ -45,53 +45,66 @@ pushInlineScript('
                     </small>
                 </div>
                 <div class="table-responsive" style="padding: 0 1.25rem 2rem 1.25rem;">
-                    <table id="carTable" class="table table-bordered table-sm" width="100%">
+                    <table id="carTable" class="table table-bordered table-striped table-sm" width="100%">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Photo</th>
                                 <th>Merk</th>
-                                <th>Jumlah Kursi</th>
-                                <th>Jumlah Pintu</th>
-                                <th>Warna</th>
+                                <th>Tipe</th>
                                 <th>No Plat</th>
                                 <th>Tahun</th>
                                 <th>KM</th>
-                                <th>Jenis Bensin</th>
                                 <th>Harga</th>
                                 <th>Denda</th>
-                                <th>Transmisi</th>
+                                <th>Status</th>
                                 <th>Option</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                            function formatRupiah($angka)
+                            {
+                                return 'Rp ' . number_format($angka, 0, ',', '.');
+                            }
+
+                            function formatKm($angka)
+                            {
+                                return number_format($angka, 0, ',', '.') . ' KM';
+                            }
+                            ?>
                             <?php foreach ($cars as $car): ?>
                                 <tr>
                                     <td class="text-center"><?php echo $no++; ?></td>
-                                    <td>
+                                    <td class="text-center">
                                         <img src="./../assets/uploads/car/<?php echo htmlspecialchars($car['photo']); ?>" alt="Car Photo" width="50" height="50" />
                                     </td>
                                     <td><?php echo htmlspecialchars($car['merk']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['jumlah_kursi']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['jumlah_pintu']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['warna']); ?></td>
+                                    <td><?php echo htmlspecialchars($car['tipe']); ?></td>
                                     <td><?php echo htmlspecialchars($car['no_plat']); ?></td>
                                     <td><?php echo htmlspecialchars($car['tahun']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['km']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['jenis_bensin']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['harga']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['denda']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['transmisi']); ?></td>
+                                    <td><?php echo formatKm($car['km']); ?></td>
+                                    <td><?php echo formatRupiah($car['harga']); ?></td>
+                                    <td><?php echo formatRupiah($car['denda']); ?></td>
                                     <td>
-                                        <a href="?views=car_detail/<?php echo urlencode($car['uuid']); ?>" class="btn btn-info btn-sm">
-                                            <i class="ri-information-line"></i> Detail
+                                        <?php if ($car['status'] === 'Active'): ?>
+                                            <span class="badge bg-success"><?php echo htmlspecialchars($car['status']); ?></span>
+                                        <?php else: ?>
+                                            <span class="badge bg-danger"><?php echo htmlspecialchars($car['status']); ?></span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);"
+                                            class="btn btn-info btn-xs btn-detail"
+                                            data-uuid="<?php echo urlencode($car['uuid']); ?>">
+                                            <i class="ri-information-line"></i>
                                         </a>
-                                        <a href="index.php?views=car_edit&uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-warning btn-sm">
-                                            <i class="ri-edit-box-line"></i> Edit
+                                        <a href="index.php?views=car_edit&uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-warning btn-xs">
+                                            <i class="ri-edit-box-line"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                        <button type="button" class="btn btn-danger btn-xs" data-bs-toggle="modal" data-bs-target="#deleteModal"
                                             data-delete-url="../backend/car/delete.php?uuid=<?php echo urlencode($car['uuid']); ?>">
-                                            <i class="ri-delete-bin-line"></i> Delete
+                                            <i class="ri-delete-bin-line"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -123,6 +136,22 @@ pushInlineScript('
     </div>
 </div>
 
+<!-- Modal Detail -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Detail Car</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Konten detail akan diisi melalui JavaScript -->
+                <div id="detailContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     const deleteModal = document.getElementById('deleteModal');
     const confirmDeleteButton = document.getElementById('confirmDeleteButton');
@@ -142,4 +171,50 @@ pushInlineScript('
         toastr.error("<?php echo $_SESSION['error_message']; ?>");
         <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const detailButtons = document.querySelectorAll('.btn-detail');
+
+        detailButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const uuid = this.getAttribute('data-uuid');
+                const detailModal = new bootstrap.Modal(document.getElementById('detailModal'));
+                const detailContent = document.getElementById('detailContent');
+
+                // Tampilkan loading sebelum data dimuat
+                detailContent.innerHTML = '<p>Loading...</p>';
+
+                // Ambil data dari server (gunakan AJAX)
+                fetch(`./../backend/car/detail.php?uuid=${uuid}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Isi modal dengan data
+                        detailContent.innerHTML = `
+                            <p><strong>Merk:</strong> ${data.merk}</p>
+                            <p><strong>Tipe:</strong> ${data.tipe}</p>
+                            <p><strong>Jumlah Kursi:</strong> ${data.jumlah_kursi}</p>
+                            <p><strong>Jumlah Pintu:</strong> ${data.jumlah_pintu}</p>
+                            <p><strong>Warna:</strong> ${data.warna}</p>
+                            <p><strong>No Plat:</strong> ${data.no_plat}</p>
+                            <p><strong>Tahun:</strong> ${data.tahun}</p>
+                            <p><strong>KM:</strong> ${data.km}</p>
+                            <p><strong>Jenis Bensin:</strong> ${data.jenis_bensin}</p>
+                            <p><strong>Harga:</strong> ${data.harga}</p>
+                            <p><strong>Denda:</strong> ${data.denda}</p>
+                            <p><strong>Transmisi:</strong> ${data.transmisi}</p>
+                            <img src="./../assets/uploads/car/${data.photo}" alt="Car Photo" width="100">
+                        `;
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        detailContent.innerHTML = '<p>Error loading data.</p>';
+                    });
+
+                // Tampilkan modal
+                detailModal.show();
+            });
+        });
+    });
 </script>

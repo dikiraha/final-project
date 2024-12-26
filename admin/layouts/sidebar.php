@@ -1,6 +1,7 @@
 <?php
 $home = false;
-$transaksi_list = false;
+$transaction_list = false;
+$report_list = false;
 $user_list = false;
 $user_create = false;
 $user_edit = false;
@@ -13,8 +14,11 @@ if (isset($_GET['views'])) {
         case 'home':
             $home = true;
             break;
-        case 'transaksi_list':
-            $transaksi_list = true;
+        case 'transaction_list':
+            $transaction_list = true;
+            break;
+        case 'report_list':
+            $report_list = true;
             break;
         case 'user_list':
             $user_list = true;
@@ -127,64 +131,14 @@ if (isset($_GET['views'])) {
                 <div data-i18n="Dashboard">Dashboard</div>
             </a>
         </li>
-        <!-- <li class="menu-item active open">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
-                <div data-i18n="Dashboards">Dashboards</div>
-                <div class="badge bg-danger rounded-pill ms-auto">5</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a
-                        href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/dashboards-crm.html"
-                        target="_blank"
-                        class="menu-link">
-                        <div data-i18n="CRM">CRM</div>
-                        <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                    </a>
-                </li>
-                <li class="menu-item active">
-                    <a href="index.html" class="menu-link">
-                        <div data-i18n="Analytics">Analytics</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a
-                        href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-ecommerce-dashboard.html"
-                        target="_blank"
-                        class="menu-link">
-                        <div data-i18n="eCommerce">eCommerce</div>
-                        <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a
-                        href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-logistics-dashboard.html"
-                        target="_blank"
-                        class="menu-link">
-                        <div data-i18n="Logistics">Logistics</div>
-                        <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a
-                        href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-academy-dashboard.html"
-                        target="_blank"
-                        class="menu-link">
-                        <div data-i18n="Academy">Academy</div>
-                        <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
-                    </a>
-                </li>
-            </ul>
-        </li> -->
 
         <li class="menu-header mt-7">
             <span class="menu-header-text">Apps &amp; Pages</span>
         </li>
         <!-- Apps -->
-        <li class="menu-item <?= $transaksi_list ? 'active' : '' ?>">
+        <li class="menu-item <?= $transaction_list ? 'active' : '' ?>">
             <a
-                href="?views=transaksi_list"
+                href="?views=transaction_list"
                 class="menu-link">
                 <i class="menu-icon tf-icons ri-coupon-line"></i>
                 <div data-i18n="Transaksi">Transaksi</div>
@@ -192,9 +146,9 @@ if (isset($_GET['views'])) {
             </a>
         </li>
 
-        <li class="menu-item <?= $laporan_list ? 'active' : '' ?>">
+        <li class="menu-item <?= $report_list ? 'active' : '' ?>">
             <a
-                href="?views=laporan_list"
+                href="?views=report_list"
                 class="menu-link">
                 <i class="menu-icon tf-icons ri-file-copy-2-line"></i>
                 <div data-i18n="Laporan">Laporan</div>

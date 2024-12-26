@@ -12,61 +12,99 @@
                 </div>
                 <div class="card-body">
                     <form action="../backend/car/store.php" method="POST" enctype="multipart/form-data">
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*" />
-                            <label for="photo">Photo</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="merk" name="merk" placeholder="Merk" />
-                            <label for="merk">Merk</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="tipe" name="tipe" placeholder="Tipe" />
-                            <label for="tipe">Tipe</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="number" class="form-control" id="jumlah_kursi" name="jumlah_kursi" placeholder="Jumlah Kursi" />
-                            <label for="jumlah_kursi">Jumlah Kursi</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="number" class="form-control" id="jumlah_pintu" name="jumlah_pintu" placeholder="Jumlah Pintu" />
-                            <label for="jumlah_pintu">Jumlah Pintu</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="warna" name="warna" placeholder="Warna" />
-                            <label for="warna">Warna</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="no_plat" name="no_plat" placeholder="Nomor Plat" />
-                            <label for="no_plat">Nomor Plat</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="number" class="form-control" id="tahun" name="tahun" placeholder="Tahun" />
-                            <label for="tahun">Tahun</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="number" class="form-control" id="km" name="km" placeholder="KM" />
-                            <label for="km">KM</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="jenis_bensin" name="jenis_bensin" placeholder="Jenis Bensin" />
-                            <label for="jenis_bensin">Jenis Bensin</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="number" class="form-control" id="harga" name="harga" placeholder="Harga" />
-                            <label for="harga">Harga</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <input type="number" class="form-control" id="denda" name="denda" placeholder="Denda" />
-                            <label for="denda">Denda</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-3">
-                            <select class="form-select" id="transmisi" name="transmisi" aria-label="Transmisi">
-                                <option value="" disabled selected>-- Pilih --</option>
-                                <option value="Automatic">Automatic</option>
-                                <option value="Manual">Manual</option>
-                            </select>
-                            <label for="transmisi">Transmisi</label>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="file" class="form-control" id="photo" name="photo" accept="image/*" required />
+                                    <label for="photo">Photo <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="text" class="form-control" id="merk" name="merk" placeholder="Contoh : Toyota" required />
+                                    <label for="merk">Merk <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="text" class="form-control" id="tipe" name="tipe" placeholder="Contoh : Avanza" required />
+                                    <label for="tipe">Tipe <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="number" class="form-control" id="jumlah_kursi" name="jumlah_kursi" placeholder="Contoh : 4" required />
+                                    <label for="jumlah_kursi">Jumlah Kursi <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="number" class="form-control" id="jumlah_pintu" name="jumlah_pintu" placeholder="Contoh : 4" required />
+                                    <label for="jumlah_pintu">Jumlah Pintu <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="text" class="form-control" id="warna" name="warna" placeholder="Contoh : Putih" required />
+                                    <label for="warna">Warna <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="text" class="form-control" id="no_plat" name="no_plat" placeholder="Contoh : T 1234 TT" required />
+                                    <label for="no_plat">Nomor Plat <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="text" class="form-control" id="tahun" name="tahun" placeholder="Contoh : 2024" maxlength="4" required />
+                                    <label for="tahun">Tahun <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="text" class="form-control" id="km" name="km" placeholder="Total KM" required oninput="formatWithDots(this)" />
+                                    <label for="km">KM <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="text" class="form-control" id="jenis_bensin" name="jenis_bensin" placeholder="Jenis Bensin" required />
+                                    <label for="jenis_bensin">Jenis Bensin <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="number" class="form-control" id="harga" name="harga" placeholder="Harga" required />
+                                    <label for="harga">Harga <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <input type="number" class="form-control" id="denda" name="denda" placeholder="Denda" required />
+                                    <label for="denda">Denda <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <select class="form-select" id="transmisi" name="transmisi" aria-label="Transmisi" required>
+                                        <option value="" disabled selected>-- Pilih --</option>
+                                        <option value="Automatic">Automatic</option>
+                                        <option value="Manual">Manual</option>
+                                    </select>
+                                    <label for="transmisi">Transmisi <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-floating form-floating-outline mb-3">
+                                    <select class="form-select" id="status" name="status" aria-label="Status" required>
+                                        <option value="" disabled selected>-- Pilih --</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Not Active">Not Active</option>
+                                    </select>
+                                    <label for="status">Status <span class="text-danger">*</span></label>
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -75,3 +113,15 @@
         </div>
     </div>
 </div>
+<script>
+    function formatWithDots(input) {
+        // Hapus semua titik dari input
+        let value = input.value.replace(/\./g, '');
+
+        // Tambahkan titik setiap 3 angka
+        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+        // Setel nilai input kembali ke format dengan titik
+        input.value = value;
+    }
+</script>
