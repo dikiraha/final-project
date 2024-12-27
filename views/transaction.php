@@ -98,11 +98,16 @@ $no = 1;
                                             if (($booking['is_driver']) == 0) {
                                                 $is_driver = "Tidak pakai driver";
                                             } else {
-                                                $is_driver = "Pakai driver";
+                                                if (($booking['driver_id']) == null) {
+                                                    $driver_id = " - (Akan diinfokan kembali)";
+                                                } else {
+                                                    $driver_id = " - " . ($driver['name']);
+                                                }
+                                                $is_driver = "Pakai driver" . $driver_id;
                                             }
                                             ?>
-                                            <td>Nopol / <i>Carriage Number</i></td>
-                                            <td>: <?php echo htmlspecialchars($is_driver); ?> - <?php echo htmlspecialchars($driver['name']); ?></td>
+                                            <td>Supir / <i>Driver</i></td>
+                                            <td>: <?php echo htmlspecialchars($is_driver); ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
