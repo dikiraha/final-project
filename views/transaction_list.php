@@ -17,9 +17,12 @@ $no = 1;
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize">List <span class="text-primary">Pesanan</span></h1>
         </div>
-        <div class="row g-5">
+        <div class="wow fadeInUp" data-wow-delay="0.1s">
+            <a href="?views=home" class="btn btn-secondary"><i class="fa fa-arrow-left text-white"></i> Back</a>
+        </div>
+        <div class="row g-5 pt-3">
             <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="row g-5 table-responsive">
+                <div class="row table-responsive">
                     <table class="table table-bordered table-striped" id="transactionListTable" width="100%">
                         <thead class="bg-primary text-white">
                             <tr>

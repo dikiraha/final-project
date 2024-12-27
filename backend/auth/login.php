@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($userData && password_verify($password, $userData['password'])) {
         $_SESSION['user_id'] = $userData['id'];
+        $_SESSION['user_uuid'] = $userData['uuid'];
         $_SESSION['user_role'] = $userData['role'];
         $_SESSION['user_name'] = $userData['name'];
 

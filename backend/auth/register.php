@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Simpan informasi sesi
         $userData = $user->getByEmail($email);
         $_SESSION['user_id'] = $userData['id'];
+        $_SESSION['user_uuid'] = $userData['uuid'];
         $_SESSION['user_role'] = $userData['role'];
         $_SESSION['user_name'] = $userData['name'];
 
