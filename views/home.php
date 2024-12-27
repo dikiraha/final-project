@@ -47,7 +47,7 @@ $totalKilometers = $carModel->getTotalKilometers();
                                     <span class="text-body ms-1"><?php echo htmlspecialchars($car['tahun']); ?></span>
                                 </div>
                             </div>
-                            <a href="booking.php?uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                            <a href="?views=booking&uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
                         </div>
                     </div>
                 </div>

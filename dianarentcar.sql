@@ -42,12 +42,29 @@ CREATE TABLE IF NOT EXISTS `tm_cars` (
   UNIQUE KEY `no_plat` (`no_plat`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table dianarentcar.tm_cars: ~3 rows (approximately)
+-- Dumping data for table dianarentcar.tm_cars: ~4 rows (approximately)
 INSERT INTO `tm_cars` (`id`, `uuid`, `merk`, `tipe`, `jumlah_kursi`, `jumlah_pintu`, `warna`, `no_plat`, `tahun`, `km`, `jenis_bensin`, `harga`, `denda`, `transmisi`, `status`, `photo`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(2, 'cbb64a84-ac8d-420e-b9a8-42ecc645ecd4', 'Daihatsu', 'Sigra', 6, 4, 'Putih', 'T 1234 TT', '2020', 2134124, 'Pertamax', 20000, 2000, 'Automatic', 'Active', '676ce2a44a6d5-sigra.png', 15, 15, '2024-12-26 11:59:16', '2024-12-27 03:02:52'),
 	(3, '695ccf4d-6c29-4650-aba3-a2117191c3e3', 'Toyota', 'Avanza', 6, 4, 'Putih', 'T 2345 PP', '2020', 231231, 'Pertamax', 200000, 2000, 'Automatic', 'Active', '676ce7c67a446-avanza.png', 15, 15, '2024-12-26 12:21:10', '2024-12-27 03:02:44'),
 	(4, 'a34923d4-5433-4783-9c0d-94bf9b358ab9', 'Toyota', 'Calya', 4, 4, 'Putih', 'T 1234 PP', '2024', 231312, 'Pertamax', 200000, 25000, 'Automatic', 'Active', '676ceb64ddff3-calya.png', 15, NULL, '2024-12-26 12:36:36', '2024-12-26 12:36:36'),
 	(5, 'c39ad506-79ff-4d9a-8bb0-6c9639a79534', 'Honda', 'Mobilio', 6, 4, 'Putih', 'T 3218 SI', '2022', 21391, 'Pertamax', 1000000, 100000, 'Automatic', 'Active', '676db69ebf003-mobilio.png', 15, NULL, '2024-12-27 03:03:42', '2024-12-27 03:03:42');
+
+-- Dumping structure for table dianarentcar.tm_discounts
+CREATE TABLE IF NOT EXISTS `tm_discounts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(40) NOT NULL,
+  `car_id` int NOT NULL,
+  `discount` int NOT NULL,
+  `condition` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `fk_tm_discounts_car_id` (`car_id`),
+  CONSTRAINT `fk_tm_discounts_car_id` FOREIGN KEY (`car_id`) REFERENCES `tm_cars` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table dianarentcar.tm_discounts: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.tm_photos
 CREATE TABLE IF NOT EXISTS `tm_photos` (
@@ -180,6 +197,26 @@ CREATE TABLE IF NOT EXISTS `tt_payments` (
 
 -- Dumping data for table dianarentcar.tt_payments: ~0 rows (approximately)
 
+-- Dumping structure for table dianarentcar.tt_reviews
+CREATE TABLE IF NOT EXISTS `tt_reviews` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(40) NOT NULL,
+  `car_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `grade` int NOT NULL,
+  `desciption` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `fk_tt_reviews_car_id` (`car_id`),
+  KEY `fk_tt_reviews_user_id` (`user_id`),
+  CONSTRAINT `fk_tt_reviews_car_id` FOREIGN KEY (`car_id`) REFERENCES `tm_cars` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_tt_reviews_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table dianarentcar.tt_reviews: ~0 rows (approximately)
+
 -- Dumping structure for table dianarentcar.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -189,6 +226,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `phone_number` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `role` enum('admin','driver','user') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'user',
   `password` varchar(255) NOT NULL,
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `is_verified` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -196,9 +235,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table dianarentcar.users: ~2 rows (approximately)
-INSERT INTO `users` (`id`, `uuid`, `name`, `email`, `phone_number`, `role`, `password`, `created_at`, `updated_at`) VALUES
-	(15, 'a72c4551-846e-42b8-a0d3-d1417d630050', 'Diki Nugraha', 'admin@admin.com', '082125008160', 'admin', '$2y$10$bBylPZFyCmZKih7jw2.0MepdXwlaYGoRNy.FqCHbYWRI7XrJiY0Xm', '2024-12-14 05:16:59', '2024-12-14 05:17:11'),
-	(25, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b47', 'Emul Mulyana', 'emul@drc.com', '082125008160', 'user', '$2y$10$2bopaKjk4yBergNDw7/R9OO0UqvNFSFnrBtpvNjVELPfKUovFU4ye', '2024-12-16 13:37:29', '2024-12-16 13:37:29');
+INSERT INTO `users` (`id`, `uuid`, `name`, `email`, `phone_number`, `role`, `password`, `code`, `is_verified`, `created_at`, `updated_at`) VALUES
+	(15, 'a72c4551-846e-42b8-a0d3-d1417d630050', 'Diki Nugraha', 'admin@admin.com', '082125008160', 'admin', '$2y$10$bBylPZFyCmZKih7jw2.0MepdXwlaYGoRNy.FqCHbYWRI7XrJiY0Xm', NULL, NULL, '2024-12-14 05:16:59', '2024-12-14 05:17:11'),
+	(25, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b47', 'Emul Mulyana', 'emul@drc.com', '082125008160', 'user', '$2y$10$2bopaKjk4yBergNDw7/R9OO0UqvNFSFnrBtpvNjVELPfKUovFU4ye', NULL, NULL, '2024-12-16 13:37:29', '2024-12-16 13:37:29');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

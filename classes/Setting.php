@@ -37,8 +37,8 @@ class Setting
 
     public function create($data)
     {
-        $query = "INSERT INTO " . $this->table . " (uuid, owner, photo, bank, account_number, address, email, phone_number_1, phone_number_2, agreement_1, agreement_2, visi, misi, about_company, history_company, about_footer, facebook, instagram, twitter, tiktok) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO " . $this->table . " (uuid, owner, photo, bank, account_number, account_name, address, email, phone_number_1, phone_number_2, agreement_1, agreement_2, visi, misi, about_company, history_company, about_footer, facebook, instagram, twitter, tiktok) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
 
         return $stmt->execute([
@@ -47,6 +47,7 @@ class Setting
             $data['photo'],
             $data['bank'],
             $data['account_number'],
+            $data['account_name'],
             $data['address'],
             $data['email'],
             $data['phone_number_1'],
@@ -68,13 +69,14 @@ class Setting
     public function update($id, $data)
     {
         $query = "UPDATE " . $this->table . " 
-                SET owner = ?, photo = ?, bank = ?, account_number = ?, address = ?, email = ?, phone_number_1 = ?, phone_number_2 = ?, agreement_1 = ?, agreement_2 = ?, visi = ?, misi = ?, about_company = ?, history_company = ?, about_footer = ?, facebook = ?, instagram = ?, twitter = ?, tiktok = ? 
+                SET owner = ?, photo = ?, bank = ?, account_number = ?, account_name = ?, address = ?, email = ?, phone_number_1 = ?, phone_number_2 = ?, agreement_1 = ?, agreement_2 = ?, visi = ?, misi = ?, about_company = ?, history_company = ?, about_footer = ?, facebook = ?, instagram = ?, twitter = ?, tiktok = ? 
                 WHERE id = ?";
         $params = [
             $data['owner'],
             $data['profile'],
             $data['bank'],
             $data['account_number'],
+            $data['account_name'],
             $data['address'],
             $data['email'],
             $data['phone_number_1'],
@@ -102,5 +104,12 @@ class Setting
         $query = "DELETE FROM " . $this->table . " WHERE uuid = ?";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([$uuid]);
+    }
+
+    public function getFirstSetting()
+    {
+        $query = "SELECT * FROM " . $this->table . " LIMIT 1";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }

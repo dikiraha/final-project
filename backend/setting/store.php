@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'owner' => $_POST['owner'],
         'bank' => $_POST['bank'],
         'account_number' => $_POST['account_number'],
+        'account_name' => $_POST['account_name'],
         'address' => $_POST['address'],
         'email' => $_POST['email'],
         'phone_number_1' => $_POST['phone_number_1'],

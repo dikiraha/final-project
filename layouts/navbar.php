@@ -55,6 +55,9 @@ if (isset($_GET['views'])) {
                                 </li>
                             <?php endif; ?>
                             <li>
+                                <a class="dropdown-item text-danger" href="?views=booking">Pesanan Saya</a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item text-danger" href="?views=edit_profile">Edit Profile</a>
                             </li>
                             <li>

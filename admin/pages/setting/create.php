@@ -1,3 +1,14 @@
+<?php
+require_once '../classes/Setting.php';
+
+$settingModel = new Setting();
+
+$settings = $settingModel->list();
+
+// if (!empty($settings)) {
+//     include "./pages/setting/list.php";
+// }
+?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-xl">
@@ -25,6 +36,11 @@
                         <div class="form-floating form-floating-outline mb-3">
                             <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Account Number" required />
                             <label for="account_number">Nomor Rekening <span class="text-danger">*</span></label>
+                        </div>
+
+                        <div class="form-floating form-floating-outline mb-3">
+                            <input type="text" class="form-control" id="account_name" name="account_name" placeholder="Account Number" required />
+                            <label for="account_name">Nama Rekening <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">

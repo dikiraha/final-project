@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/Setting.php';
+require_once __DIR__ . '/../classes/Setting.php';
 
 $settingModel = new Setting();
 $setting = $settingModel->list()[0]; // Assuming there's only one row in the table
@@ -17,7 +17,7 @@ $tiktok = $setting['tiktok'];
 <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
     <div class="container">
         <div class="row g-5">
-            <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="col-md-6 col-lg-6 col-xl-6">
                 <div class="footer-item d-flex flex-column">
                     <div class="footer-item">
                         <h4 class="text-white mb-4">About</h4>
@@ -25,13 +25,13 @@ $tiktok = $setting['tiktok'];
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-xl-3">
+            <!-- <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="footer-item d-flex flex-column">
                     <h4 class="text-white mb-4">Quick Links</h4>
                     <a href="?views=about"><i class="fas fa-angle-right me-2"></i> About</a>
                     <a href="?views=contact"><i class="fas fa-angle-right me-2"></i> Contact</a>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="footer-item d-flex flex-column">
                     <h4 class="text-white mb-4">Jam Operasional</h4>

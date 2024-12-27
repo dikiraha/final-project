@@ -9,10 +9,13 @@ $cars = $carModel->list();
     <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
         <h1 class="display-5 text-capitalize">Tipe <span class="text-primary">Kendaraan</span></h1>
     </div>
-    <div class="row pt-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="wow fadeInUp" data-wow-delay="0.1s">
+        <a href="?views=home" class="btn btn-secondary"><i class="fa fa-arrow-left text-white"></i> Back</a>
+    </div>
+    <div class="row pt-3 wow fadeInUp" data-wow-delay="0.1s">
         <?php foreach ($cars as $car): ?>
             <div class="col-md-3 mb-4">
-                <div class="card" style="border: 1px solid black;">
+                <div class="card p-2" style="border: 1px solid black;">
                     <div class="categories-img rounded-top">
                         <img src="./assets/uploads/car/<?php echo htmlspecialchars($car['photo']); ?>" class="img-fluid w-100 rounded-top car-image" style="height: 200px; object-fit: cover;" alt="<?php echo htmlspecialchars($car['merk']); ?>">
                     </div>
@@ -41,7 +44,7 @@ $cars = $carModel->list();
                                 <span class="text-body ms-1"><?php echo htmlspecialchars($car['tahun']); ?></span>
                             </div>
                         </div>
-                        <a href="booking.php?uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                        <a href="?views=booking&uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
                     </div>
                 </div>
             </div>
