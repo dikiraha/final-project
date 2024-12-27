@@ -1,63 +1,73 @@
 <?php
-require_once '../../classes/User.php';
+require_once '../../classes/Setting.php';
 session_start();
 
-$user = new User();
+require_once '../../vendor/autoload.php';
+
+use Ramsey\Uuid\Uuid;
+
+$settingModel = new Setting();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Ambil data dari form
-    $uuid = $_POST['uuid']; // UUID pengguna yang akan diupdate
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $phone_number = $_POST['phone_number'];
-    $role = $_POST['role'];
-    $password = isset($_POST['password']) && !empty($_POST['password']) ? $_POST['password'] : null;
+    $id = $_POST['id'];
+    $uuid = Uuid::uuid4()->toString();
 
-    // Cek apakah email sudah digunakan oleh pengguna lain
-    $existingUser = $user->getByEmail($email);
-    if ($existingUser && $existingUser['uuid'] !== $uuid) {
-        $_SESSION['toastr'] = [
-            'type' => 'error',
-            'message' => 'Email sudah digunakan oleh pengguna lain'
-        ];
-        header('Location: ../../admin/?views=user_edit&uuid=' . urlencode($uuid));
-        exit;
-    }
-
-    // Data untuk update
-    $updateData = [
-        'name' => $name,
-        'email' => $email,
-        'phone_number' => $phone_number,
-        'role' => $role,
+    $data = [
+        'uuid' => $uuid,
+        'owner' => $_POST['owner'],
+        'bank' => $_POST['bank'],
+        'account_number' => $_POST['account_number'],
+        'account_name' => $_POST['account_name'],
+        'address' => $_POST['address'],
+        'email' => $_POST['email'],
+        'phone_number_1' => $_POST['phone_number_1'],
+        'phone_number_2' => $_POST['phone_number_2'],
+        'agreement_1' => $_POST['agreement_1'],
+        'agreement_2' => $_POST['agreement_2'],
+        'visi' => $_POST['visi'],
+        'misi' => $_POST['misi'],
+        'about_company' => $_POST['about_company'],
+        'history_company' => $_POST['history_company'],
+        'about_footer' => $_POST['about_footer'],
+        'facebook' => $_POST['facebook'],
+        'instagram' => $_POST['instagram'],
+        'twitter' => $_POST['twitter'],
+        'tiktok' => $_POST['tiktok'],
     ];
 
-    // Jika password diisi, hash password dan tambahkan ke data update
-    if ($password) {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $updateData['password'] = $hashedPassword;
+    if (!empty($_FILES['photo']['name'])) {
+        $photo = $_FILES['photo'];
+        $photoName = $uuid . '_' . basename($photo['name']);
+        $targetDir = '../../assets/uploads/owner/';
+        $targetFile = $targetDir . $photoName;
+
+        if (move_uploaded_file($photo['tmp_name'], $targetFile)) {
+            $data['photo'] = $photoName;
+        } else {
+            $_SESSION['toastr'] = [
+                'type' => 'error',
+                'message' => 'Failed to upload photo'
+            ];
+            header('Location: ../../admin/?views=setting_edit&id=' . $id);
+            exit;
+        }
     }
 
-    // Lakukan update
-    $isUpdated = $user->update($uuid, $updateData);
+    $isUpdated = $settingModel->update($id, $data);
 
     if ($isUpdated) {
         $_SESSION['toastr'] = [
             'type' => 'success',
             'message' => 'Update Successfully'
         ];
-        header('Location: ../../admin/?views=user_list');
+        header('Location: ../../admin/?views=setting_list');
         exit;
     } else {
         $_SESSION['toastr'] = [
             'type' => 'error',
-            'message' => 'Terjadi kesalahan saat mengupdate data'
+            'message' => 'Failed to update setting'
         ];
-        header('Location: ../../admin/?views=user_edit&uuid=' . urlencode($uuid));
+        header('Location: ../../admin/?views=setting_edit&id=' . $id);
         exit;
     }
-} else {
-    // Jika metode tidak POST, redirect ke daftar pengguna
-    header('Location: ../../admin/?views=user_list');
-    exit;
 }

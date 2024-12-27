@@ -1,8 +1,8 @@
 <?php
-require_once '../classes/Car.php'; // Pastikan path ini sesuai
+require_once '../classes/Car.php';
 
 $carModel = new Car();
-$cars = $carModel->list(); // Ambil data mobil dari fungsi list()
+$cars = $carModel->list();
 $no = 1;
 ?>
 

@@ -22,10 +22,15 @@ $settings = $settingModel->list();
                     </small>
                 </div>
                 <div class="card-body">
-                    <form action="../backend/setting/store.php" method="POST">
+                    <form action="../backend/setting/store.php" method="POST" enctype="multipart/form-data">
                         <div class="form-floating form-floating-outline mb-3">
                             <input type="text" class="form-control" id="owner" name="owner" placeholder="Owner" onkeyup="formatFullName(this)" required />
                             <label for="owner">Owner <span class="text-danger">*</span></label>
+                        </div>
+
+                        <div class="form-floating form-floating-outline mb-3">
+                            <input type="file" class="form-control" id="photo" name="photo" accept="image/*" placeholder="Photo Owner" required />
+                            <label for="photo">Photo Owner <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
@@ -64,22 +69,22 @@ $settings = $settingModel->list();
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="agreement_1" name="agreement_1" placeholder="About Company" required></textarea>
+                            <textarea class="form-control" id="agreement_1" name="agreement_1" placeholder="Syarat Lepas Kunci" required></textarea>
                             <label for="agreement_1">Syarat Lepas Kunci <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="agreement_2" name="agreement_2" placeholder="About Company" required></textarea>
+                            <textarea class="form-control" id="agreement_2" name="agreement_2" placeholder="Poin Ketentuan" required></textarea>
                             <label for="agreement_2">Poin Ketentuan <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="visi" name="visi" placeholder="Vision" required></textarea>
+                            <textarea class="form-control" id="visi" name="visi" placeholder="Visi" required></textarea>
                             <label for="visi">Visi <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="misi" name="misi" placeholder="Mission" required></textarea>
+                            <textarea class="form-control" id="misi" name="misi" placeholder="Misi" required></textarea>
                             <label for="misi">Misi <span class="text-danger">*</span></label>
                         </div>
 
@@ -89,32 +94,32 @@ $settings = $settingModel->list();
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="history_company" name="history_company" placeholder="About Company" required></textarea>
+                            <textarea class="form-control" id="history_company" name="history_company" placeholder="History Company" required></textarea>
                             <label for="history_company">History Company <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="about_footer" name="about_footer" placeholder="About Company" required></textarea>
+                            <textarea class="form-control" id="about_footer" name="about_footer" placeholder="About Footer" required></textarea>
                             <label for="about_footer">About Footer <span class="text-danger">*</span></label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Account Number" />
+                            <input type="text" class="form-control" id="facebook" name="facebook" placeholder="Link Facebook" />
                             <label for="facebook">Link Facebook</label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Account Number" />
+                            <input type="text" class="form-control" id="instagram" name="instagram" placeholder="Link Instagram" />
                             <label for="instagram">Link Instagram</label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Account Number" />
+                            <input type="text" class="form-control" id="twitter" name="twitter" placeholder="Link Twitter" />
                             <label for="twitter">Link Twitter</label>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
-                            <input type="text" class="form-control" id="tiktok" name="tiktok" placeholder="Account Number" />
+                            <input type="text" class="form-control" id="tiktok" name="tiktok" placeholder="Link Tiktok" />
                             <label for="tiktok">Link Tiktok</label>
                         </div>
 
@@ -135,16 +140,54 @@ $settings = $settingModel->list();
         element.value = words.join(" ");
     }
 
-    const address = document.querySelector('#address');
-    address.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
+    function autoResizeTextarea(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(function(textarea) {
+            autoResizeTextarea(textarea);
+            textarea.addEventListener('input', function() {
+                autoResizeTextarea(textarea);
+            });
+        });
     });
 
-    const detail = document.querySelector('#detail');
-    detail.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = (this.scrollHeight) + 'px';
+    const address = document.querySelector('#address');
+    address.addEventListener('input', function() {
+        autoResizeTextarea(this);
+    });
+
+    const agreement_2 = document.querySelector('#agreement_2');
+    agreement_2.addEventListener('input', function() {
+        autoResizeTextarea(this);
+    });
+
+    const visi = document.querySelector('#visi');
+    visi.addEventListener('input', function() {
+        autoResizeTextarea(this);
+    });
+
+    const misi = document.querySelector('#misi');
+    misi.addEventListener('input', function() {
+        autoResizeTextarea(this);
+    });
+
+    const about_company = document.querySelector('#about_company');
+    about_company.addEventListener('input', function() {
+        autoResizeTextarea(this);
+    });
+
+    const history_company = document.querySelector('#history_company');
+    history_company.addEventListener('input', function() {
+        autoResizeTextarea(this);
+    });
+
+    const about_footer = document.querySelector('#about_footer');
+    about_footer.addEventListener('input', function() {
+        autoResizeTextarea(this);
     });
 </script>
 

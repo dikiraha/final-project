@@ -88,4 +88,15 @@ class User
         $stmt->execute([$email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getTotalUser()
+    {
+        $query = "SELECT COUNT(*) as total_user 
+                    FROM " . $this->table . " 
+                    WHERE role = 'user'";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_user'] ?? 0;
+    }
 }

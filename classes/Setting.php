@@ -69,11 +69,10 @@ class Setting
     public function update($id, $data)
     {
         $query = "UPDATE " . $this->table . " 
-                SET owner = ?, photo = ?, bank = ?, account_number = ?, account_name = ?, address = ?, email = ?, phone_number_1 = ?, phone_number_2 = ?, agreement_1 = ?, agreement_2 = ?, visi = ?, misi = ?, about_company = ?, history_company = ?, about_footer = ?, facebook = ?, instagram = ?, twitter = ?, tiktok = ? 
-                WHERE id = ?";
+            SET owner = ?, bank = ?, account_number = ?, account_name = ?, address = ?, email = ?, phone_number_1 = ?, phone_number_2 = ?, agreement_1 = ?, agreement_2 = ?, visi = ?, misi = ?, about_company = ?, history_company = ?, about_footer = ?, facebook = ?, instagram = ?, twitter = ?, tiktok = ?";
+
         $params = [
             $data['owner'],
-            $data['profile'],
             $data['bank'],
             $data['account_number'],
             $data['account_name'],
@@ -91,9 +90,16 @@ class Setting
             $data['facebook'],
             $data['instagram'],
             $data['twitter'],
-            $data['tiktok'],
-            $id
+            $data['tiktok']
         ];
+
+        if (isset($data['photo'])) {
+            $query .= ", photo = ?";
+            $params[] = $data['photo'];
+        }
+
+        $query .= " WHERE id = ?";
+        $params[] = $id;
 
         $stmt = $this->conn->prepare($query);
         return $stmt->execute($params);

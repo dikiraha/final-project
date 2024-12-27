@@ -124,6 +124,40 @@ class Car
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result['total_km'] ?? 0; // Gunakan null coalescing operator untuk mencegah null
+        return $result['total_km'] ?? 0;
+    }
+
+    public function bestBooking()
+    {
+        $query = "SELECT car_id, COUNT(*) as booking_count 
+                    FROM tt_bookings 
+                    GROUP BY car_id 
+                    ORDER BY booking_count DESC 
+                    LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $carId = $result['car_id'];
+            $carQuery = "SELECT * FROM " . $this->table . " WHERE id = ?";
+            $carStmt = $this->conn->prepare($carQuery);
+            $carStmt->execute([$carId]);
+            $car = $carStmt->fetch(PDO::FETCH_ASSOC);
+            return $car;
+        }
+
+        return null;
+    }
+
+    public function getTotalRevenueForCurrentMonth($carId)
+    {
+        $query = "SELECT SUM(amount) as total_revenue 
+                    FROM tt_payments 
+                    WHERE car_id = ? AND MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$carId]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total_revenue'] ?? 0;
     }
 }

@@ -71,12 +71,12 @@ pushInlineScript('
                                     <td><?php echo htmlspecialchars($setting['phone_number_1']); ?></td>
                                     <td><?php echo htmlspecialchars($setting['phone_number_2']); ?></td>
                                     <td>
-                                        <a href="?views=setting_detail&id=<?php echo urlencode($setting['id']); ?>" class="btn btn-info btn-xs" data-toggle="tooltip"
+                                        <a href="?views=setting_detail&uuid=<?php echo urlencode($setting['uuid']); ?>" class="btn btn-info btn-xs" data-toggle="tooltip"
                                             title="Detail">
                                             <i class="ri-information-line"></i>
                                         </a>
 
-                                        <a href="?views=setting_edit&id=<?php echo urlencode($setting['id']); ?>" class="btn btn-warning btn-xs" data-toggle="tooltip"
+                                        <a href="?views=setting_edit&uuid=<?php echo urlencode($setting['uuid']); ?>" class="btn btn-warning btn-xs" data-toggle="tooltip"
                                             title="Edit">
                                             <i class="ri-edit-box-line"></i>
                                         </a>
