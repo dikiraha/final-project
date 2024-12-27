@@ -6,7 +6,7 @@ require_once '../../vendor/autoload.php';
 
 use Ramsey\Uuid\Uuid;
 
-$settingModel = new Setting();
+$getSetting = new Setting();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $uuid = Uuid::uuid4()->toString();
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'tiktok' => $_POST['tiktok'],
         ];
 
-        $isCreated = $settingModel->create($data);
+        $isCreated = $getSetting->create($data);
 
         if ($isCreated) {
             $_SESSION['toastr'] = [

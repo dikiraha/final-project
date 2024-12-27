@@ -119,4 +119,11 @@ class Payment
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getPaymentById($id)
+    {
+        $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE booking_id = :id");
+        $query->execute(['id' => $id]);
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
 }

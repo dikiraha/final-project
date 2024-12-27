@@ -167,7 +167,7 @@ $totalKilometers = $carModel->getTotalKilometers();
                         <i class="fas fa-clock fa-2x text-white"></i>
                     </div>
                     <div class="counter-counting my-3">
-                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?= number_format($totalKilometers, 0, ',', '.') ?></span>
+                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?= number_format($totalKilometers) ?></span>
                         <span class="h1 fw-bold text-white">+</span>
                     </div>
                     <h4 class="text-white mb-0">Total kilometer</h4>

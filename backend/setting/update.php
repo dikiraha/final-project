@@ -6,7 +6,7 @@ require_once '../../vendor/autoload.php';
 
 use Ramsey\Uuid\Uuid;
 
-$settingModel = new Setting();
+$getSetting = new Setting();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'];
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $isUpdated = $settingModel->update($id, $data);
+    $isUpdated = $getSetting->update($id, $data);
 
     if ($isUpdated) {
         $_SESSION['toastr'] = [

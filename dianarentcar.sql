@@ -15,6 +15,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 -- Dumping structure for table dianarentcar.tm_cars
+DROP TABLE IF EXISTS `tm_cars`;
 CREATE TABLE IF NOT EXISTS `tm_cars` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(36) NOT NULL,
@@ -50,6 +51,7 @@ INSERT INTO `tm_cars` (`id`, `uuid`, `merk`, `tipe`, `jumlah_kursi`, `jumlah_pin
 	(5, 'c39ad506-79ff-4d9a-8bb0-6c9639a79534', 'Honda', 'Mobilio', 6, 4, 'Putih', 'T 3218 SI', '2022', 21391, 'Pertamax', 1000000, 100000, 'Automatic', 'Active', '676db69ebf003-mobilio.png', 15, NULL, '2024-12-27 03:03:42', '2024-12-27 03:03:42');
 
 -- Dumping structure for table dianarentcar.tm_discounts
+DROP TABLE IF EXISTS `tm_discounts`;
 CREATE TABLE IF NOT EXISTS `tm_discounts` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(40) NOT NULL,
@@ -67,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `tm_discounts` (
 -- Dumping data for table dianarentcar.tm_discounts: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.tm_photos
+DROP TABLE IF EXISTS `tm_photos`;
 CREATE TABLE IF NOT EXISTS `tm_photos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `car_id` int NOT NULL,
@@ -82,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `tm_photos` (
 -- Dumping data for table dianarentcar.tm_photos: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.tm_profiles
+DROP TABLE IF EXISTS `tm_profiles`;
 CREATE TABLE IF NOT EXISTS `tm_profiles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -108,10 +112,9 @@ CREATE TABLE IF NOT EXISTS `tm_profiles` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table dianarentcar.tm_profiles: ~0 rows (approximately)
-INSERT INTO `tm_profiles` (`id`, `uuid`, `user_id`, `address`, `gender`, `photo_profile`, `ktp`, `sim`, `kk`, `buku_nikah`, `akte`, `ijazah`, `id_card`, `surat_keterangan`, `slip_gaji`, `bpjs`, `created_at`, `updated_at`) VALUES
-	(1, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b42', 25, 'Ajo', 'Laki-Laki', 'img.png', 'ktp.pdf', '123', '123', NULL, '123', '123', NULL, NULL, NULL, NULL, '2024-12-26 17:53:09', '2024-12-26 18:03:44');
 
 -- Dumping structure for table dianarentcar.tm_settings
+DROP TABLE IF EXISTS `tm_settings`;
 CREATE TABLE IF NOT EXISTS `tm_settings` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -139,17 +142,18 @@ CREATE TABLE IF NOT EXISTS `tm_settings` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table dianarentcar.tm_settings: ~0 rows (approximately)
+-- Dumping data for table dianarentcar.tm_settings: ~1 rows (approximately)
 INSERT INTO `tm_settings` (`id`, `uuid`, `owner`, `photo`, `bank`, `account_number`, `account_name`, `address`, `email`, `phone_number_1`, `phone_number_2`, `agreement_1`, `agreement_2`, `visi`, `misi`, `about_company`, `history_company`, `about_footer`, `facebook`, `instagram`, `twitter`, `tiktok`, `created_at`, `updated_at`) VALUES
-	(1, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b41', 'Huda', '0035632c-7988-4ed6-9ac3-c77112b73ee0_WhatsApp Image 2024-08-23 at 19.23.49.jpeg', 'Mandiri', '1234567890', 'Diki', 'Perum de Palumbon Residence Blok E No. 18 Jl. Manunggal VII RT. 04/12, Kel. Palumbonsari, Kec. Karawang Timur, Kab. Karawang', 'cs@dianarentcar.my.id', '08561344499', '0895369715444', '1. Wajib KTP\r\n2. KTP, KK', '1. Kendaraan Mobil\r\n2. Kendaraan Sewa', 'Menjadi penyedia layanan sewa mobil terbaik di Indonesia dengan mengutamakan kepuasan pelanggan dan pelayanan yang profesional.', 'Memberikan solusi transportasi yang aman dan nyaman bagi pelanggan, serta memastikan setiap perjalanan menjadi pengalaman yang menyenangkan.', 'Kami adalah perusahaan penyedia layanan sewa mobil dan jasa supir profesional. Dengan pengalaman lebih dari 8 tahun, kami selalu berusaha memberikan kenyamanan dan keamanan terbaik untuk setiap perjalanan Anda. Kami menawarkan berbagai pilihan kendaraan dengan harga terjangkau, serta supir yang berpengalaman dan ramah.', 'Kami percaya bahwa setiap perjalanan membutuhkan kenyamanan dan keandalan. Oleh karena itu, kami selalu memastikan bahwa setiap kendaraan yang kami sediakan dalam kondisi terbaik dan supir kami memiliki pengalaman yang cukup untuk menemani perjalanan Anda. Dengan layanan kami, Anda dapat merasa tenang dan menikmati perjalanan tanpa khawatir.', 'Kami menyediakan layanan penyewaan mobil berkualitas dan jasa supir profesional untuk memenuhi kebutuhan perjalanan Anda. Dengan armada yang terawat dan layanan terbaik, kami siap menemani perjalanan Anda dengan nyaman dan aman.', 'https://www.facebook.com/groups/1244100965622454/user/100009793860190/', 'https://instagram.com', '', '', '2024-12-26 18:29:38', '2024-12-27 10:51:19');
+	(4, '3fca549e-6ead-48d9-ba41-726d8e8dcb60', 'Diki', '3fca549e-6ead-48d9-ba41-726d8e8dcb60_Capture.jpg', 'Maybank', '1232001543', 'M. Diki Dwi Nugraha', 'Perum de Palumbon Residence Blok E No. 18 Jl. Manunggal VII RT. 04/12, Kel. Palumbonsari, Kec. Karawang Timur, Kab. Karawang', 'diki@aiia.co.id', '082125008160', '0881081929629', '<ol style="margin-top: 0cm;" start="1" type="1">\r\n<li class="MsoNormal" style="mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Wajib Memiliki SIM A</li>\r\n<li class="MsoNormal" style="mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">KTP, KK, Buku Nikah, Akte Kelahiran</li>\r\n<li class="MsoNormal" style="mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Ijazah Terakhir Min. SMA / Sederajat</li>\r\n<li class="MsoNormal" style="mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Nyimpan Motor STNK Pajak Hidup Min. Tahun 2018</li>\r\n<li class="MsoNormal" style="mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;">Karyawan ID Card, Surat Pengangkatan / Surat Kontrak, Slip Gaji Terakhir, BPJS Ketenagakerjaan</li>\r\n</ol>', '<p class="MsoNormal"><strong>PENTING DIKETAHUI POIN POIN KETENTUAN SEBAGAI BERIKUT</strong></p>\r\n<ol style="margin-top: 0cm;" start="1" type="1">\r\n<li class="MsoNormal" style="mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;"><strong>Kendaraan Mobil yang disewa oleh penyewa tidak boleh diserahkan atau dipindah tangankan</strong></li>\r\n<li class="MsoNormal" style="mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;"><strong>Kendaraan Monil yang disewa tidak boleh dijadikan jaminan atau digadaikan dengan alasan apapun</strong></li>\r\n<li class="MsoNormal" style="mso-list: l0 level1 lfo1; tab-stops: list 36.0pt;"><strong>Tidak boleh digunakan untuk kegiatan kejahatan atau membantu kegiatan kejahatan dan hal-hal terlarang dalam hukum, baik hukum adat maupun hukum positif yang berlaku di Indonesia</strong></li>\r\n</ol>', '<p><span style="color: #6e7684; font-family: Lato, sans-serif; font-size: 16px; text-align: center; background-color: #f2f2f2;">Menjadi penyedia layanan sewa mobil terbaik di Indonesia dengan mengutamakan kepuasan pelanggan dan pelayanan yang profesional.</span></p>', '<p><span style="color: #6e7684; font-family: Lato, sans-serif; font-size: 16px; text-align: center; background-color: #f2f2f2;">Memberikan solusi transportasi yang aman dan nyaman bagi pelanggan, serta memastikan setiap perjalanan menjadi pengalaman yang menyenangkan.</span></p>', '<p><span style="color: #6e7684; font-family: Lato, sans-serif; font-size: 16px; background-color: #ffffff;">Kami adalah perusahaan penyedia layanan sewa mobil dan jasa supir profesional. Dengan pengalaman lebih dari 8 tahun, kami selalu berusaha memberikan kenyamanan dan keamanan terbaik untuk setiap perjalanan Anda. Kami menawarkan berbagai pilihan kendaraan dengan harga terjangkau, serta supir yang berpengalaman dan ramah.</span></p>', '<p><span style="color: #6e7684; font-family: Lato, sans-serif; font-size: 16px; background-color: #ffffff;">Kami percaya bahwa setiap perjalanan membutuhkan kenyamanan dan keandalan. Oleh karena itu, kami selalu memastikan bahwa setiap kendaraan yang kami sediakan dalam kondisi terbaik dan supir kami memiliki pengalaman yang cukup untuk menemani perjalanan Anda. Dengan layanan kami, Anda dapat merasa tenang dan menikmati perjalanan tanpa khawatir.</span></p>', '<p>Kami menyediakan layanan penyewaan mobil berkualitas dan jasa supir profesional untuk memenuhi kebutuhan perjalanan Anda. Dengan armada yang terawat dan layanan terbaik, kami siap menemani perjalanan Anda dengan nyaman dan aman.</p>', '', '', '', '', '2024-12-27 16:39:25', '2024-12-27 17:34:54');
 
 -- Dumping structure for table dianarentcar.tt_bookings
+DROP TABLE IF EXISTS `tt_bookings`;
 CREATE TABLE IF NOT EXISTS `tt_bookings` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `no_boking` varchar(40) NOT NULL,
+  `no_booking` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `car_id` int NOT NULL,
   `user_id` int NOT NULL,
   `is_driver` int DEFAULT NULL,
@@ -157,9 +161,10 @@ CREATE TABLE IF NOT EXISTS `tt_bookings` (
   `date_start` datetime NOT NULL,
   `date_end` datetime NOT NULL,
   `destination` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `harga` int NOT NULL,
+  `harga_mobil` int NOT NULL,
   `total_harga` int NOT NULL,
-  `denda` int DEFAULT NULL,
+  `denda_mobil` int DEFAULT NULL,
+  `total_denda` int DEFAULT NULL,
   `status` enum('Belum Bayar','Menunggu Konfirmasi','Disetujui','Ditolak','Berjalan','Selesai') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -171,13 +176,15 @@ CREATE TABLE IF NOT EXISTS `tt_bookings` (
   CONSTRAINT `fk_tt_bookings_car_id` FOREIGN KEY (`car_id`) REFERENCES `tm_cars` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_tt_bookings_driver_id` FOREIGN KEY (`driver_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_tt_bookings_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table dianarentcar.tt_bookings: ~0 rows (approximately)
-INSERT INTO `tt_bookings` (`id`, `uuid`, `no_boking`, `car_id`, `user_id`, `is_driver`, `driver_id`, `date_start`, `date_end`, `destination`, `harga`, `total_harga`, `denda`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b4j', 'DRC/BOOK/2412001', 3, 15, 0, NULL, '2024-12-27 17:57:58', '2024-12-28 16:57:59', 'Karawang', 100000, 100000, NULL, 'Selesai', '2024-12-27 10:58:18', '2024-12-27 10:58:18');
+-- Dumping data for table dianarentcar.tt_bookings: ~2 rows (approximately)
+INSERT INTO `tt_bookings` (`id`, `uuid`, `no_booking`, `car_id`, `user_id`, `is_driver`, `driver_id`, `date_start`, `date_end`, `destination`, `harga_mobil`, `total_harga`, `denda_mobil`, `total_denda`, `status`, `created_at`, `updated_at`) VALUES
+	(19, '38a1b575-12c2-45d6-bb47-f6f9458dcbbd', 'DRC/BOOK/2412001', 2, 26, 1, NULL, '2024-12-28 07:27:00', '2024-12-31 07:27:00', 'Bandung', 20000, 510000, 2000, NULL, 'Belum Bayar', '2024-12-27 21:27:30', '2024-12-27 21:27:30'),
+	(20, '1c93fd63-6dc3-4f34-9d5d-9ca423957b02', 'DRC/BOOK/2412002', 2, 26, 1, NULL, '2024-12-28 07:27:00', '2024-12-31 07:27:00', 'Bandung', 20000, 510000, 2000, NULL, 'Belum Bayar', '2024-12-27 21:27:57', '2024-12-27 21:27:57');
 
 -- Dumping structure for table dianarentcar.tt_payments
+DROP TABLE IF EXISTS `tt_payments`;
 CREATE TABLE IF NOT EXISTS `tt_payments` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -198,13 +205,14 @@ CREATE TABLE IF NOT EXISTS `tt_payments` (
   CONSTRAINT `fk_tt_payments_booking_id` FOREIGN KEY (`booking_id`) REFERENCES `tt_bookings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_tt_payments_car_id` FOREIGN KEY (`car_id`) REFERENCES `tm_cars` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_tt_payments_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table dianarentcar.tt_payments: ~0 rows (approximately)
+-- Dumping data for table dianarentcar.tt_payments: ~1 rows (approximately)
 INSERT INTO `tt_payments` (`id`, `uuid`, `booking_id`, `user_id`, `car_id`, `method`, `type`, `amount`, `evidence`, `created_at`, `updated_at`) VALUES
-	(1, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b4v', 1, 25, 3, 'Cash', NULL, 1230000, NULL, '2024-12-27 11:10:38', '2024-12-27 12:35:12');
+	(7, '38b1408d-15a1-463d-aa61-63d960e3797a', 20, 26, 2, 'Cash', NULL, NULL, NULL, '2024-12-27 21:27:57', '2024-12-27 21:27:57');
 
 -- Dumping structure for table dianarentcar.tt_reviews
+DROP TABLE IF EXISTS `tt_reviews`;
 CREATE TABLE IF NOT EXISTS `tt_reviews` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(40) NOT NULL,
@@ -225,6 +233,7 @@ CREATE TABLE IF NOT EXISTS `tt_reviews` (
 -- Dumping data for table dianarentcar.tt_reviews: ~0 rows (approximately)
 
 -- Dumping structure for table dianarentcar.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `uuid` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -239,12 +248,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table dianarentcar.users: ~2 rows (approximately)
+-- Dumping data for table dianarentcar.users: ~3 rows (approximately)
 INSERT INTO `users` (`id`, `uuid`, `name`, `email`, `phone_number`, `role`, `password`, `code`, `is_verified`, `created_at`, `updated_at`) VALUES
 	(15, 'a72c4551-846e-42b8-a0d3-d1417d630050', 'Diki Nugraha', 'admin@admin.com', '082125008160', 'admin', '$2y$10$bBylPZFyCmZKih7jw2.0MepdXwlaYGoRNy.FqCHbYWRI7XrJiY0Xm', NULL, NULL, '2024-12-14 05:16:59', '2024-12-14 05:17:11'),
-	(25, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b47', 'Emul Mulyana', 'emul@drc.com', '082125008160', 'user', '$2y$10$2bopaKjk4yBergNDw7/R9OO0UqvNFSFnrBtpvNjVELPfKUovFU4ye', NULL, NULL, '2024-12-16 13:37:29', '2024-12-16 13:37:29');
+	(25, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b47', 'Emul Mulyana', 'emul@drc.com', '082125008160', 'user', '$2y$10$2bopaKjk4yBergNDw7/R9OO0UqvNFSFnrBtpvNjVELPfKUovFU4ye', NULL, NULL, '2024-12-16 13:37:29', '2024-12-16 13:37:29'),
+	(26, '217b7f23-7013-433e-9d04-a3692547b282', 'Muhammad Diki Dwi Nugraha', 'diki@aiia.co.id', '082125008160', 'user', '$2y$10$TWFdjW9b8GxDepiCe3viOeKRLWhs.yVtrN7LVhMuC/fv7b3sjeeHq', NULL, NULL, '2024-12-27 18:13:25', '2024-12-27 18:13:25');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -1,8 +1,8 @@
 <?php
 require_once 'classes/Setting.php';
 
-$settingModel = new Setting();
-$setting = $settingModel->list()[0]; // Assuming there's only one row in the table
+$getSetting = new Setting();
+$setting = $getSetting->list()[0]; // Assuming there's only one row in the table
 $address = $setting['address'];
 $email = $setting['email'];
 $phone_number_1 = $setting['phone_number_1'];

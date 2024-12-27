@@ -81,6 +81,14 @@ class User
         return $stmt->execute([$uuid]);
     }
 
+    public function getById($id)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getByEmail($email)
     {
         $query = "SELECT * FROM " . $this->table . " WHERE email = ?";

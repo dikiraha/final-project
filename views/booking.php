@@ -8,6 +8,7 @@ $getsetting = new Setting();
 $uuid = $_GET['uuid'];
 $car = $getCar->getDetail($uuid);
 $setting = $getsetting->getFirstSetting();
+$user_id = $_SESSION['user_id'];
 ?>
 
 <div class="container-fluid car pb-5">
@@ -64,53 +65,13 @@ $setting = $getsetting->getFirstSetting();
         </div>
     </div>
 
-    <!-- <div class="row pt-3 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="col-md-12 mb-4">
-            <h4><b>Review Kendaraan</b></h4>
-            <h3 style="display: inline;"><b>4,8</b></h3>
-            <h6 style="display: inline;">/5</h6>
-            <h6 style="display: inline;">dari 100 review</h6>
-            <div class="card p-2 shadow">
-                <div class="row wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="col-md-3">
-                        <div class="categories-img rounded-top text-center">
-                            <img src="./assets/uploads/car/<?php echo htmlspecialchars($car['photo']); ?>" class="img-fluid rounded-top car-image" style="height: 200px; object-fit: cover;" alt="<?php echo htmlspecialchars($car['merk']); ?>">
-                        </div>
-                    </div>
-
-                    <div class="col-md-9">
-                        <div class="form-group">
-                            <b><?php echo htmlspecialchars($car['merk']); ?> <?php echo htmlspecialchars($car['tipe']); ?> <?php echo htmlspecialchars($car['tahun']); ?></b>
-                            <br>
-                            <?php echo htmlspecialchars($car['no_plat']); ?>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <i class="fa fa-users text-dark"></i> 1 - <?php echo htmlspecialchars($car['jumlah_kursi']); ?> Penumpang &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-door-closed text-dark"></i> <?php echo htmlspecialchars($car['jumlah_pintu']); ?> Pintu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-tachometer text-dark"></i> <?php echo formatKm($car['km']); ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <i class="fa-solid fa-gas-pump text-dark"></i> <?php echo htmlspecialchars($car['jenis_bensin']); ?>
-                        </div>
-                        <hr>
-                        <div class="form-group">
-                            <b>
-                                Harga : <?php echo formatRupiah($car['harga']); ?>/Hari <br>
-                                Denda : <?php echo formatRupiah($car['denda']); ?>/Jam
-                            </b>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="row pt-3 wow fadeInUp" data-wow-delay="0.1s">
         <div class="col-md-12 mb-4">
             <h4 class="text-danger"><b><u>*Syarat Lepas Kunci</b></u></h4>
             <div class="card p-2 shadow">
                 <div class="row wow fadeInUp" data-wow-delay="0.1s">
                     <div class="col-md-12">
-                        <?php echo htmlspecialchars($setting['agreement_1']); ?>
+                        <?php echo $setting['agreement_1']; ?>
                     </div>
                 </div>
             </div>
@@ -124,21 +85,31 @@ $setting = $getsetting->getFirstSetting();
             <div class="card p-2 shadow">
                 <div class="row wow fadeInUp" data-wow-delay="0.1s">
                     <div class="col-md-12">
-                        <form action="../backend/booking/store.php" method="POST">
+                        <form action="backend/booking/store.php" method="POST">
+                            <input type="hidden" name="car_id" id="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
+                            <input type="hidden" name="car_uuid" id="car_uuid" value="<?php echo htmlspecialchars($car['uuid']); ?>">
+                            <input type="hidden" name="harga_mobil" id="harga_mobil" value="<?php echo htmlspecialchars($car['harga']); ?>">
+                            <input type="hidden" name="denda_mobil" id="denda_mobil" value="<?php echo htmlspecialchars($car['denda']); ?>">
                             <div class="row g-4 p-3">
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <input type="datetime-local" class="form-control" id="date_start" name="date_start" placeholder="Tanggal Pengambilan" min="07:00" max="22:00" required>
+                                        <input type="datetime-local" class="form-control" id="date_start" name="date_start" placeholder="Tanggal Pengambilan" required>
                                         <label for="date_start">Tanggal Pengambilan <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <input type="datetime-local" class="form-control" id="date_end" name="date_end" placeholder="Tanggal Pengembalian" min="07:00" max="22:00" required>
+                                        <input type="datetime-local" class="form-control" id="date_end" name="date_end" placeholder="Tanggal Pengembalian" required>
                                         <label for="date_end">Tanggal Pengembalian <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-xl-12">
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="destination" name="destination" placeholder="Tujuan Kota" required>
+                                        <label for="destination">Destinasi <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
                                     <label class="form-label">Dengan Supir? <span class="text-danger">*</span></label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="is_driver" id="supir_ya" value="Iya" required>
@@ -171,14 +142,15 @@ $setting = $getsetting->getFirstSetting();
                                 </div>
                                 <div class="col-lg-12 col-xl-6" id="amount-container" style="display: none;">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="amount" name="amount" placeholder="Nominal DP">
+                                        <input type="text" class="form-control" id="amount" name="amount" placeholder="Nominal DP" oninput="formatAmount(this)">
                                         <label for="amount">Nominal DP <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
+                                <input type="hidden" id="amount_hidden" name="amount_hidden">
                                 <div class="col-lg-12 col-xl-12" id="transfer-container" style="display: none;">
                                     <div class="form-floating">
                                         <h5>Transfer</h5>
-                                        <h5>No : <?php echo htmlspecialchars($setting['account_number']); ?></h5>
+                                        <h5>No. Rek. : <?php echo htmlspecialchars($setting['account_number']); ?></h5>
                                         <h5>Bank : <?php echo htmlspecialchars($setting['bank']); ?></h5>
                                         <h5>A/N : <?php echo htmlspecialchars($setting['account_name']); ?></h5>
                                         <h6 class="text-danger"><b>*Screenshot bukti pembayaran, akan ada form input bukti pembayaran setelah submit form ini</b></h6>
@@ -187,12 +159,15 @@ $setting = $getsetting->getFirstSetting();
                                 <div class="col-lg-12 col-xl-12">
                                     <div class="d-flex justify-content-end">
                                         <span>
-                                            <h3 class="text-success"><b>Total Harga : <span id="total_harga">0</span></b></h3>
+                                            <h3 class="text-success"><b>Total Harga : <span id="total_harga_display">0</span></b></h3>
                                         </span>
                                     </div>
                                 </div>
+                                <input type="hidden" name="total_harga" id="total_harga" value="0">
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3">Booking dan Pembayaran</button>
+                                    <button type="button" class="btn btn-primary w-100 py-3" onclick="validateForm()">
+                                        Booking dan Pembayaran
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -201,8 +176,63 @@ $setting = $getsetting->getFirstSetting();
             </div>
         </div>
     </div>
-
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="agreementModal" tabindex="-1" aria-labelledby="agreementModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="agreementModalLabel">Persyaratan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?php echo $setting['agreement_2']; ?>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="checkbox" id="is_agree" name="is_agree" required>
+                    <label class="form-check-label" for="is_agree">
+                        Saya setuju dengan ketentuan yang diberikan
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="confirmAgreement">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        var form = document.querySelector('form');
+        var isValid = form.checkValidity();
+
+        if (isValid) {
+            var modal = new bootstrap.Modal(document.getElementById('agreementModal'));
+            modal.show();
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Mohon isi semua field yang diperlukan.'
+            });
+        }
+    }
+
+    document.getElementById('confirmAgreement').addEventListener('click', function() {
+        var isAgreeChecked = document.getElementById('is_agree').checked;
+        if (isAgreeChecked) {
+            document.querySelector('form').submit();
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Anda harus menyetujui ketentuan yang diberikan.'
+            });
+        }
+    });
+</script>
 
 <script>
     document.getElementById('date_start').addEventListener('input', function(e) {
@@ -258,11 +288,24 @@ $setting = $getsetting->getFirstSetting();
 </script>
 
 <script>
+    function formatAmount(input) {
+        // Remove non-numeric characters
+        let value = input.value.replace(/\D/g, '');
+
+        // Format the number with thousands separators
+        input.value = new Intl.NumberFormat('id-ID').format(value);
+
+        // Update the hidden input field with the raw numeric value
+        document.getElementById('amount_hidden').value = value;
+    }
+</script>
+
+<script>
     function calculateTotalPrice() {
         var dateStart = document.getElementById('date_start').value;
         var dateEnd = document.getElementById('date_end').value;
         var hargaPerHari = <?php echo $car['harga']; ?>;
-        var supirCharge = 150000;
+        var supirChargePerDay = 150000;
         var isDriver = document.querySelector('input[name="is_driver"]:checked').value;
 
         if (dateStart && dateEnd) {
@@ -274,14 +317,16 @@ $setting = $getsetting->getFirstSetting();
             if (daysDiff > 0) {
                 var totalPrice = daysDiff * hargaPerHari;
                 if (isDriver === 'Iya') {
-                    totalPrice += supirCharge;
+                    totalPrice += daysDiff * supirChargePerDay;
                 }
-                document.getElementById('total_harga').innerText = totalPrice.toLocaleString('id-ID', {
+                document.getElementById('total_harga_display').innerText = totalPrice.toLocaleString('id-ID', {
                     style: 'currency',
                     currency: 'IDR'
                 });
+                document.getElementById('total_harga').value = totalPrice; // Update hidden input field
             } else {
-                document.getElementById('total_harga').innerText = '0';
+                document.getElementById('total_harga_display').innerText = '0';
+                document.getElementById('total_harga').value = '0'; // Update hidden input field
             }
         }
     }
@@ -290,5 +335,39 @@ $setting = $getsetting->getFirstSetting();
     document.getElementById('date_end').addEventListener('input', calculateTotalPrice);
     document.querySelectorAll('input[name="is_driver"]').forEach(function(elem) {
         elem.addEventListener('change', calculateTotalPrice);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = (now.getMonth() + 1).toString().padStart(2, '0');
+        var day = now.getDate().toString().padStart(2, '0');
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+
+        var currentDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+
+        document.getElementById('date_start').setAttribute('min', currentDateTime);
+        document.getElementById('date_end').setAttribute('min', currentDateTime);
+
+        function validateTimeRange(event) {
+            var dateTime = new Date(event.target.value);
+            var hours = dateTime.getHours();
+            var minutes = dateTime.getMinutes();
+
+            if ((hours > 22 || (hours === 22 && minutes > 0)) || (hours < 7)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Waktu harus antara 07:00 sampai 22:00.'
+                });
+                event.target.value = '';
+            }
+        }
+
+        document.getElementById('date_start').addEventListener('change', validateTimeRange);
+        document.getElementById('date_end').addEventListener('change', validateTimeRange);
     });
 </script>

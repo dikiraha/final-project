@@ -1,9 +1,9 @@
 <?php
 require_once '../classes/Setting.php';
 
-$settingModel = new Setting();
+$getSetting = new Setting();
 
-$settings = $settingModel->list();
+$settings = $getSetting->list();
 $no = 1;
 ?>
 

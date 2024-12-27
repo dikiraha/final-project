@@ -160,4 +160,11 @@ class Car
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_revenue'] ?? 0;
     }
+
+    public function getCarById($id)
+    {
+        $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE id = :id");
+        $query->execute(['id' => $id]);
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
 }

@@ -24,8 +24,11 @@ if (isset($_GET['views'])) {
         case 'booking':
             include "views/booking.php";
             break;
-        case 'cart':
-            include "views/cart.php";
+        case 'transaction':
+            include "views/transaction.php";
+            break;
+        case 'transaction_list':
+            include "views/transaction_list.php";
             break;
         default:
             include "views/error.php";

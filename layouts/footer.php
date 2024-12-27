@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . '/../classes/Setting.php';
 
-$settingModel = new Setting();
-$setting = $settingModel->list()[0]; // Assuming there's only one row in the table
+$getSetting = new Setting();
+$setting = $getSetting->list()[0]; // Assuming there's only one row in the table
 $about_footer = $setting['about_footer'];
 $address = $setting['address'];
 $email = $setting['email'];
@@ -21,7 +21,7 @@ $tiktok = $setting['tiktok'];
                 <div class="footer-item d-flex flex-column">
                     <div class="footer-item">
                         <h4 class="text-white mb-4">About</h4>
-                        <p class="mb-3"><?php echo htmlspecialchars($about_footer); ?></p>
+                        <p class="mb-3"><?php echo $setting['about_footer']; ?></p>
                     </div>
                 </div>
             </div>

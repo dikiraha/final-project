@@ -1,7 +1,7 @@
 <?php
 require_once '../classes/Setting.php';
 
-$settingModel = new Setting();
+$getSetting = new Setting();
 
 if (!isset($_GET['uuid'])) {
     header('Location: ?views=setting_list');
@@ -9,7 +9,7 @@ if (!isset($_GET['uuid'])) {
 }
 
 $uuid = $_GET['uuid'];
-$setting = $settingModel->edit($uuid);
+$setting = $getSetting->edit($uuid);
 
 if (!$setting) {
     header('Location: ?views=setting_list');

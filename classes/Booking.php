@@ -19,7 +19,7 @@ class Booking
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getDetail($uuid)
+    public function getBookingByUuid($uuid)
     {
         $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE uuid = :uuid");
         $query->execute(['uuid' => $uuid]);
@@ -37,7 +37,7 @@ class Booking
     public function create($data)
     {
         $query = "INSERT INTO " . $this->table . " (
-        uuid, no_booking, car_id, user_id, is_driver, driver_id, date_start, date_end, destination, total_harga, harga, denda, status
+        uuid, no_booking, car_id, user_id, is_driver, driver_id, date_start, date_end, destination, total_harga, harga_mobil, denda_mobil, status
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([
@@ -51,8 +51,8 @@ class Booking
             $data['date_end'],
             $data['destination'],
             $data['total_harga'],
-            $data['harga'],
-            $data['denda'],
+            $data['harga_mobil'],
+            $data['denda_mobil'],
             $data['status'],
         ]);
     }
@@ -70,8 +70,8 @@ class Booking
             date_end = ?, 
             destination = ?, 
             total_harga = ?, 
-            harga = ?, 
-            denda = ?, 
+            harga_mobil = ?, 
+            denda_mobil = ?, 
             status = ?, 
         WHERE uuid = ?";
         $stmt = $this->conn->prepare($query);
@@ -86,8 +86,8 @@ class Booking
             $data['date_end'],
             $data['destination'],
             $data['total_harga'],
-            $data['harga'],
-            $data['denda'],
+            $data['harga_mobil'],
+            $data['denda_mobil'],
             $data['status'],
             $uuid
         ]);
@@ -109,5 +109,22 @@ class Booking
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_completed'] ?? 0;
+    }
+
+    public function getNoBooking()
+    {
+        $currentYear = date('y');
+        $currentMonth = date('m');
+
+        $query = "SELECT no_booking FROM " . $this->table . " WHERE no_booking LIKE 'DRC/BOOK/$currentYear$currentMonth%' ORDER BY no_booking DESC LIMIT 1";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getBookingsByUserId($user_id)
+    {
+        $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE user_id = :user_id");
+        $query->execute(['user_id' => $user_id]);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }

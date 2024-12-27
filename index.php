@@ -30,34 +30,27 @@ session_start();
     <!-- Customized Bootstrap Stylesheet -->
     <link href="assets/web/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Materio CSS -->
-    <!-- <link rel="stylesheet" href="assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="assets/css/demo.css" /> -->
-
     <!-- Template Stylesheet -->
     <link href="assets/web/css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+
+    <!-- SweetAlert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.dataTables.min.css">
 
     <style>
-        /* Navbar dengan gradasi warna dan pemisah */
         .nav-bar {
             background: linear-gradient(to bottom, #ffffff, #f0f0f0);
-            /* Gradasi warna dari putih ke abu muda */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            /* Efek bayangan untuk pemisah */
         }
 
-        /* Menambahkan border bawah agar lebih jelas */
         .navbar {
             border-bottom: 2px solid #ddd;
-            /* Border bawah yang tipis untuk pemisah */
         }
     </style>
-    <!-- Tempat untuk CSS tambahan -->
-    <?php
-    if (isset($_GET['views']) == 'home') {
-    }
-    ?>
 </head>
 
 <body>
@@ -93,8 +86,28 @@ session_start();
     <script src="assets/web/lib/counterup/counterup.min.js"></script>
     <script src="assets/web/lib/owlcarousel/owl.carousel.min.js"></script>
 
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Template Javascript -->
     <script src="assets/web/js/main.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#transactionListTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "info": true,
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -1,9 +1,9 @@
 <?php
 require_once '../classes/Setting.php';
 
-$settingModel = new Setting();
+$getSetting = new Setting();
 
-$settings = $settingModel->list();
+$settings = $getSetting->list();
 
 // if (!empty($settings)) {
 //     include "./pages/setting/list.php";
@@ -68,39 +68,39 @@ $settings = $settingModel->list();
                             <label for="phone_number_2">Nomor Handphone 2</label>
                         </div>
 
-                        <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="agreement_1" name="agreement_1" placeholder="Syarat Lepas Kunci" required></textarea>
-                            <label for="agreement_1">Syarat Lepas Kunci <span class="text-danger">*</span></label>
+                        <div class="form-group mb-3">
+                            <label for="agreement_1"><b>Syarat Lepas Kunci</b> <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="agreement_1" name="agreement_1" placeholder="Syarat Lepas Kunci"></textarea>
                         </div>
 
-                        <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="agreement_2" name="agreement_2" placeholder="Poin Ketentuan" required></textarea>
-                            <label for="agreement_2">Poin Ketentuan <span class="text-danger">*</span></label>
+                        <div class="form-group mb-3">
+                            <label for="agreement_2"><b>Poin Ketentuan</b> <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="agreement_2" name="agreement_2" placeholder="Poin Ketentuan"></textarea>
                         </div>
 
-                        <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="visi" name="visi" placeholder="Visi" required></textarea>
-                            <label for="visi">Visi <span class="text-danger">*</span></label>
+                        <div class="form-group mb-3">
+                            <label for="visi"><b>Visi</b> <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="visi" name="visi" placeholder="Visi"></textarea>
                         </div>
 
-                        <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="misi" name="misi" placeholder="Misi" required></textarea>
-                            <label for="misi">Misi <span class="text-danger">*</span></label>
+                        <div class="form-group mb-3">
+                            <label for="misi"><b>Misi</b> <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="misi" name="misi" placeholder="Misi"></textarea>
                         </div>
 
-                        <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="about_company" name="about_company" placeholder="About Company" required></textarea>
-                            <label for="about_company">About Company <span class="text-danger">*</span></label>
+                        <div class="form-group mb-3">
+                            <label for="about_company"><b>About Company</b> <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="about_company" name="about_company" placeholder="About Company"></textarea>
                         </div>
 
-                        <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="history_company" name="history_company" placeholder="History Company" required></textarea>
-                            <label for="history_company">History Company <span class="text-danger">*</span></label>
+                        <div class="form-group mb-3">
+                            <label for="history_company"><b>History Company</b> <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="history_company" name="history_company" placeholder="History Company"></textarea>
                         </div>
 
-                        <div class="form-floating form-floating-outline mb-3">
-                            <textarea class="form-control" id="about_footer" name="about_footer" placeholder="About Footer" required></textarea>
-                            <label for="about_footer">About Footer <span class="text-danger">*</span></label>
+                        <div class="form-group mb-3">
+                            <label for="about_footer"><b>About Footer</b> <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="about_footer" name="about_footer" placeholder="About Footer"></textarea>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
@@ -214,3 +214,22 @@ $settings = $settingModel->list();
             "See docs to implement AI Assistant")),
     });
 </script> -->
+
+<!-- Include TinyMCE script -->
+<script src="https://cdn.tiny.cloud/1/sz1oi6o8pq1cfgze3fc0htsn882dirr9kgsabr33bapngybz/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Initialize TinyMCE -->
+<script>
+    tinymce.init({
+        selector: '#agreement_1, #agreement_2, #visi, #misi, #about_company, #history_company, #about_footer',
+        menubar: true,
+        plugins: 'lists link image preview',
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | preview'
+    });
+</script>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function() {
+        document.getElementById('about_footer').style.display = 'block';
+    });
+</script>
