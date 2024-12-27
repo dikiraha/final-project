@@ -20,7 +20,7 @@ $user_id = $_SESSION['user_id'];
     </div>
     <div class="row pt-3 wow fadeInUp" data-wow-delay="0.1s">
         <div class="col-md-12 mb-4">
-            <h4><b>Detail Kendaraan</b></h4>
+            <h3 style="display: inline;"><b>Detail Kendaraan</b></h3>
             <div class="card p-2 shadow">
                 <div class="row wow fadeInUp" data-wow-delay="0.1s">
                     <div class="col-md-3">
@@ -67,7 +67,8 @@ $user_id = $_SESSION['user_id'];
 
     <div class="row pt-3 wow fadeInUp" data-wow-delay="0.1s">
         <div class="col-md-12 mb-4">
-            <h4 class="text-danger"><b><u>*Syarat Lepas Kunci</b></u></h4>
+            <h3 style="display: inline;" class="text-danger"><b><u>Syarat Lepas Kunci</b></u></h3>
+            <h6 style="display: inline;" class="text-danger"> *pastikan sudah login dan melengkapi data persyaratan</h6>
             <div class="card p-2 shadow">
                 <div class="row wow fadeInUp" data-wow-delay="0.1s">
                     <div class="col-md-12">
@@ -80,8 +81,7 @@ $user_id = $_SESSION['user_id'];
 
     <div class="row pt-3 wow fadeInUp" data-wow-delay="0.1s">
         <div class="col-md-12 mb-4">
-            <h4 style="display: inline;"><b>Penyewaan</h4>
-            <h6 style="display: inline;" class="text-danger"> *pastikan sudah login</h6>
+            <h3 style="display: inline;"><b>Penyewaan</h3>
             <div class="card p-2 shadow">
                 <div class="row wow fadeInUp" data-wow-delay="0.1s">
                     <div class="col-md-12">
@@ -215,7 +215,7 @@ $user_id = $_SESSION['user_id'];
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Mohon isi semua field yang diperlukan.'
+                text: 'Mohon isi semua data.'
             });
         }
     }
@@ -289,13 +289,10 @@ $user_id = $_SESSION['user_id'];
 
 <script>
     function formatAmount(input) {
-        // Remove non-numeric characters
         let value = input.value.replace(/\D/g, '');
 
-        // Format the number with thousands separators
         input.value = new Intl.NumberFormat('id-ID').format(value);
 
-        // Update the hidden input field with the raw numeric value
         document.getElementById('amount_hidden').value = value;
     }
 </script>
@@ -323,10 +320,10 @@ $user_id = $_SESSION['user_id'];
                     style: 'currency',
                     currency: 'IDR'
                 });
-                document.getElementById('total_harga').value = totalPrice; // Update hidden input field
+                document.getElementById('total_harga').value = totalPrice;
             } else {
                 document.getElementById('total_harga_display').innerText = '0';
-                document.getElementById('total_harga').value = '0'; // Update hidden input field
+                document.getElementById('total_harga').value = '0';
             }
         }
     }
