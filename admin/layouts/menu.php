@@ -61,6 +61,25 @@ if (isset($_GET['views'])) {
                 include "./pages/error.php";
             }
             break;
+        case 'transaction_list':
+            include "./pages/transaction/list.php";
+            break;
+        case 'transaction_edit':
+            if (isset($_GET['uuid'])) {
+                $uuid = $_GET['uuid'];
+                include "./pages/transaction/edit.php";
+            } else {
+                include "./pages/error.php";
+            }
+            break;
+        case 'transaction_detail':
+            if (isset($_GET['uuid'])) {
+                $uuid = $_GET['uuid'];
+                include "./pages/transaction/detail.php";
+            } else {
+                include "./pages/error.php";
+            }
+            break;
         default:
             include "./pages/error.php";
     }

@@ -26,7 +26,7 @@ $getCar = new Car();
 $car = $getCar->getCarById($booking['car_id']);
 
 $getPayment = new Payment();
-$payment = $getPayment->getPaymentById($booking['id']);
+$payment = $getPayment->getPaymentByBookingId($booking['id']);
 
 $getProfile = new Profile();
 $profile = $getProfile->getByUserId($booking['user_id']);

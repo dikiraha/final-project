@@ -43,7 +43,7 @@ $no = 1;
                             <?php foreach ($bookings as $booking): ?>
                                 <?php
                                 $car = $getCar->getCarById($booking['car_id']);
-                                $payment = $getPayment->getPaymentById($booking['id']);
+                                $payment = $getPayment->getPaymentByBookingId($booking['id']);
                                 ?>
                                 <tr>
                                     <td class="text-center"><?php echo $no++; ?></td>
@@ -69,14 +69,24 @@ $no = 1;
                                     <td><span class="badge bg-<?php echo $color; ?>"><?php echo htmlspecialchars($booking['status']); ?></span></td>
                                     <td>
                                         <div class="d-flex justify-content-between">
-                                            <a href="?views=transaction&uuid=<?php echo htmlspecialchars($booking['uuid']); ?>" class="btn btn-primary btn-sm mx-1 d-flex align-items-center justify-content-center">Detail</a>
+                                            <a href="?views=transaction&uuid=<?php echo htmlspecialchars($booking['uuid']); ?>" class="btn btn-primary btn-sm mx-1 d-flex align-items-center justify-content-center m-3">Detail</a>
                                             <?php if ($payment['method'] == 'Transfer'): ?>
-                                                <button type="button"
-                                                    class="btn btn-success btn-sm mx-1 d-flex align-items-center justify-content-center btn-evidence"
-                                                    data-uuid="<?php echo urlencode($payment['uuid']); ?>"
-                                                    data-bs-toggle="modal" data-bs-target="#evidenceModal">
-                                                    Kirim bukti transfer
-                                                </button>
+                                                <?php if (!empty($payment['evidence_file'])): ?>
+                                                    <button type="button"
+                                                        class="btn btn-info btn-sm mx-1 d-flex align-items-center justify-content-center btn-view-evidence"
+                                                        data-uuid="<?php echo urlencode($payment['uuid']); ?>"
+                                                        data-file="<?php echo htmlspecialchars($payment['evidence_file']); ?>"
+                                                        data-bs-toggle="modal" data-bs-target="#viewEvidenceModal">
+                                                        Lihat Bukti
+                                                    </button>
+                                                <?php else: ?>
+                                                    <button type="button"
+                                                        class="btn btn-success btn-sm mx-1 d-flex align-items-center justify-content-center btn-evidence"
+                                                        data-uuid="<?php echo urlencode($payment['uuid']); ?>"
+                                                        data-bs-toggle="modal" data-bs-target="#evidenceModal">
+                                                        Kirim bukti transfer
+                                                    </button>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         </div>
                                     </td>
@@ -115,6 +125,22 @@ $no = 1;
     </div>
 </div>
 
+<div class="modal fade" id="viewEvidenceModal" tabindex="-1" aria-labelledby="viewEvidenceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewEvidenceModalLabel">Lihat Bukti Transfer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <div id="evidenceContent"></div>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const modalElement = document.getElementById('evidenceModal');
@@ -126,6 +152,33 @@ $no = 1;
                 const uuid = button.getAttribute('data-uuid');
                 modalUuidInput.value = uuid;
             });
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var viewEvidenceButtons = document.querySelectorAll('.btn-view-evidence');
+        viewEvidenceButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var file = button.getAttribute('data-file');
+                var evidenceContent = document.getElementById('evidenceContent');
+                evidenceContent.innerHTML = '';
+
+                if (file.endsWith('.pdf')) {
+                    evidenceContent.innerHTML = '<embed src="assets/uploads/evidence/' + file + '" type="application/pdf" width="100%" height="600px" />';
+                } else {
+                    evidenceContent.innerHTML = '<img src="assets/uploads/evidence/' + file + '" class="img-fluid" />';
+                }
+            });
+        });
+
+        var evidenceModal = document.getElementById('evidenceModal');
+        evidenceModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var uuid = button.getAttribute('data-uuid');
+            var modalUuidInput = document.getElementById('modalUuid');
+            modalUuidInput.value = uuid;
         });
     });
 </script>

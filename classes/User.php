@@ -110,4 +110,11 @@ class User
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_user'] ?? 0;
     }
+
+    public function getDrivers()
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE role = 'driver'";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

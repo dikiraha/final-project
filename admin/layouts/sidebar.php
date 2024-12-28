@@ -18,6 +18,9 @@ if (isset($_GET['views'])) {
         case 'transaction_list':
             $transaction_list = true;
             break;
+        case 'transaction_detail':
+            $transaction_detail = true;
+            break;
         case 'report_list':
             $report_list = true;
             break;
@@ -87,13 +90,20 @@ if (isset($_GET['views'])) {
         <li class="menu-header mt-7">
             <span class="menu-header-text">Apps &amp; Pages</span>
         </li>
-        <li class="menu-item <?= $transaction_list ? 'active' : '' ?>">
+        <li class="menu-item <?= $transaction_list || $transaction_detail ? 'active' : '' ?>">
             <a
                 href="?views=transaction_list"
                 class="menu-link">
                 <i class="menu-icon tf-icons ri-coupon-line"></i>
                 <div data-i18n="Transaksi">Transaksi</div>
-                <div class="badge bg-danger fs-tiny rounded-pill ms-auto">1</div>
+                <?php
+                require_once '../classes/Booking.php';
+
+                $bookingModel = new Booking();
+
+                $totalBookings = $bookingModel->getTotalBookings();
+                ?>
+                <div class="badge bg-danger fs-tiny rounded-pill ms-auto"><?php echo htmlspecialchars($totalBookings); ?></div>
             </a>
         </li>
 

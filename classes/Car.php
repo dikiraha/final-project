@@ -152,9 +152,13 @@ class Car
 
     public function getTotalRevenueForCurrentMonth($carId)
     {
-        $query = "SELECT SUM(amount) as total_revenue 
+        $query = "SELECT SUM(tt_payments.amount) + SUM(tt_bookings.total_denda) as total_revenue 
                     FROM tt_payments 
-                    WHERE car_id = ? AND MONTH(created_at) = MONTH(CURRENT_DATE()) AND YEAR(created_at) = YEAR(CURRENT_DATE())";
+                    INNER JOIN tt_bookings ON tt_payments.booking_id = tt_bookings.id
+                    WHERE tt_payments.car_id = ? 
+                    AND MONTH(tt_payments.created_at) = MONTH(CURRENT_DATE()) 
+                    AND YEAR(tt_payments.created_at) = YEAR(CURRENT_DATE())
+                    AND tt_bookings.status = 'Selesai'";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$carId]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

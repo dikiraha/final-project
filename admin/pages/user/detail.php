@@ -22,93 +22,142 @@ $profile = $getProfile->getByUserId($user['id']);
                         </a>
                     </small>
                 </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <p class="form-control-plaintext"><?php echo htmlspecialchars($user['name']); ?></p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <p class="form-control-plaintext"><?php echo htmlspecialchars($user['email']); ?></p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="phone_number" class="form-label">No. Handphone</label>
-                        <p class="form-control-plaintext"><?php echo htmlspecialchars($user['phone_number']); ?></p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Role</label>
-                        <p class="form-control-plaintext"><?php echo htmlspecialchars($user['role']); ?></p>
-                    </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-borderless table-striped table-hover" width="100">
+                        <tbody>
+                            <tr>
+                                <td><b>Nama Lengkap</b></td>
+                                <td>: <?php echo htmlspecialchars($user['name']); ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>Email</b></td>
+                                <td>: <?php echo htmlspecialchars($user['email']); ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>No Handphone</b></td>
+                                <td>: <?php echo htmlspecialchars($user['phone_number']); ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>Role</b></td>
+                                <td>: <?php echo htmlspecialchars($user['role']); ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <?php if ($profile): ?>
                         <h5 class="mt-4">Profile Information</h5>
+                        <?php
+                        function renderDocumentModal($type, $filePath)
+                        {
+                            if (empty($filePath)) {
+                                echo "-";
+                                return;
+                            }
 
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <p class="form-control-plaintext"><?php echo htmlspecialchars($profile['address']); ?></p>
-                        </div>
+                            $fileName = htmlspecialchars($filePath);
+                            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+                            $modalId = $type . 'Modal';
+                            $modalLabel = ucfirst($type) . ' Document';
 
-                        <div class="mb-3">
-                            <label for="gender" class="form-label">Gender</label>
-                            <p class="form-control-plaintext"><?php echo htmlspecialchars($profile['gender']); ?></p>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="photo_profile" class="form-label">Photo Profile</label>
-                            <p class="form-control-plaintext">
-                                <img src="../uploads/<?php echo htmlspecialchars($profile['photo_profile']); ?>" alt="Profile Photo" width="100">
-                            </p>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="ktp" class="form-label">KTP</label>
-                            <p class="form-control-plaintext">
-                                <?php
-                                $ktpFile = htmlspecialchars($profile['ktp']);
-                                $fileExtension = pathinfo($ktpFile, PATHINFO_EXTENSION);
-                                if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
-                                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#ktpModalImage">View KTP</button>
-
-                            <div class="modal fade" id="ktpModalImage" tabindex="-1" aria-labelledby="ktpModalImageLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ktpModalImageLabel">KTP Image</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img src="../assets/uploads/ktp/<?php echo $ktpFile; ?>" alt="KTP" class="img-fluid">
+                            if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif'])) {
+                                echo "<button type='button' class='btn btn-info' data-bs-toggle='modal' data-bs-target='#{$modalId}'>View</button>";
+                                echo "<div class='modal fade' id='{$modalId}' tabindex='-1' aria-labelledby='{$modalId}Label' aria-hidden='true'>
+                                    <div class='modal-dialog modal-dialog-centered'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <h5 class='modal-title' id='{$modalId}Label'>{$modalLabel}</h5>
+                                                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                            </div>
+                                            <div class='modal-body'>
+                                                <img src='../assets/uploads/{$type}/{$fileName}' alt='{$type}' class='img-fluid'>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        <?php elseif (strtolower($fileExtension) === 'pdf'): ?>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#ktpModalPDF">View KTP</button>
-
-                            <div class="modal fade" id="ktpModalPDF" tabindex="-1" aria-labelledby="ktpModalPDFLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ktpModalPDFLabel">KTP PDF</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <iframe src="../assets/uploads/ktp/<?php echo $ktpFile; ?>" width="100%" height="500px" frameborder="0"></iframe>
+                                </div>";
+                            } elseif ($fileExtension === 'pdf') {
+                                echo "<button type='button' class='btn btn-info' data-bs-toggle='modal' data-bs-target='#{$modalId}'>View</button>";
+                                echo "<div class='modal fade' id='{$modalId}' tabindex='-1' aria-labelledby='{$modalId}Label' aria-hidden='true'>
+                                    <div class='modal-dialog modal-dialog-centered modal-lg'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <h5 class='modal-title' id='{$modalId}Label'>{$modalLabel}</h5>
+                                                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                            </div>
+                                            <div class='modal-body'>
+                                                <iframe src='../assets/uploads/{$type}/{$fileName}' width='100%' height='500px' frameborder='0'></iframe>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        <?php else: ?>
-                            <p>Unsupported file type.</p>
-                        <?php endif; ?>
-                        </p>
-                        </div>
-
-                        <!-- Add other fields similarly -->
-
+                                </div>";
+                            } else {
+                                echo "<p>Unsupported file type.</p>";
+                            }
+                        }
+                        ?>
+                        <table class="table table-borderless table-striped table-hover" width="100">
+                            <tbody>
+                                <tr>
+                                    <td><b>Alamat</b></td>
+                                    <td>: <?php echo htmlspecialchars($profile['address']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Jenis Kelamin</b></td>
+                                    <td>: <?php echo htmlspecialchars($profile['gender']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>No Handphone</b></td>
+                                    <td>: <?php echo htmlspecialchars($user['phone_number']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Photo Profile</b></td>
+                                    <td>: <img src="../assets/uploads/photo_profile/<?php echo htmlspecialchars($profile['photo_profile']); ?>" alt="Profile Photo" width="100"></td>
+                                </tr>
+                                <tr>
+                                    <td><b>KTP</b></td>
+                                    <td>: <?php renderDocumentModal('ktp', $profile['ktp']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>SIM A</b></td>
+                                    <td>: <?php renderDocumentModal('sim', $profile['sim']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>KK</b></td>
+                                    <td>: <?php renderDocumentModal('kk', $profile['kk']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Buku Nikah</b></td>
+                                    <td>: <?php renderDocumentModal('buku_nikah', $profile['buku_nikah']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Akte Kelahiran</b></td>
+                                    <td>: <?php renderDocumentModal('akte', $profile['akte']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Ijazah Terakhir Min. SMA / Sederajat</b></td>
+                                    <td>: <?php renderDocumentModal('ijazah', $profile['ijazah']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>ID Card Karyawan</b></td>
+                                    <td>: <?php renderDocumentModal('id_card', $profile['id_card']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Surat Pengangkatan / Surat Kontrak</b></td>
+                                    <td>: <?php renderDocumentModal('id_card', $profile['id_card']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Slip Gaji</b></td>
+                                    <td>: <?php renderDocumentModal('slip_gaji', $profile['slip_gaji']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Slip Gaji</b></td>
+                                    <td>: <?php renderDocumentModal('slip_gaji', $profile['slip_gaji']); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><b>BPJS Ketenagakerjaan</b></td>
+                                    <td>: <?php renderDocumentModal('bpjs', $profile['bpjs']); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     <?php else: ?>
                         <p>No profile information available.</p>
                     <?php endif; ?>

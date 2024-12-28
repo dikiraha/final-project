@@ -217,7 +217,8 @@ if (isset($_SESSION['user_id'])) {
         // Check if the user is logged in
         var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
 
-        var isProfile = <?php echo $profile ? 'true' : 'false'; ?>;
+        // Check if the profile is complete
+        var isProfile = <?php echo isset($profile) && $profile ? 'true' : 'false'; ?>;
 
         if (!isLoggedIn) {
             Swal.fire({

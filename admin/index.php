@@ -120,6 +120,12 @@ $contentFile = $page . '.php';
         echo "</style>\n";
     }
     ?>
+
+    <style>
+        .no-wrap {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 
 <body>

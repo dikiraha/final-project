@@ -37,7 +37,7 @@ class Payment
     public function create($data)
     {
         $query = "INSERT INTO " . $this->table . " (
-        uuid, booking_id, car_id, user_id, method, type, amount, evidence
+        uuid, booking_id, car_id, user_id, method, type, amount, evidence_file
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute([
@@ -48,34 +48,52 @@ class Payment
             $data['method'],
             $data['type'],
             $data['amount'],
-            $data['evidence'],
+            $data['evidence_file'],
         ]);
     }
 
+    // public function update($uuid, $data)
+    // {
+    //     $query = "UPDATE " . $this->table . " SET 
+    //         photo = ?, 
+    //         booking_id = ?, 
+    //         car_id = ?, 
+    //         user_id = ?, 
+    //         method = ?, 
+    //         type = ?, 
+    //         amount = ?, 
+    //         evidence = ?, 
+    //     WHERE uuid = ?";
+    //     $stmt = $this->conn->prepare($query);
+    //     return $stmt->execute([
+    //         $data['photo'],
+    //         $data['booking_id'],
+    //         $data['car_id'],
+    //         $data['user_id'],
+    //         $data['method'],
+    //         $data['type'],
+    //         $data['amount'],
+    //         $data['evidence'],
+    //         $uuid
+    //     ]);
+    // }
+
     public function update($uuid, $data)
     {
-        $query = "UPDATE " . $this->table . " SET 
-            photo = ?, 
-            booking_id = ?, 
-            car_id = ?, 
-            user_id = ?, 
-            method = ?, 
-            type = ?, 
-            amount = ?, 
-            evidence = ?, 
-        WHERE uuid = ?";
+        $setClause = [];
+        $params = [];
+
+        foreach ($data as $column => $value) {
+            $setClause[] = "$column = ?";
+            $params[] = $value;
+        }
+
+        $params[] = $uuid;
+        $setClause = implode(', ', $setClause);
+
+        $query = "UPDATE " . $this->table . " SET $setClause WHERE uuid = ?";
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([
-            $data['photo'],
-            $data['booking_id'],
-            $data['car_id'],
-            $data['user_id'],
-            $data['method'],
-            $data['type'],
-            $data['amount'],
-            $data['evidence'],
-            $uuid
-        ]);
+        return $stmt->execute($params);
     }
 
     public function delete($uuid)
@@ -98,7 +116,8 @@ class Payment
 
     public function getTotalAmount()
     {
-        $sql = "SELECT SUM(amount) AS total_amount FROM " . $this->table . " 
+        $sql = "SELECT SUM(tt_payments.amount) + SUM(tt_bookings.total_denda) AS total_amount 
+            FROM " . $this->table . " 
             INNER JOIN tt_bookings ON tt_bookings.id = " . $this->table . ".booking_id 
             WHERE tt_bookings.status = 'Selesai'";
 
@@ -120,10 +139,17 @@ class Payment
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getPaymentById($id)
+    public function getPaymentByBookingId($id)
     {
         $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE booking_id = :id");
         $query->execute(['id' => $id]);
         return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateEvidence($data)
+    {
+        $query = "UPDATE tt_payments SET evidence_file = ? WHERE uuid = ?";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute([$data['evidence_file'], $data['uuid']]);
     }
 }
