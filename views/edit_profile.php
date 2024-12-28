@@ -26,41 +26,41 @@ $profile = $getProfile->getByUserId($user['id']);
             <div class="card p-2 shadow">
                 <div class="row wow fadeInUp" data-wow-delay="0.1s">
                     <div class="col-md-12">
-                        <form action="backend/user/update_profile.php" method="POST">
+                        <form action="backend/user/update_profile.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="uuid" id="uuid" value="<?php echo htmlspecialchars($user['uuid']); ?>">
                             <div class="row g-4 p-3">
                                 <div class="col-lg-12 col-xl-4">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name'] ?? ''); ?>" required>
                                         <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-4">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" required>
                                         <label for="email">Email <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-4">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="phone_number" name="phone_number" value="<?php echo htmlspecialchars($user['phone_number']); ?>" maxlength="15" required>
+                                        <input type="text" class="form-control" id="phone_number" name="phone_number" value="<?php echo htmlspecialchars($user['phone_number'] ?? ''); ?>" maxlength="15" required>
                                         <label for="phone_number">No Handphone <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-12">
                                     <div class="form-floating">
-                                        <textarea name="address" id="address" class="form-control" required><?php echo htmlspecialchars($profile['address']); ?></textarea>
+                                        <textarea name="address" id="address" class="form-control" required><?php echo htmlspecialchars($profile['address'] ?? ''); ?></textarea>
                                         <label for="address">Alamat Lengkap <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-12">
                                     <label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gender" id="laki-laki" value="Laki-laki" required>
+                                        <input class="form-check-input" type="radio" name="gender" id="laki-laki" value="Laki-laki" <?php echo (isset($profile['gender']) && $profile['gender'] === 'Laki-laki') ? 'checked' : ''; ?> required>
                                         <label class="form-check-label" for="laki-laki">Laki-laki</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="gender" id="perempuan" value="Perempuan" required>
+                                        <input class="form-check-input" type="radio" name="gender" id="perempuan" value="Perempuan" <?php echo (isset($profile['gender']) && $profile['gender'] === 'Perempuan') ? 'checked' : ''; ?> required>
                                         <label class="form-check-label" for="perempuan">Perempuan</label>
                                     </div>
                                 </div>
@@ -289,4 +289,15 @@ $profile = $getProfile->getByUserId($user['id']);
     address.addEventListener('input', function() {
         autoResizeTextarea(this);
     });
+</script>
+
+<script>
+    <?php if (isset($_SESSION['success_message'])): ?>
+        toastr.success("<?php echo $_SESSION['success_message']; ?>");
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
+    <?php if (isset($_SESSION['error_message'])): ?>
+        toastr.error("<?php echo $_SESSION['error_message']; ?>");
+        <?php unset($_SESSION['error_message']); ?>
+    <?php endif; ?>
 </script>

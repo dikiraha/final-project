@@ -96,6 +96,9 @@ session_start();
     <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
 
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('#transactionListTable').DataTable({
@@ -107,6 +110,18 @@ session_start();
                 "autoWidth": false,
             });
         });
+    </script>
+
+    <script>
+        <?php
+        // Check if there's a Toastr message set in session
+        if (isset($_SESSION['toastr'])):
+            $type = $_SESSION['toastr']['type']; // success, error, info, warning
+            $message = $_SESSION['toastr']['message'];
+            unset($_SESSION['toastr']);
+        ?>
+            toastr.<?php echo $type; ?>("<?php echo $message; ?>");
+        <?php endif; ?>
     </script>
 </body>
 

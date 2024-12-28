@@ -265,7 +265,15 @@ if (isset($_SESSION['user_id'])) {
 
     document.getElementById('confirmAgreement').addEventListener('click', function() {
         var isAgreeChecked = document.getElementById('is_agree').checked;
-        // Additional code for confirmAgreement click event
+        if (isAgreeChecked) {
+            document.querySelector('form').submit();
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Anda harus menyetujui ketentuan yang diberikan.'
+            });
+        }
     });
 </script>
 

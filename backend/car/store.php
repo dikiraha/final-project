@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $transmisi = $_POST['transmisi'];
     $status = $_POST['status'];
 
-    // Upload photo
     $photoName = null;
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = '../../assets/uploads/car/';

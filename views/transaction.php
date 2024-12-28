@@ -43,8 +43,14 @@ $no = 1;
             <a href="?views=home" class="btn btn-secondary"><i class="fa fa-arrow-left text-white"></i> Kembali ke beranda</a>
             <a href="?views=transaction_list" class="btn btn-success"><i class="fa fa-shopping-cart text-white"></i> Pesanan Saya</a>
         </div>
+
         <div class="row d-flex justify-content-center  g-5">
             <div class="col-8 wow fadeInUp" data-wow-delay="0.1s">
+                Harap lakukan pembayaran sebelum tanggal keberangkatan. Pembayaran dapat dilakukan melalui transfer ke rekening
+                <b><?php echo htmlspecialchars($setting['bank']); ?></b> a/n <b><?php echo htmlspecialchars($setting['account_name']); ?></b>.
+                <b><?php echo htmlspecialchars($setting['account_number']); ?></b>
+                <br>
+                <b>dan Kirim Bukti Pembayaran pada List Pesanan</b>
                 <div class="row g-5">
                     <div class="card p-2">
                         <div class="card-header">

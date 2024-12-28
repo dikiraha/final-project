@@ -29,9 +29,12 @@ class User
 
     public function create($data)
     {
-        $query = "INSERT INTO " . $this->table . " (uuid, name, email, password, phone_number, role) VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO " . $this->table . " 
+        (uuid, name, email, password, phone_number, role) VALUES 
+        (?, ?, ?, ?, ?, ?)";
+
         $stmt = $this->conn->prepare($query);
-        // $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT); // Hash password
+
         return $stmt->execute([
             $data['uuid'],
             $data['name'],
