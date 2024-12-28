@@ -3,7 +3,7 @@ require_once '../classes/User.php';
 
 $getUser = new User();
 $uuid = $_GET['uuid'];
-$user = $getUser->edit($uuid);
+$user = $getUser->detail($uuid);
 ?>
 
 <div class="container-xxl flex-grow-1 container-p-y">

@@ -55,8 +55,31 @@ $no = 1;
                                     <td>Rp <?php echo number_format($booking['total_harga'], 0, ',', '.'); ?></td>
                                     <td><?php echo htmlspecialchars($payment['method']); ?></td>
                                     <td>Rp <?php echo $payment['amount'] !== null ? number_format($payment['amount'], 0, ',', '.') : '-'; ?></td>
-                                    <td><?php echo htmlspecialchars($booking['status']); ?></td>
-                                    <td><a href="?views=transaction&uuid=<?php echo htmlspecialchars($booking['uuid']); ?>" class="btn btn-primary btn-sm">Detail</a></td>
+                                    <?php
+                                    if ($booking['status'] == 'Belum Bayar' || $booking['status'] == 'Menunggu Konfirmasi') {
+                                        $color = 'warning';
+                                    } else if ($booking['status'] == 'Disetujui' || $booking['status'] == 'Berjalan') {
+                                        $color = 'info';
+                                    } else if ($booking['status'] == 'Ditolak') {
+                                        $color = 'danger';
+                                    } else if ($booking['status'] == 'Selesai') {
+                                        $color = 'success';
+                                    }
+                                    ?>
+                                    <td><span class="badge bg-<?php echo $color; ?>"><?php echo htmlspecialchars($booking['status']); ?></span></td>
+                                    <td>
+                                        <div class="d-flex justify-content-between">
+                                            <a href="?views=transaction&uuid=<?php echo htmlspecialchars($booking['uuid']); ?>" class="btn btn-primary btn-sm mx-1 d-flex align-items-center justify-content-center">Detail</a>
+                                            <?php if ($payment['method'] == 'Transfer'): ?>
+                                                <button type="button"
+                                                    class="btn btn-success btn-sm mx-1 d-flex align-items-center justify-content-center btn-evidence"
+                                                    data-uuid="<?php echo urlencode($payment['uuid']); ?>"
+                                                    data-bs-toggle="modal" data-bs-target="#evidenceModal">
+                                                    Kirim bukti transfer
+                                                </button>
+                                            <?php endif; ?>
+                                        </div>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -66,3 +89,43 @@ $no = 1;
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="evidenceModal" tabindex="-1" aria-labelledby="evidenceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="evidenceModalLabel">Kirim Bukti Transfer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="backend/booking/evidence.php" method="POST" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" name="uuid" id="modalUuid" value="">
+                    <div class="mb-3">
+                        <label for="evidenceFile" class="form-label">Upload Bukti Transfer (PDF/Gambar)</label>
+                        <input type="file" class="form-control" style="background-color: white;" id="evidenceFile" name="evidence_file" accept=".pdf,image/*" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modalElement = document.getElementById('evidenceModal');
+        const modalUuidInput = document.getElementById('modalUuid');
+        const evidenceButtons = document.querySelectorAll('.btn-evidence');
+
+        evidenceButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const uuid = button.getAttribute('data-uuid');
+                modalUuidInput.value = uuid;
+            });
+        });
+    });
+</script>

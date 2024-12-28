@@ -36,8 +36,12 @@ $no = 1;
 
 <div class="container-fluid contact mb-3">
     <div class="container">
-        <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
+        <div class="text-center mx-auto pb-1 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize">Invoice <span class="text-primary">Pesanan</span></h1>
+        </div>
+        <div class="d-flex justify-content-between wow fadeInUp mb-3" data-wow-delay="0.1s">
+            <a href="?views=home" class="btn btn-secondary"><i class="fa fa-arrow-left text-white"></i> Kembali ke beranda</a>
+            <a href="?views=transaction_list" class="btn btn-success"><i class="fa fa-shopping-cart text-white"></i> Pesanan Saya</a>
         </div>
         <div class="row d-flex justify-content-center  g-5">
             <div class="col-8 wow fadeInUp" data-wow-delay="0.1s">

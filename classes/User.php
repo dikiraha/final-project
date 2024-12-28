@@ -27,14 +27,6 @@ class User
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function edit($uuid)
-    {
-        $query = "SELECT * FROM " . $this->table . " WHERE uuid = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$uuid]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
     public function create($data)
     {
         $query = "INSERT INTO " . $this->table . " (uuid, name, email, password, phone_number, role) VALUES (?, ?, ?, ?, ?, ?)";

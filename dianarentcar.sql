@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Host:                         dikiraha.my.id
--- Server version:               8.0.40 - MySQL Community Server - GPL
--- Server OS:                    Linux
+-- Host:                         127.0.0.1
+-- Server version:               8.0.30 - MySQL Community Server - GPL
+-- Server OS:                    Win64
 -- HeidiSQL Version:             12.8.0.6908
 -- --------------------------------------------------------
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `tm_profiles` (
 
 -- Dumping data for table dianarentcar.tm_profiles: ~1 rows (approximately)
 INSERT INTO `tm_profiles` (`id`, `uuid`, `user_id`, `address`, `gender`, `photo_profile`, `ktp`, `sim`, `kk`, `buku_nikah`, `akte`, `ijazah`, `id_card`, `surat_keterangan`, `slip_gaji`, `bpjs`, `created_at`, `updated_at`) VALUES
-	(2, '217b7f23-7013-433e-9d04-a3692547b28d', 26, 'Ajo', 'Laki-laki', 'ada', 'ada', 'ada', 'ada', NULL, 'ada', 'ada', NULL, NULL, NULL, NULL, '2024-12-28 09:34:02', '2024-12-28 09:34:03');
+	(2, '217b7f23-7013-433e-9d04-a3692547b28d', 26, 'Ajo', 'Laki-laki', 'foto.png', 'ktp.pdf', 'ada', 'ada', NULL, 'ada', 'ada', NULL, NULL, NULL, NULL, '2024-12-28 09:34:02', '2024-12-28 09:54:24');
 
 -- Dumping structure for table dianarentcar.tm_settings
 CREATE TABLE IF NOT EXISTS `tm_settings` (
@@ -174,11 +174,10 @@ CREATE TABLE IF NOT EXISTS `tt_bookings` (
   CONSTRAINT `fk_tt_bookings_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table dianarentcar.tt_bookings: ~3 rows (approximately)
+-- Dumping data for table dianarentcar.tt_bookings: ~2 rows (approximately)
 INSERT INTO `tt_bookings` (`id`, `uuid`, `no_booking`, `car_id`, `user_id`, `is_driver`, `driver_id`, `date_start`, `date_end`, `destination`, `harga_mobil`, `total_harga`, `denda_mobil`, `total_denda`, `status`, `created_at`, `updated_at`) VALUES
-	(19, '38a1b575-12c2-45d6-bb47-f6f9458dcbbd', 'DRC/BOOK/2412001', 2, 26, 1, NULL, '2024-12-28 07:27:00', '2024-12-31 07:27:00', 'Bandung', 20000, 510000, 2000, NULL, 'Belum Bayar', '2024-12-27 21:27:30', '2024-12-27 21:27:30'),
-	(20, '1c93fd63-6dc3-4f34-9d5d-9ca423957b02', 'DRC/BOOK/2412002', 2, 26, 1, NULL, '2024-12-28 07:27:00', '2024-12-31 07:27:00', 'Bandung', 20000, 510000, 2000, NULL, 'Belum Bayar', '2024-12-27 21:27:57', '2024-12-27 21:27:57'),
-	(21, '206afdb5-76cd-4a7c-9a70-6dcc82758d43', 'DRC/BOOK/2412003', 5, 26, 1, NULL, '2024-12-28 07:32:00', '2024-12-31 08:33:00', 'Bandung', 1000000, 4600000, 100000, NULL, 'Belum Bayar', '2024-12-27 21:33:21', '2024-12-27 21:33:21');
+	(20, '1c93fd63-6dc3-4f34-9d5d-9ca423957b02', 'DRC/BOOK/2412002', 2, 26, 1, NULL, '2024-12-28 07:27:00', '2024-12-31 07:27:00', 'Bandung', 20000, 510000, 2000, NULL, 'Berjalan', '2024-12-27 21:27:57', '2024-12-28 08:46:56'),
+	(21, '206afdb5-76cd-4a7c-9a70-6dcc82758d43', 'DRC/BOOK/2412003', 5, 26, 1, NULL, '2024-12-28 07:32:00', '2024-12-31 08:33:00', 'Bandung', 1000000, 4600000, 100000, NULL, 'Disetujui', '2024-12-27 21:33:21', '2024-12-28 09:21:48');
 
 -- Dumping structure for table dianarentcar.tt_payments
 CREATE TABLE IF NOT EXISTS `tt_payments` (
@@ -203,9 +202,9 @@ CREATE TABLE IF NOT EXISTS `tt_payments` (
   CONSTRAINT `fk_tt_payments_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table dianarentcar.tt_payments: ~1 rows (approximately)
+-- Dumping data for table dianarentcar.tt_payments: ~2 rows (approximately)
 INSERT INTO `tt_payments` (`id`, `uuid`, `booking_id`, `user_id`, `car_id`, `method`, `type`, `amount`, `evidence`, `created_at`, `updated_at`) VALUES
-	(7, '38b1408d-15a1-463d-aa61-63d960e3797a', 20, 26, 2, 'Cash', NULL, NULL, NULL, '2024-12-27 21:27:57', '2024-12-27 21:27:57'),
+	(7, '38b1408d-15a1-463d-aa61-63d960e3797a', 20, 26, 2, 'Transfer', 'DP (Uang Muka)', 10000, NULL, '2024-12-27 21:27:57', '2024-12-28 08:03:51'),
 	(8, '079e1be8-d28c-479d-9357-5a757c66882b', 21, 26, 5, 'Cash', NULL, NULL, NULL, '2024-12-27 21:33:21', '2024-12-27 21:33:21');
 
 -- Dumping structure for table dianarentcar.tt_reviews
@@ -242,14 +241,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `phone_number` (`phone_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table dianarentcar.users: ~3 rows (approximately)
+-- Dumping data for table dianarentcar.users: ~4 rows (approximately)
 INSERT INTO `users` (`id`, `uuid`, `name`, `email`, `phone_number`, `role`, `password`, `code`, `is_verified`, `created_at`, `updated_at`) VALUES
-	(15, 'a72c4551-846e-42b8-a0d3-d1417d630050', 'Diki Nugraha', 'admin@admin.com', '082125008160', 'admin', '$2y$10$bBylPZFyCmZKih7jw2.0MepdXwlaYGoRNy.FqCHbYWRI7XrJiY0Xm', NULL, NULL, '2024-12-14 05:16:59', '2024-12-14 05:17:11'),
-	(25, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b47', 'Emul Mulyana', 'emul@drc.com', '082125008160', 'user', '$2y$10$2bopaKjk4yBergNDw7/R9OO0UqvNFSFnrBtpvNjVELPfKUovFU4ye', NULL, NULL, '2024-12-16 13:37:29', '2024-12-16 13:37:29'),
-	(26, '217b7f23-7013-433e-9d04-a3692547b282', 'Muhammad Diki Dwi Nugraha', 'diki@aiia.co.id', '082125008160', 'user', '$2y$10$TWFdjW9b8GxDepiCe3viOeKRLWhs.yVtrN7LVhMuC/fv7b3sjeeHq', NULL, NULL, '2024-12-27 18:13:25', '2024-12-27 18:13:25');
+	(15, 'a72c4551-846e-42b8-a0d3-d1417d630050', 'Admin', 'admin@dianarentcaar.my.id', '082125008162', 'admin', '$2y$10$bBylPZFyCmZKih7jw2.0MepdXwlaYGoRNy.FqCHbYWRI7XrJiY0Xm', NULL, NULL, '2024-12-14 05:16:59', '2024-12-28 10:12:11'),
+	(25, 'e621ddc1-1cdd-4d3f-9386-5df1ba707b47', 'Emul Mulyana', 'emul@drc.com', '082125008161', 'user', '$2y$10$2bopaKjk4yBergNDw7/R9OO0UqvNFSFnrBtpvNjVELPfKUovFU4ye', NULL, NULL, '2024-12-16 13:37:29', '2024-12-28 00:01:10'),
+	(26, '217b7f23-7013-433e-9d04-a3692547b282', 'Muhammad Diki Dwi Nugraha', 'diki@aiia.co.id', '082125008160', 'user', '$2y$10$TWFdjW9b8GxDepiCe3viOeKRLWhs.yVtrN7LVhMuC/fv7b3sjeeHq', NULL, NULL, '2024-12-27 18:13:25', '2024-12-27 18:13:25'),
+	(27, '69a4a059-8115-4a47-8c13-ef59aab88142', 'Huda Akbar Nugraha', 'huda@aiia.co.id', '082125008167', 'user', '$2y$10$o/nS4L5AbPR71XWE2/2YwOq3AJfSbMMl9tqYKhuYUCp275ijXo80O', NULL, NULL, '2024-12-28 06:58:57', '2024-12-28 06:58:57');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

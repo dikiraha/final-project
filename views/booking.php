@@ -1,6 +1,7 @@
 <?php
 require_once 'classes/Car.php';
 require_once 'classes/Setting.php';
+require_once 'classes/Profile.php';
 
 $getCar = new Car();
 $getsetting = new Setting();
@@ -8,7 +9,12 @@ $getsetting = new Setting();
 $uuid = $_GET['uuid'];
 $car = $getCar->getDetail($uuid);
 $setting = $getsetting->getFirstSetting();
-$user_id = $_SESSION['user_id'];
+
+$profile = null;
+if (isset($_SESSION['user_id'])) {
+    $getProfile = new Profile();
+    $profile = $getProfile->getByUserId($_SESSION['user_id']);
+}
 ?>
 
 <div class="container-fluid car pb-5">
@@ -208,6 +214,43 @@ $user_id = $_SESSION['user_id'];
         var form = document.querySelector('form');
         var isValid = form.checkValidity();
 
+        // Check if the user is logged in
+        var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+
+        var isProfile = <?php echo $profile ? 'true' : 'false'; ?>;
+
+        if (!isLoggedIn) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Anda harus login terlebih dahulu.',
+                showCancelButton: true,
+                confirmButtonText: 'Login',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'auth/login.php';
+                }
+            });
+            return;
+        }
+
+        if (!isProfile) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Anda harus lengkapi data diri terlebih dahulu.',
+                showCancelButton: true,
+                confirmButtonText: 'Edit Profile',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '?views=edit_profile';
+                }
+            });
+            return;
+        }
+
         if (isValid) {
             var modal = new bootstrap.Modal(document.getElementById('agreementModal'));
             modal.show();
@@ -222,15 +265,7 @@ $user_id = $_SESSION['user_id'];
 
     document.getElementById('confirmAgreement').addEventListener('click', function() {
         var isAgreeChecked = document.getElementById('is_agree').checked;
-        if (isAgreeChecked) {
-            document.querySelector('form').submit();
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Anda harus menyetujui ketentuan yang diberikan.'
-            });
-        }
+        // Additional code for confirmAgreement click event
     });
 </script>
 

@@ -127,4 +127,11 @@ class Booking
         $query->execute(['user_id' => $user_id]);
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getBookingsByCarId($car_id)
+    {
+        $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE car_id = :car_id");
+        $query->execute(['car_id' => $car_id]);
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
 }

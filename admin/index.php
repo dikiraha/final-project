@@ -66,7 +66,6 @@ $contentFile = $page . '.php';
 
     <title>Diana Rent Car &mdash; <?php echo isset($title) ? $title : 'Admin'; ?></title>
 
-
     <meta name="description" content="" />
 
     <!-- Favicon -->

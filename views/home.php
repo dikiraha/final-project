@@ -1,11 +1,13 @@
 <?php
 require_once 'classes/Car.php';
+require_once 'classes/Booking.php';
 
 $carModel = new Car();
-
 $cars = $carModel->list();
 $totalCars = $carModel->getTotalCars();
 $totalKilometers = $carModel->getTotalKilometers();
+
+$bookingModel = new Booking();
 ?>
 
 <!-- Car categories Start -->
@@ -16,6 +18,16 @@ $totalKilometers = $carModel->getTotalKilometers();
         </div>
         <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
             <?php foreach ($cars as $car): ?>
+                <?php
+                $booking = $bookingModel->getBookingsByCarId($car['id']);
+                $statusCar = 'Tersedia';
+
+                if ($booking && isset($booking['status'])) {
+                    if ($booking['status'] == 'Disetujui' || $booking['status'] == 'Berjalan') {
+                        $statusCar = 'Terbooking';
+                    }
+                }
+                ?>
                 <!-- MOBIL -->
                 <div class="categories-item p-4">
                     <div class="categories-item-inner">
@@ -47,7 +59,13 @@ $totalKilometers = $carModel->getTotalKilometers();
                                     <span class="text-body ms-1"><?php echo htmlspecialchars($car['tahun']); ?></span>
                                 </div>
                             </div>
-                            <a href="?views=booking&uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                            <?php if ($statusCar == 'Tersedia'): ?>
+                                <a href="?views=booking&uuid=<?php echo urlencode($car['uuid']); ?>"
+                                    class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                            <?php elseif ($statusCar == 'Terbooking'): ?>
+                                <a class="btn btn-primary rounded-pill d-flex justify-content-center py-3"
+                                    style="background-color: #b8b8b8; color: black;">Booked</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

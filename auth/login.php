@@ -96,7 +96,7 @@ if (isset($_SESSION['user_role'])) {
                             <!-- @csrf -->
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="email" name="email"
-                                    placeholder="email@drc.com" autofocus required />
+                                    placeholder="email@email.com" autofocus required />
                                 <label for="email">Email <span class="text-danger">*</span></label>
                             </div>
                             <div class="mb-5">
@@ -123,15 +123,14 @@ if (isset($_SESSION['user_role'])) {
                                 </a>
                             </div> --}} -->
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" id="loginButton" type="submit">Sign
-                                    in</button>
+                                <button class="btn btn-primary d-grid w-100" id="loginButton" type="submit">Login</button>
                             </div>
                         </form>
 
                         <p class="text-center">
-                            <span>New on our platform?</span>
+                            <span>Belum punya akun?</span>
                             <a href="register.php">
-                                <span>Create an account</span>
+                                <span>Buat akun</span>
                             </a>
                         </p>
                     </div>

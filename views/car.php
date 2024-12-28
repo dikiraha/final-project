@@ -1,8 +1,11 @@
 <?php
 require_once 'classes/Car.php';
+require_once 'classes/Booking.php';
 
 $carModel = new Car();
 $cars = $carModel->list();
+
+$bookingModel = new Booking();
 ?>
 
 <div class="container-fluid car pb-5">
@@ -14,6 +17,16 @@ $cars = $carModel->list();
     </div>
     <div class="row pt-3 wow fadeInUp" data-wow-delay="0.1s">
         <?php foreach ($cars as $car): ?>
+            <?php
+            $booking = $bookingModel->getBookingsByCarId($car['id']);
+            $statusCar = 'Tersedia';
+
+            if ($booking && isset($booking['status'])) {
+                if ($booking['status'] == 'Disetujui' || $booking['status'] == 'Berjalan') {
+                    $statusCar = 'Terbooking';
+                }
+            }
+            ?>
             <div class="col-md-3 mb-4">
                 <div class="card p-2" style="border: 1px solid black;">
                     <div class="categories-img rounded-top">
@@ -44,7 +57,13 @@ $cars = $carModel->list();
                                 <span class="text-body ms-1"><?php echo htmlspecialchars($car['tahun']); ?></span>
                             </div>
                         </div>
-                        <a href="?views=booking&uuid=<?php echo urlencode($car['uuid']); ?>" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                        <?php if ($statusCar == 'Tersedia'): ?>
+                            <a href="?views=booking&uuid=<?php echo urlencode($car['uuid']); ?>"
+                                class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>
+                        <?php elseif ($statusCar == 'Terbooking'): ?>
+                            <a class="btn btn-primary rounded-pill d-flex justify-content-center py-3"
+                                style="background-color: #b8b8b8; color: black;">Booked</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

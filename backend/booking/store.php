@@ -45,7 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $total_harga = $_POST['total_harga'];
     $harga_mobil = $_POST['harga_mobil'];
     $denda_mobil = $_POST['denda_mobil'];
-    $status = 'Belum Bayar';
+    if ($_POST['method'] == 'Cash') {
+        $status = 'Menunggu Konfirmasi';
+    } else {
+        $status = 'Belum Bayar';
+    }
 
     $bookingCreate = $booking->create([
         'uuid' => $bookingUuid,

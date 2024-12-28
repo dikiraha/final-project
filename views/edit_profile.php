@@ -26,60 +26,196 @@ $profile = $getProfile->getByUserId($user['id']);
             <div class="card p-2 shadow">
                 <div class="row wow fadeInUp" data-wow-delay="0.1s">
                     <div class="col-md-12">
-                        <form action="backend/booking/store.php" method="POST">
+                        <form action="backend/user/update_profile.php" method="POST">
                             <input type="hidden" name="uuid" id="uuid" value="<?php echo htmlspecialchars($user['uuid']); ?>">
                             <div class="row g-4 p-3">
-                                <div class="col-lg-12 col-xl-6">
+                                <div class="col-lg-12 col-xl-4">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Nama Lengkap" value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                                        <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($user['name']); ?>" required>
                                         <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-xl-6">
+                                <div class="col-lg-12 col-xl-4">
                                     <div class="form-floating">
-                                        <input type="datetime-local" class="form-control" id="date_end" name="date_end" placeholder="Tanggal Pengembalian" required>
-                                        <label for="date_end">Tanggal Pengembalian <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                                        <label for="email">Email <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-xl-6">
+                                <div class="col-lg-12 col-xl-4">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="destination" name="destination" placeholder="Tujuan Kota" required>
-                                        <label for="destination">Destinasi <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="phone_number" name="phone_number" value="<?php echo htmlspecialchars($user['phone_number']); ?>" maxlength="15" required>
+                                        <label for="phone_number">No Handphone <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-xl-6">
-                                    <label class="form-label">Dengan Supir? <span class="text-danger">*</span></label>
+                                <div class="col-lg-12 col-xl-12">
+                                    <div class="form-floating">
+                                        <textarea name="address" id="address" class="form-control" required><?php echo htmlspecialchars($profile['address']); ?></textarea>
+                                        <label for="address">Alamat Lengkap <span class="text-danger">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-12">
+                                    <label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="is_driver" id="supir_ya" value="Iya" required>
-                                        <label class="form-check-label" for="supir_ya">Ya</label>
+                                        <input class="form-check-input" type="radio" name="gender" id="laki-laki" value="Laki-laki" required>
+                                        <label class="form-check-label" for="laki-laki">Laki-laki</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="is_driver" id="supir_tidak" value="Tidak" required>
-                                        <label class="form-check-label" for="supir_tidak">Tidak</label>
+                                        <input class="form-check-input" type="radio" name="gender" id="perempuan" value="Perempuan" required>
+                                        <label class="form-check-label" for="perempuan">Perempuan</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
-                                    <div class="form-floating">
-                                        <select name="method" id="method" class="form-select" required onchange="toggleTypeSelect()">
-                                            <option value="">-- Pilih --</option>
-                                            <option value="Cash">Cash</option>
-                                            <option value="Transfer">Transfer</option>
-                                        </select>
-                                        <label for="method">Metode Pembayaran <span class="text-danger">*</span></label>
+                                    <div class="form-group">
+                                        <label for="photo_profile">Photo Profile <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="photo_profile" name="photo_profile" accept="image/*">
+                                        <span>Format file: gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['photo_profile'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/photo_profile/<?php echo htmlspecialchars($profile['photo_profile']); ?>">
+                                                View Photo Profile
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-xl-6" id="type-container" style="display: none;" onchange="toggleAmountSelect()">
-                                    <div class="form-floating">
-                                        <select name="type" id="type" class="form-select">
-                                            <option value="">-- Pilih --</option>
-                                            <option value="Lunas">Lunas</option>
-                                            <option value="DP (Uang Muka)">DP (Uang Muka)</option>
-                                        </select>
-                                        <label for="type">Tipe Pembayaran <span class="text-danger">*</span></label>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="ktp">KTP <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="ktp" name="ktp" accept="image/*,.pdf" required>
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['ktp'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/ktp/<?php echo htmlspecialchars($profile['ktp']); ?>">
+                                                View KTP
+                                            </button>
+                                        <?php endif; ?>
                                     </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="sim">SIM A <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="sim" name="sim" accept="image/*,.pdf" required>
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['sim'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/sim/<?php echo htmlspecialchars($profile['sim']); ?>">
+                                                View SIM A
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="kk">Kartu Keluarga <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="kk" name="kk" accept="image/*,.pdf" required>
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['kk'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/kk/<?php echo htmlspecialchars($profile['kk']); ?>">
+                                                View Kartu Keluarga
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="buku_nikah">Buku Nikah</label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="buku_nikah" name="buku_nikah" accept="image/*,.pdf">
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['buku_nikah'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/buku_nikah/<?php echo htmlspecialchars($profile['buku_nikah']); ?>">
+                                                View Buku Nikah
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="akte">Akte Kelahiran <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="akte" name="akte" accept="image/*,.pdf" required>
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['akte'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/akte/<?php echo htmlspecialchars($profile['akte']); ?>">
+                                                View Akte Kelahiran
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="ijazah">Ijazah Terakhir Min. SMA / Sederajat <span class="text-danger">*</span></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="ijazah" name="ijazah" accept="image/*,.pdf" required>
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['ijazah'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/ijazah/<?php echo htmlspecialchars($profile['ijazah']); ?>">
+                                                View Ijazah
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="id_card">ID Card Karyawan</label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="id_card" name="id_card" accept="image/*,.pdf">
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['id_card'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/id_card/<?php echo htmlspecialchars($profile['id_card']); ?>">
+                                                View ID Card Karyawan
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="surat_keterangan">Surat Pengangkatan / Surat Kontrak</label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="surat_keterangan" name="surat_keterangan" accept="image/*,.pdf">
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['surat_keterangan'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/surat_keterangan/<?php echo htmlspecialchars($profile['surat_keterangan']); ?>">
+                                                View Kartu Keluarga
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="slip_gaji">Slip Gaji Terakhir</label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="slip_gaji" name="slip_gaji" accept="image/*,.pdf">
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['slip_gaji'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/slip_gaji/<?php echo htmlspecialchars($profile['slip_gaji']); ?>">
+                                                View Kartu Keluarga
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="bpjs">BPJS Ketenagakerjaan</label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="bpjs" name="bpjs" accept="image/*,.pdf">
+                                        <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
+                                        <br>
+                                        <?php if (!empty($profile['bpjs'])): ?>
+                                            <button type="button" class="btn btn-info mt-2 text-white" data-bs-toggle="modal" data-bs-target="#viewModal" data-file="assets/uploads/bpjs/<?php echo htmlspecialchars($profile['bpjs']); ?>">
+                                                View BPJS Ketenagakerjaan
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-xl-12">
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="new_password" name="new_password" placeholder="********">
+                                        <label for="new_password">Password Baru</label>
+                                    </div>
+                                    <span>*Kosongkan jika tidak ingin dirubah</span>
                                 </div>
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-primary" onclick="validateForm()">
+                                    <button type="submit" class="btn btn-primary">
                                         Simpan Data
                                     </button>
                                 </div>
@@ -91,3 +227,66 @@ $profile = $getProfile->getByUserId($user['id']);
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">View File</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <div id="fileContent">
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const viewModal = document.getElementById('viewModal');
+        const fileContent = document.getElementById('fileContent');
+
+        viewModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const filePath = button.getAttribute('data-file');
+
+            if (filePath.endsWith('.pdf')) {
+                fileContent.innerHTML = `
+                <iframe src="${filePath}" width="100%" height="500px" frameborder="0"></iframe>
+            `;
+            } else if (/\.(jpg|jpeg|png|gif)$/i.test(filePath)) {
+                fileContent.innerHTML = `
+                <img src="${filePath}" class="img-fluid" style="height: 500px;" alt="File Image">
+            `;
+            } else {
+                fileContent.innerHTML = '<p>Unsupported file format</p>';
+            }
+        });
+    });
+</script>
+
+<script>
+    function autoResizeTextarea(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = (textarea.scrollHeight) + 'px';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const textareas = document.querySelectorAll('textarea');
+        textareas.forEach(function(textarea) {
+            autoResizeTextarea(textarea);
+            textarea.addEventListener('input', function() {
+                autoResizeTextarea(textarea);
+            });
+        });
+    });
+
+    const address = document.querySelector('#address');
+    address.addEventListener('input', function() {
+        autoResizeTextarea(this);
+    });
+</script>
