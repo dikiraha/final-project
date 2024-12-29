@@ -107,15 +107,14 @@ if (isset($_GET['views'])) {
             </a>
         </li>
 
-        <li class="menu-item <?= $report_list ? 'active' : '' ?>">
+        <!-- <li class="menu-item <?= $report_list ? 'active' : '' ?>">
             <a
                 href="?views=report_list"
                 class="menu-link">
                 <i class="menu-icon tf-icons ri-file-copy-2-line"></i>
                 <div data-i18n="Laporan">Laporan</div>
-                <!-- <div class="badge bg-danger fs-tiny rounded-pill ms-auto">1</div>   -->
             </a>
-        </li>
+        </li> -->
 
         <!-- Master -->
         <li class="menu-header mt-7"><span class="menu-header-text">Master</span></li>
