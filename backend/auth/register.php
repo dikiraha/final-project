@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $phone_number = $_POST['phone_number'];
 
-    // Periksa apakah email sudah ada
     $existingUser = $user->getByEmail($email);
     if ($existingUser) {
         $_SESSION['register_error'] = "Email sudah digunakan!";
