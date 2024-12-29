@@ -86,42 +86,6 @@ class Booking
         ]);
     }
 
-    // public function update($uuid, $data)
-    // {
-    //     $query = "UPDATE " . $this->table . " SET 
-    //         photo = ?, 
-    //         no_booking = ?, 
-    //         car_id = ?, 
-    //         user_id = ?, 
-    //         is_driver = ?, 
-    //         driver_id = ?, 
-    //         date_start = ?, 
-    //         date_end = ?, 
-    //         destination = ?, 
-    //         total_harga = ?, 
-    //         harga_mobil = ?, 
-    //         denda_mobil = ?, 
-    //         status = ?, 
-    //     WHERE uuid = ?";
-    //     $stmt = $this->conn->prepare($query);
-    //     return $stmt->execute([
-    //         $data['photo'],
-    //         $data['no_booking'],
-    //         $data['car_id'],
-    //         $data['user_id'],
-    //         $data['is_driver'],
-    //         $data['driver_id'],
-    //         $data['date_start'],
-    //         $data['date_end'],
-    //         $data['destination'],
-    //         $data['total_harga'],
-    //         $data['harga_mobil'],
-    //         $data['denda_mobil'],
-    //         $data['status'],
-    //         $uuid
-    //     ]);
-    // }
-
     public function update($uuid, $data)
     {
         $setClause = [];
