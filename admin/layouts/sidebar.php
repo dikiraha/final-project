@@ -116,28 +116,33 @@ if (isset($_GET['views'])) {
             </a>
         </li> -->
 
-        <!-- Master -->
-        <li class="menu-header mt-7"><span class="menu-header-text">Master</span></li>
+        <?php
+        $user_role = $_SESSION['user_role'];
+        ?>
+        <?php if ($user_role == 'admin') : ?>
+            <!-- Master -->
+            <li class="menu-header mt-7"><span class="menu-header-text">Master</span></li>
 
-        <li class="menu-item <?= $car_list || $car_create || $car_edit ? 'active' : '' ?>">
-            <a href="?views=car_list" class="menu-link">
-                <i class="menu-icon tf-icons ri-roadster-fill"></i>
-                <div data-i18n="Data Mobil">Data Mobil</div>
-            </a>
-        </li>
+            <li class="menu-item <?= $car_list || $car_create || $car_edit ? 'active' : '' ?>">
+                <a href="?views=car_list" class="menu-link">
+                    <i class="menu-icon tf-icons ri-roadster-fill"></i>
+                    <div data-i18n="Data Mobil">Data Mobil</div>
+                </a>
+            </li>
 
-        <li class="menu-item <?= $setting_list || $setting_create || $setting_edit || $setting_detail ? 'active' : '' ?>">
-            <a href="?views=setting_list" class="menu-link">
-                <i class="menu-icon tf-icons ri-settings-3-line"></i>
-                <div data-i18n="Settings">Settings</div>
-            </a>
-        </li>
+            <li class="menu-item <?= $setting_list || $setting_create || $setting_edit || $setting_detail ? 'active' : '' ?>">
+                <a href="?views=setting_list" class="menu-link">
+                    <i class="menu-icon tf-icons ri-settings-3-line"></i>
+                    <div data-i18n="Settings">Settings</div>
+                </a>
+            </li>
 
-        <li class="menu-item <?= $user_list || $user_create || $user_edit || $user_detail ? 'active' : '' ?>">
-            <a href="?views=user_list" class="menu-link">
-                <i class="menu-icon tf-icons ri-group-line"></i>
-                <div data-i18n="Users">Users</div>
-            </a>
-        </li>
+            <li class="menu-item <?= $user_list || $user_create || $user_edit || $user_detail ? 'active' : '' ?>">
+                <a href="?views=user_list" class="menu-link">
+                    <i class="menu-icon tf-icons ri-group-line"></i>
+                    <div data-i18n="Users">Users</div>
+                </a>
+            </li>
+        <?php endif; ?>
     </ul>
 </aside>

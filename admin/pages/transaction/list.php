@@ -47,10 +47,15 @@ pushInlineScript('
             <div class="card overflow-hidden">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">List Transactions</h5>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cetakLaporanModal">
-                        <i class="ri ri-file-pdf-2-fill"></i>
-                        &nbsp;Cetak Laporan
-                    </button>
+                    <?php
+                    $user_role = $_SESSION['user_role'];
+                    ?>
+                    <?php if ($user_role == 'admin') : ?>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cetakLaporanModal">
+                            <i class="ri ri-file-pdf-2-fill"></i>
+                            &nbsp;Cetak Laporan
+                        </button>
+                    <?php endif; ?>
                 </div>
                 <div class="table-responsive" style="padding: 0 1.25rem 2rem 1.25rem;">
                     <table id="appTable" class="table table-bordered table-striped table-sm" width="100%">

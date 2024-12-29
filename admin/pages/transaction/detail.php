@@ -261,73 +261,78 @@ $uuid = $_GET['uuid'];
                     <?php else: ?>
                         <p>No profile information available.</p>
                     <?php endif; ?>
-                    <?php if ($booking['status'] !== 'Selesai' && $booking['status'] !== 'Ditolak'): ?>
-                        <h5 class="mt-4">Konfirmasi Pesanan</h5>
-                        <div class="row">
-                            <form action="../backend/booking/update.php" method="POST">
-                                <input type="hidden" name="uuid" value="<?php echo htmlspecialchars($booking['uuid']); ?>">
-                                <div class="col-md-12">
-                                    <?php
-                                    $amount = $payment['amount'];
-                                    $total_harga = $booking['total_harga'];
+                    <?php
+                    $user_role = $_SESSION['user_role'];
+                    ?>
+                    <?php if ($user_role == 'admin') : ?>
+                        <?php if ($booking['status'] !== 'Selesai' && $booking['status'] !== 'Ditolak'): ?>
+                            <h5 class="mt-4">Konfirmasi Pesanan</h5>
+                            <div class="row">
+                                <form action="../backend/booking/update.php" method="POST">
+                                    <input type="hidden" name="uuid" value="<?php echo htmlspecialchars($booking['uuid']); ?>">
+                                    <div class="col-md-12">
+                                        <?php
+                                        $amount = $payment['amount'];
+                                        $total_harga = $booking['total_harga'];
 
-                                    $sisa = $total_harga - $amount;
-                                    ?>
+                                        $sisa = $total_harga - $amount;
+                                        ?>
 
-                                    <?php if ($sisa > 0): ?>
-                                        <div class="form-floating form-floating-outline mb-3">
-                                            <input type="text" class="form-control" id="remaining_amount_display" name="remaining_amount_display" placeholder="Sisa Pembayaran" oninput="formatAmount(this)" required />
-                                            <input type="hidden" id="remaining_amount" name="remaining_amount" />
-                                            <label for="remaining_amount_display">Sisa Pembayaran <span class="text-danger">*</span></label>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-floating form-floating-outline mb-3">
-                                        <select name="status" class="form-select" id="status" required>
-                                            <option value="">-- Pilih --</option>
-                                            <option value="Disetujui" <?php echo ($booking['status'] == 'Disetujui') ? 'selected' : ''; ?>>Disetujui</option>
-                                            <option value="Ditolak" <?php echo ($booking['status'] == 'Ditolak') ? 'selected' : ''; ?>>Ditolak</option>
-                                            <option value="Berjalan" <?php echo ($booking['status'] == 'Berjalan') ? 'selected' : ''; ?>>Berjalan</option>
-                                            <option value="Selesai" <?php echo ($booking['status'] == 'Selesai') ? 'selected' : ''; ?>>Selesai</option>
-                                        </select>
-                                        <label for="status">Status Booking <span class="text-danger">*</span></label>
+                                        <?php if ($sisa > 0): ?>
+                                            <div class="form-floating form-floating-outline mb-3">
+                                                <input type="text" class="form-control" id="remaining_amount_display" name="remaining_amount_display" placeholder="Sisa Pembayaran" oninput="formatAmount(this)" required />
+                                                <input type="hidden" id="remaining_amount" name="remaining_amount" />
+                                                <label for="remaining_amount_display">Sisa Pembayaran <span class="text-danger">*</span></label>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
-                                </div>
-                                <?php if ($booking['status'] == 'Berjalan'): ?>
-                                    <div class="form-floating form-floating-outline mb-3">
-                                        <input type="text" class="form-control" id="km_before" name="km_before" value="<?php echo htmlspecialchars(number_format($car['km'], 0, ',', '.')); ?>" readonly />
-                                        <label for="km_before">Total KM Mobil Sebelumnya <span class="text-danger">*</span></label>
-                                    </div>
-                                    <div class="form-floating form-floating-outline mb-3">
-                                        <input type="text" class="form-control" id="km_display" name="km_display" placeholder="Total KM Mobil" oninput="formatKm(this)" required />
-                                        <input type="hidden" id="km" name="km" />
-                                        <label for="km_display">Total KM Mobil <span class="text-danger">*</span></label>
-                                    </div>
-                                <?php endif; ?>
-                                <?php
-                                $drivers = $userModel->getDrivers();
-                                ?>
-                                <?php if ($booking['is_driver'] == 1 && $booking['driver_id'] == null): ?>
                                     <div class="col-md-12">
                                         <div class="form-floating form-floating-outline mb-3">
-                                            <select name="driver_id" class="form-select" id="driver_id" required>
+                                            <select name="status" class="form-select" id="status" required>
                                                 <option value="">-- Pilih --</option>
-                                                <?php foreach ($drivers as $driver): ?>
-                                                    <option value="<?php echo htmlspecialchars($driver['id']); ?>" <?php echo ($driver['id'] == $booking['driver_id']) ? 'selected' : ''; ?>>
-                                                        <?php echo htmlspecialchars($driver['name']); ?>
-                                                    </option>
-                                                <?php endforeach; ?>
+                                                <option value="Disetujui" <?php echo ($booking['status'] == 'Disetujui') ? 'selected' : ''; ?>>Disetujui</option>
+                                                <option value="Ditolak" <?php echo ($booking['status'] == 'Ditolak') ? 'selected' : ''; ?>>Ditolak</option>
+                                                <option value="Berjalan" <?php echo ($booking['status'] == 'Berjalan') ? 'selected' : ''; ?>>Berjalan</option>
+                                                <option value="Selesai" <?php echo ($booking['status'] == 'Selesai') ? 'selected' : ''; ?>>Selesai</option>
                                             </select>
-                                            <label for="driver_id">Nama Driver <span class="text-danger">*</span></label>
+                                            <label for="status">Status Booking <span class="text-danger">*</span></label>
                                         </div>
                                     </div>
-                                <?php endif; ?>
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-primary">Submit Konfirmasi</button>
-                                </div>
-                            </form>
-                        </div>
+                                    <?php if ($booking['status'] == 'Berjalan'): ?>
+                                        <div class="form-floating form-floating-outline mb-3">
+                                            <input type="text" class="form-control" id="km_before" name="km_before" value="<?php echo htmlspecialchars(number_format($car['km'], 0, ',', '.')); ?>" readonly />
+                                            <label for="km_before">Total KM Mobil Sebelumnya <span class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="form-floating form-floating-outline mb-3">
+                                            <input type="text" class="form-control" id="km_display" name="km_display" placeholder="Total KM Mobil" oninput="formatKm(this)" required />
+                                            <input type="hidden" id="km" name="km" />
+                                            <label for="km_display">Total KM Mobil <span class="text-danger">*</span></label>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php
+                                    $drivers = $userModel->getDrivers();
+                                    ?>
+                                    <?php if ($booking['is_driver'] == 1 && $booking['driver_id'] == null): ?>
+                                        <div class="col-md-12">
+                                            <div class="form-floating form-floating-outline mb-3">
+                                                <select name="driver_id" class="form-select" id="driver_id" required>
+                                                    <option value="">-- Pilih --</option>
+                                                    <?php foreach ($drivers as $driver): ?>
+                                                        <option value="<?php echo htmlspecialchars($driver['id']); ?>" <?php echo ($driver['id'] == $booking['driver_id']) ? 'selected' : ''; ?>>
+                                                            <?php echo htmlspecialchars($driver['name']); ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label for="driver_id">Nama Driver <span class="text-danger">*</span></label>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-primary">Submit Konfirmasi</button>
+                                    </div>
+                                </form>
+                            </div>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>

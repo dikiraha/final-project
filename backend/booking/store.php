@@ -90,9 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($bookingCreate) {
         $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
-        $nomor = '082125008160';
-        $isi = 'Ada Tunggu Konfirmasi Baru nih';
-        $isi .= 'No Booking : ' . $no_booking;
+        $nomor = "082125008160";
+        $isi = "Ada Tunggu Konfirmasi Baru nih\n";
+        $isi .= "\nNo Booking : " . $no_booking;
         $message = sprintf("----------DIANA RENT CAR----------%c$isi%c--------------------------------------- ", 10, 10);
 
         $curl = curl_init();
