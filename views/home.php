@@ -82,7 +82,7 @@ $bookingModel = new Booking();
 <!-- Car categories End -->
 
 <!-- Features Start -->
-<div class="container-fluid feature py-5">
+<!-- <div class="container-fluid feature py-5">
     <div class="container py-5">
         <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize mb-3">Fitur <span class="text-primary">Utama</span></h1>
@@ -146,7 +146,7 @@ $bookingModel = new Booking();
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- Features End -->
 
 <!-- Fact Counter -->
@@ -209,7 +209,7 @@ $bookingModel = new Booking();
                         <i class="fa fa-phone-alt fa-2x text-white"></i>
                     </div>
                     <h5 class="mb-3">Reservasi Telepon</h5>
-                    <p class="mb-0">Pesan layanan kami dengan mudah melalui telepon, kapan saja Anda butuhkan.</p>
+                    <p class="mb-0">Bisa pesan layanan kami dengan mudah melalui telepon.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
@@ -227,7 +227,7 @@ $bookingModel = new Booking();
                         <i class="fa fa-road fa-2x text-white"></i>
                     </div>
                     <h5 class="mb-3">Sewa Satu Arah</h5>
-                    <p class="mb-0">Layanan fleksibel untuk perjalanan satu arah sesuai kebutuhan Anda.</p>
+                    <p class="mb-0">Sewa langsung ke owner. Layanan fleksibel untuk perjalanan satu arah sesuai kebutuhan Anda.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
@@ -242,10 +242,10 @@ $bookingModel = new Booking();
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="service-item p-4">
                     <div class="service-icon mb-4">
-                        <i class="fa fa-building fa-2x text-white"></i>
+                        <i class="fa fa-tag fa-2x text-white"></i>
                     </div>
-                    <h5 class="mb-3">Layanan Antar Kota</h5>
-                    <p class="mb-0">Kami menyediakan layanan transportasi antar kota untuk kenyamanan perjalanan Anda.</p>
+                    <h5 class="mb-3">Kualitas Terbaik dengan Harga Minimal</h5>
+                    <p class="mb-0">Dapatkan kualitas layanan terbaik tanpa harus menguras kantong Anda.</p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
@@ -292,7 +292,7 @@ $bookingModel = new Booking();
             </div>
             <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="steps-item p-4 mb-4">
-                    <h4>Nikmati Perjalanan</h4>
+                    <h4>Ambil Kunci</h4>
                     <p class="mb-0">Nikmati pengalaman berkendara yang nyaman bersama layanan kami.</p>
                     <div class="setps-number">04.</div>
                 </div>

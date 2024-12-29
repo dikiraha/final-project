@@ -46,11 +46,14 @@ $no = 1;
 
         <div class="row d-flex justify-content-center  g-5">
             <div class="col-8 wow fadeInUp" data-wow-delay="0.1s">
-                Harap lakukan pembayaran sebelum tanggal keberangkatan. Pembayaran dapat dilakukan melalui transfer ke rekening
-                <b><?php echo htmlspecialchars($setting['bank']); ?></b> a/n <b><?php echo htmlspecialchars($setting['account_name']); ?></b>.
-                <b><?php echo htmlspecialchars($setting['account_number']); ?></b>
+                Harap lakukan pembayaran sebelum tanggal keberangkatan.
+                <br>Jika Cash, Pembayaran dapat dilakukan ditempat.
+                <br>Jika Trasfer, Pembayaran dapat dilakukan melalui transfer ke rekening
                 <br>
-                <b>dan Kirim Bukti Pembayaran pada List Pesanan</b>
+                <b><?php echo htmlspecialchars($setting['bank']); ?></b> a/n <b><?php echo htmlspecialchars($setting['account_name']); ?></b>.
+                <b>No Rekening : <?php echo htmlspecialchars($setting['account_number']); ?></b>
+                <br>
+                <b>dan Kirim Bukti Pembayaran pada Pesanan Saya</b>
                 <div class="row g-5">
                     <div class="card p-2">
                         <div class="card-header">

@@ -18,10 +18,26 @@ class Booking
                     ORDER BY 
                     CASE 
                         WHEN status = 'Menunggu Konfirmasi' THEN 1 
-                        ELSE 2 
-                    END, 
+                        WHEN status = 'Disetujui' THEN 2 
+                        WHEN status = 'Berjalan' THEN 3 
+                        ELSE 4 
+                    END,
                     no_booking ASC";
         $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function all()
+    {
+        $query = "SELECT * FROM " . $this->table . " ORDER BY created_at ASC";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getByQuery($query, $params)
+    {
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

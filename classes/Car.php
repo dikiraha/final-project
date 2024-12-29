@@ -60,44 +60,62 @@ class Car
         ]);
     }
 
+    // public function update($uuid, $data)
+    // {
+    //     $query = "UPDATE " . $this->table . " SET 
+    //         photo = ?, 
+    //         merk = ?, 
+    //         tipe = ?, 
+    //         jumlah_kursi = ?, 
+    //         jumlah_pintu = ?, 
+    //         warna = ?, 
+    //         no_plat = ?, 
+    //         tahun = ?, 
+    //         km = ?, 
+    //         jenis_bensin = ?, 
+    //         harga = ?, 
+    //         denda = ?, 
+    //         transmisi = ?, 
+    //         status = ?, 
+    //         updated_by = ? 
+    //     WHERE uuid = ?";
+    //     $stmt = $this->conn->prepare($query);
+    //     return $stmt->execute([
+    //         $data['photo'],
+    //         $data['merk'],
+    //         $data['tipe'],
+    //         $data['jumlah_kursi'],
+    //         $data['jumlah_pintu'],
+    //         $data['warna'],
+    //         $data['no_plat'],
+    //         $data['tahun'],
+    //         $data['km'],
+    //         $data['jenis_bensin'],
+    //         $data['harga'],
+    //         $data['denda'],
+    //         $data['transmisi'],
+    //         $data['status'],
+    //         $data['updated_by'],
+    //         $uuid
+    //     ]);
+    // }
+
     public function update($uuid, $data)
     {
-        $query = "UPDATE " . $this->table . " SET 
-            photo = ?, 
-            merk = ?, 
-            tipe = ?, 
-            jumlah_kursi = ?, 
-            jumlah_pintu = ?, 
-            warna = ?, 
-            no_plat = ?, 
-            tahun = ?, 
-            km = ?, 
-            jenis_bensin = ?, 
-            harga = ?, 
-            denda = ?, 
-            transmisi = ?, 
-            status = ?, 
-            updated_by = ? 
-        WHERE uuid = ?";
+        $setClause = [];
+        $params = [];
+
+        foreach ($data as $column => $value) {
+            $setClause[] = "$column = ?";
+            $params[] = $value;
+        }
+
+        $params[] = $uuid;
+        $setClause = implode(', ', $setClause);
+
+        $query = "UPDATE " . $this->table . " SET $setClause WHERE uuid = ?";
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([
-            $data['photo'],
-            $data['merk'],
-            $data['tipe'],
-            $data['jumlah_kursi'],
-            $data['jumlah_pintu'],
-            $data['warna'],
-            $data['no_plat'],
-            $data['tahun'],
-            $data['km'],
-            $data['jenis_bensin'],
-            $data['harga'],
-            $data['denda'],
-            $data['transmisi'],
-            $data['status'],
-            $data['updated_by'],
-            $uuid
-        ]);
+        return $stmt->execute($params);
     }
 
     public function delete($uuid)

@@ -97,16 +97,16 @@ if (isset($_SESSION['user_role'])) {
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="name" name="name"
                                     placeholder="Nama Lengkap" autofocus required onkeyup="formatFullName(this)" />
-                                <label for="name">Nama <span class="text-danger">*</span></label>
+                                <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
                             </div>
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="email@drc.com" required />
+                                    placeholder="email@email.com" required />
                                 <label for="email">Email <span class="text-danger">*</span></label>
                             </div>
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                    placeholder="08XXXXXXXXXX" required />
+                                    placeholder="08xxxxxxxxxx" required />
                                 <label for="phone_number">No Handphone <span class="text-danger">*</span></label>
                             </div>
                             <div class="mb-5">
@@ -133,12 +133,12 @@ if (isset($_SESSION['user_role'])) {
                                 </a>
                             </div> --}} -->
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" id="loginButton" type="submit">Register</button>
+                                <button class="btn btn-primary d-grid w-100" id="loginButton" type="submit">Daftar</button>
                             </div>
                         </form>
 
                         <p class="text-center">
-                            <span>Have account?</span>
+                            <span>Sudah punya akun?</span>
                             <a href="login.php">
                                 <span>Login</span>
                             </a>

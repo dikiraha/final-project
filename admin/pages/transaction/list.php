@@ -47,6 +47,10 @@ pushInlineScript('
             <div class="card overflow-hidden">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">List Transactions</h5>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cetakLaporanModal">
+                        <i class="ri ri-file-pdf-2-fill"></i>
+                        &nbsp;Cetak Laporan
+                    </button>
                 </div>
                 <div class="table-responsive" style="padding: 0 1.25rem 2rem 1.25rem;">
                     <table id="appTable" class="table table-bordered table-striped table-sm" width="100%">
@@ -60,15 +64,6 @@ pushInlineScript('
                                 <th>No Plat</th>
                                 <th>Harga Sewa</th>
                                 <th>Denda</th>
-                                <!-- <th>Tanggal Pengambilan</th>
-                                <th>Tanggal Pengembalian</th>
-                                <th>Destinasi</th>
-                                <th>Metode</th>
-                                <th>Tipe</th>
-                                <th>Total Harga</th>
-                                <th>Bayar</th>
-                                <th>Sisa Bayar</th> -->
-                                <!-- <th>Option</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -90,7 +85,11 @@ pushInlineScript('
                                 ?>
                                 <tr>
                                     <td class="text-center"><?php echo $no++; ?></td>
-                                    <td><a href="?views=transaction_detail&uuid=<?php echo htmlspecialchars($booking['uuid']); ?>" class="btn btn-primary btn-sm no-wrap">Lihat Detail dan Konfirmasi</a></td>
+                                    <td>
+                                        <a href="?views=transaction_detail&uuid=<?php echo htmlspecialchars($booking['uuid']); ?>" class="btn btn-primary btn-sm no-wrap">
+                                            Lihat Detail<?php if ($booking['status'] !== 'Selesai' && $booking['status'] !== 'Ditolak'): ?> dan Konfirmasi <?php endif; ?>
+                                        </a>
+                                    </td>
                                     <td>
                                         <?php
                                         if ($booking['status'] == 'Belum Bayar' || $booking['status'] == 'Menunggu Konfirmasi') {
@@ -110,30 +109,6 @@ pushInlineScript('
                                     <td><?php echo htmlspecialchars($car['no_plat']); ?></td>
                                     <td><?php echo $booking['total_harga'] !== null ? formatRupiah($booking['total_harga']) : 'Rp. 0'; ?></td>
                                     <td><?php echo $booking['total_denda'] !== null ? formatRupiah($booking['total_denda']) : 'Rp. 0'; ?></td>
-                                    <!-- <td><?php echo htmlspecialchars($booking['date_start']); ?></td>
-                                    <td><?php echo htmlspecialchars($booking['date_end']); ?></td>
-                                    <td><?php echo htmlspecialchars($booking['destination']); ?></td>
-                                    <td><?php echo htmlspecialchars($payment['method']); ?></td>
-                                    <td><?php echo htmlspecialchars($payment['type']); ?></td>
-                                    <td><?php echo formatRupiah($booking['total_harga']); ?></td>
-                                    <td><?php echo formatRupiah($payment['amount']); ?></td>
-                                    <td><?php $sisa = $booking['total_harga'] - $payment['amount'];
-                                        echo formatRupiah($sisa); ?></td>
-
-                                    <td>
-                                        <a href="javascript:void(0);"
-                                            class="btn btn-info btn-xs btn-detail m-1"
-                                            data-uuid="<?php echo urlencode($booking['uuid']); ?>">
-                                            <i class="ri-information-line"></i>
-                                        </a>
-                                        <a href="index.php?views=booking_edit&uuid=<?php echo urlencode($booking['uuid']); ?>" class="btn btn-warning btn-xs m-1">
-                                            <i class="ri-edit-box-line"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-xs m-1" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                            data-delete-url="../backend/booking/delete.php?uuid=<?php echo urlencode($booking['uuid']); ?>">
-                                            <i class="ri-delete-bin-line"></i>
-                                        </button>
-                                    </td> -->
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -174,6 +149,42 @@ pushInlineScript('
             <div class="modal-body">
                 <!-- Konten detail akan diisi melalui JavaScript -->
                 <div id="detailContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Pilihan Cetak Laporan -->
+<div class="modal fade" id="cetakLaporanModal" tabindex="-1" aria-labelledby="cetakLaporanLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cetakLaporanLabel">Cetak Laporan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="cetakLaporanForm" method="POST" action="../backend/booking/report.php">
+                    <div class="mb-3">
+                        <label for="jenisLaporan" class="form-label">Pilih Jenis Laporan</label>
+                        <select class="form-select" id="jenisLaporan" name="jenis_laporan" required>
+                            <option value="">-- Pilih Jenis --</option>
+                            <option value="bulanan">Bulanan</option>
+                            <option value="tahunan">Tahunan</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" id="bulanPicker" style="display: none;">
+                        <label for="bulan" class="form-label">Pilih Bulan</label>
+                        <input type="month" id="bulan" name="bulan" class="form-control">
+                    </div>
+                    <div class="mb-3" id="tahunPicker" style="display: none;">
+                        <label for="tahun" class="form-label">Pilih Tahun</label>
+                        <input type="number" id="tahun" name="tahun" class="form-control" placeholder="YYYY">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Cetak Laporan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -243,5 +254,32 @@ pushInlineScript('
                 detailModal.show();
             });
         });
+    });
+</script>
+
+<script>
+    const jenisLaporan = document.getElementById('jenisLaporan');
+    const bulanPicker = document.getElementById('bulanPicker');
+    const bulanInput = document.getElementById('bulan');
+    const tahunPicker = document.getElementById('tahunPicker');
+    const tahunInput = document.getElementById('tahun');
+
+    jenisLaporan.addEventListener('change', function() {
+        if (this.value === 'bulanan') {
+            bulanPicker.style.display = 'block';
+            bulanInput.required = true;
+            tahunPicker.style.display = 'none';
+            tahunInput.required = false;
+        } else if (this.value === 'tahunan') {
+            bulanPicker.style.display = 'none';
+            bulanInput.required = false;
+            tahunPicker.style.display = 'block';
+            tahunInput.required = true;
+        } else {
+            bulanPicker.style.display = 'none';
+            bulanInput.required = false;
+            tahunPicker.style.display = 'none';
+            tahunInput.required = false;
+        }
     });
 </script>

@@ -30,7 +30,7 @@ $uuid = $_GET['uuid'];
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Detail Booking</h5>
                     <small class="text-body float-end">
-                        <a href="./index.php?views=user_list" class="btn btn-secondary btn-sm">
+                        <a href="./index.php?views=transaction_list" class="btn btn-secondary btn-sm">
                             <i class="ri-arrow-left-line"></i> Back
                         </a>
                     </small>
@@ -113,30 +113,34 @@ $uuid = $_GET['uuid'];
                                 <td><b>Metode Pembayaran</b></td>
                                 <td>: <?php echo htmlspecialchars($payment['method']); ?></td>
                             </tr>
-                            <tr>
-                                <td><b>Tipe Pembayaran</b></td>
-                                <td>: <?php echo htmlspecialchars($payment['type'] ?? ''); ?></td>
-                            </tr>
+                            <?php if ($payment['method'] === 'Transfer'): ?>
+                                <tr>
+                                    <td><b>Tipe Pembayaran</b></td>
+                                    <td>: <?php echo htmlspecialchars($payment['type'] ?? ''); ?></td>
+                                </tr>
+                            <?php endif; ?>
                             <tr>
                                 <td><b>Bayar</b></td>
-                                <td>: <?php echo formatRupiah($payment['amount'] ?? ''); ?></td>
+                                <td>: <?php echo formatRupiah($payment['amount'] ?? '0'); ?></td>
                             </tr>
                             <tr>
                                 <td><b>Sisa Bayar</b></td>
                                 <td>: <?php echo formatRupiah($booking['total_harga'] - $payment['amount'] ?? ''); ?></td>
                             </tr>
-                            <tr>
-                                <td><b>Bukti Pembayaran</b></td>
-                                <td>:
-                                    <button type="button"
-                                        class="btn btn-info btn-sm mx-1 btn-view-evidence"
-                                        data-uuid="<?php echo urlencode($payment['uuid']); ?>"
-                                        data-file="<?php echo htmlspecialchars($payment['evidence_file']); ?>"
-                                        data-bs-toggle="modal" data-bs-target="#viewEvidenceModal">
-                                        Lihat Bukti
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php if ($payment['method'] === 'Transfer'): ?>
+                                <tr>
+                                    <td><b>Bukti Pembayaran</b></td>
+                                    <td>:
+                                        <button type="button"
+                                            class="btn btn-info btn-sm mx-1 btn-view-evidence"
+                                            data-uuid="<?php echo urlencode($payment['uuid']); ?>"
+                                            data-file="<?php echo htmlspecialchars($payment['evidence_file']); ?>"
+                                            data-bs-toggle="modal" data-bs-target="#viewEvidenceModal">
+                                            Lihat Bukti
+                                        </button>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
 
@@ -257,7 +261,7 @@ $uuid = $_GET['uuid'];
                     <?php else: ?>
                         <p>No profile information available.</p>
                     <?php endif; ?>
-                    <?php if ($booking['status'] !== 'Selesai'): ?>
+                    <?php if ($booking['status'] !== 'Selesai' && $booking['status'] !== 'Ditolak'): ?>
                         <h5 class="mt-4">Konfirmasi Pesanan</h5>
                         <div class="row">
                             <form action="../backend/booking/update.php" method="POST">
@@ -290,10 +294,21 @@ $uuid = $_GET['uuid'];
                                         <label for="status">Status Booking <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
+                                <?php if ($booking['status'] == 'Berjalan'): ?>
+                                    <div class="form-floating form-floating-outline mb-3">
+                                        <input type="text" class="form-control" id="km_before" name="km_before" value="<?php echo htmlspecialchars(number_format($car['km'], 0, ',', '.')); ?>" readonly />
+                                        <label for="km_before">Total KM Mobil Sebelumnya <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="form-floating form-floating-outline mb-3">
+                                        <input type="text" class="form-control" id="km_display" name="km_display" placeholder="Total KM Mobil" oninput="formatKm(this)" required />
+                                        <input type="hidden" id="km" name="km" />
+                                        <label for="km_display">Total KM Mobil <span class="text-danger">*</span></label>
+                                    </div>
+                                <?php endif; ?>
                                 <?php
                                 $drivers = $userModel->getDrivers();
                                 ?>
-                                <?php if ($booking['is_driver'] == 1 && $booking['driver_id'] !== null): ?>
+                                <?php if ($booking['is_driver'] == 1 && $booking['driver_id'] == null): ?>
                                     <div class="col-md-12">
                                         <div class="form-floating form-floating-outline mb-3">
                                             <select name="driver_id" class="form-select" id="driver_id" required>
@@ -303,7 +318,6 @@ $uuid = $_GET['uuid'];
                                                         <?php echo htmlspecialchars($driver['name']); ?>
                                                     </option>
                                                 <?php endforeach; ?>
-                                                <option value="Ditolak">Ditolak</option>
                                             </select>
                                             <label for="driver_id">Nama Driver <span class="text-danger">*</span></label>
                                         </div>
@@ -363,5 +377,12 @@ $uuid = $_GET['uuid'];
         let formattedValue = new Intl.NumberFormat('id-ID').format(value);
         input.value = formattedValue;
         document.getElementById('remaining_amount').value = value;
+    }
+
+    function formatKm(input) {
+        let value = input.value.replace(/\D/g, '');
+        let formattedValue = new Intl.NumberFormat('id-ID').format(value);
+        input.value = formattedValue;
+        document.getElementById('km').value = value;
     }
 </script>
