@@ -1,11 +1,18 @@
 <?php
 require_once 'classes/Car.php';
 require_once 'classes/Booking.php';
+require_once 'classes/Review.php';
+require_once 'classes/User.php';
+require_once 'classes/Profile.php';
 
 $carModel = new Car();
 $cars = $carModel->list();
 $totalCars = $carModel->getTotalCars();
 $totalKilometers = $carModel->getTotalKilometers();
+
+$reviewModel = new Review();
+$reviews = $reviewModel->list();
+$totalReviews = $reviewModel->getTotalReviews();
 
 $bookingModel = new Booking();
 ?>
@@ -159,7 +166,7 @@ $bookingModel = new Booking();
                         <i class="fas fa-thumbs-up fa-2x text-white"></i>
                     </div>
                     <div class="counter-counting my-3">
-                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up">829</span>
+                        <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?= $totalReviews ?></span>
                         <span class="h1 fw-bold text-white">+</span>
                     </div>
                     <h4 class="text-white mb-0">Pelanggan Senang</h4>
@@ -310,69 +317,32 @@ $bookingModel = new Booking();
             </p>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            <div class="testimonial-item">
-                <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                </div>
-                <div class="testimonial-inner p-4">
-                    <img src="assets/web/img/testimonial-1.jpg" class="img-fluid">
-                    <div class="ms-4">
-                        <h4>Person Name</h4>
-                        <p>Profession</p>
-                        <div class="d-flex text-primary">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star text-body"></i>
+            <?php foreach ($reviews as $review): ?>
+                <?php
+                $modelUser = new User();
+                $user = $modelUser->getById($review['user_id']);
+
+                $modelProfile = new Profile();
+                $profile = $modelProfile->getByUserId($review['user_id']);
+                ?>
+                <div class="testimonial-item">
+                    <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i></div>
+                    <div class="testimonial-inner p-4">
+                        <img src="assets/uploads/photo_profile/<?php echo htmlspecialchars($profile['photo_profile']) ?>" class="img-fluid">
+                        <div class="ms-4">
+                            <h4><?php echo htmlspecialchars($user['name']); ?></h4>
+                            <div class="d-flex text-primary">
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <i class="fas fa-star<?php echo $i <= $review['grade'] ? '' : ' text-body'; ?>"></i>
+                                <?php endfor; ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="border-top rounded-bottom p-4">
-                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam soluta neque ab repudiandae reprehenderit ipsum eos cumque esse repellendus impedit.</p>
-                </div>
-            </div>
-            <div class="testimonial-item">
-                <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                </div>
-                <div class="testimonial-inner p-4">
-                    <img src="assets/web/img/testimonial-2.jpg" class="img-fluid">
-                    <div class="ms-4">
-                        <h4>Person Name</h4>
-                        <p>Profession</p>
-                        <div class="d-flex text-primary">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star text-body"></i>
-                            <i class="fas fa-star text-body"></i>
-                        </div>
+                    <div class="border-top rounded-bottom p-4">
+                        <p class="mb-0"><?php echo htmlspecialchars($review['description']); ?></p>
                     </div>
                 </div>
-                <div class="border-top rounded-bottom p-4">
-                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam soluta neque ab repudiandae reprehenderit ipsum eos cumque esse repellendus impedit.</p>
-                </div>
-            </div>
-            <div class="testimonial-item">
-                <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i>
-                </div>
-                <div class="testimonial-inner p-4">
-                    <img src="assets/web/img/testimonial-3.jpg" class="img-fluid">
-                    <div class="ms-4">
-                        <h4>Person Name</h4>
-                        <p>Profession</p>
-                        <div class="d-flex text-primary">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star text-body"></i>
-                            <i class="fas fa-star text-body"></i>
-                            <i class="fas fa-star text-body"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-top rounded-bottom p-4">
-                    <p class="mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam soluta neque ab repudiandae reprehenderit ipsum eos cumque esse repellendus impedit.</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 require_once 'classes/Booking.php';
 require_once 'classes/Payment.php';
 require_once 'classes/Car.php';
+require_once 'classes/Review.php';
 
 $getBooking = new Booking();
 $getPayment = new Payment();
@@ -32,9 +33,9 @@ $no = 1;
                                 <th>Tanggal Pengambilan</th>
                                 <th>Tanggal Pengembalian</th>
                                 <th>Destinasi</th>
-                                <th>Total Harga</th>
+                                <!-- <th>Total Harga</th>
                                 <th>Metode Pembayaran</th>
-                                <th>Nominal Dibayar</th>
+                                <th>Nominal Dibayar</th> -->
                                 <th>Status</th>
                                 <th>Option</th>
                             </tr>
@@ -46,15 +47,15 @@ $no = 1;
                                 $payment = $getPayment->getPaymentByBookingId($booking['id']);
                                 ?>
                                 <tr>
-                                    <td class="text-center"><?php echo $no++; ?></td>
-                                    <td><?php echo htmlspecialchars($booking['no_booking']); ?></td>
-                                    <td><?php echo htmlspecialchars($car['merk']); ?> <?php echo htmlspecialchars($car['tipe']); ?></td>
-                                    <td><?php echo htmlspecialchars($booking['date_start']); ?></td>
-                                    <td><?php echo htmlspecialchars($booking['date_end']); ?></td>
-                                    <td><?php echo htmlspecialchars($booking['destination']); ?></td>
-                                    <td>Rp <?php echo number_format($booking['total_harga'], 0, ',', '.'); ?></td>
+                                    <td class="text-center align-content-center"><?php echo $no++; ?></td>
+                                    <td class="align-content-center"><?php echo htmlspecialchars($booking['no_booking']); ?></td>
+                                    <td class="align-content-center"><?php echo htmlspecialchars($car['merk']); ?> <?php echo htmlspecialchars($car['tipe']); ?></td>
+                                    <td class="align-content-center"><?php echo htmlspecialchars($booking['date_start']); ?></td>
+                                    <td class="align-content-center"><?php echo htmlspecialchars($booking['date_end']); ?></td>
+                                    <td class="align-content-center"><?php echo htmlspecialchars($booking['destination']); ?></td>
+                                    <!-- <td>Rp <?php echo number_format($booking['total_harga'], 0, ',', '.'); ?></td>
                                     <td><?php echo htmlspecialchars($payment['method']); ?></td>
-                                    <td>Rp <?php echo $payment['amount'] !== null ? number_format($payment['amount'], 0, ',', '.') : '-'; ?></td>
+                                    <td>Rp <?php echo $payment['amount'] !== null ? number_format($payment['amount'], 0, ',', '.') : '-'; ?></td> -->
                                     <?php
                                     if ($booking['status'] == 'Belum Bayar' || $booking['status'] == 'Menunggu Konfirmasi') {
                                         $color = 'warning';
@@ -66,14 +67,29 @@ $no = 1;
                                         $color = 'success';
                                     }
                                     ?>
-                                    <td><span class="badge bg-<?php echo $color; ?>"><?php echo htmlspecialchars($booking['status']); ?></span></td>
+                                    <td class="align-content-center"><span class="badge bg-<?php echo $color; ?>"><?php echo htmlspecialchars($booking['status']); ?></span></td>
                                     <td>
                                         <div class="d-flex justify-content-between">
+                                            <?php
+                                            $modelReview = new Review();
+                                            $review = $modelReview->getById($booking['id']);
+                                            ?>
                                             <a href="?views=transaction&uuid=<?php echo htmlspecialchars($booking['uuid']); ?>" class="btn btn-primary btn-sm mx-1 d-flex align-items-center justify-content-center m-3">Detail</a>
+                                            <?php if ($booking['status'] == 'Selesai'): ?>
+                                                <?php if (!$review): ?>
+                                                    <button type="button" class="btn btn-secondary btn-sm mx-1 d-flex align-items-center justify-content-center m-3" data-bs-toggle="modal" data-bs-target="#reviewModal" data-uuid="<?php echo htmlspecialchars($booking['uuid']); ?>">
+                                                        Beri Review
+                                                    </button>
+                                                <?php else: ?>
+                                                    <!-- <button type="button" class="btn btn-secondary btn-sm mx-1 d-flex align-items-center justify-content-center m-3" data-bs-toggle="modal" data-bs-target="#showReviewModal" data-uuid="<?php echo htmlspecialchars($booking['uuid']); ?>">
+                                                        Lihat Review
+                                                    </button> -->
+                                                <?php endif; ?>
+                                            <?php endif; ?>
                                             <?php if ($payment['method'] == 'Transfer'): ?>
                                                 <?php if (!empty($payment['evidence_file'])): ?>
                                                     <button type="button"
-                                                        class="btn btn-info btn-sm mx-1 d-flex align-items-center justify-content-center btn-view-evidence"
+                                                        class="btn btn-info btn-sm mx-1 d-flex align-items-center justify-content-center m-3 btn-view-evidence"
                                                         data-uuid="<?php echo urlencode($payment['uuid']); ?>"
                                                         data-file="<?php echo htmlspecialchars($payment['evidence_file']); ?>"
                                                         data-bs-toggle="modal" data-bs-target="#viewEvidenceModal">
@@ -81,7 +97,7 @@ $no = 1;
                                                     </button>
                                                 <?php else: ?>
                                                     <button type="button"
-                                                        class="btn btn-success btn-sm mx-1 d-flex align-items-center justify-content-center btn-evidence"
+                                                        class="btn btn-success btn-sm mx-1 d-flex align-items-center justify-content-center m-3 btn-evidence"
                                                         data-uuid="<?php echo urlencode($payment['uuid']); ?>"
                                                         data-bs-toggle="modal" data-bs-target="#evidenceModal">
                                                         Kirim bukti transfer
@@ -100,7 +116,7 @@ $no = 1;
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Bukti -->
 <div class="modal fade" id="evidenceModal" tabindex="-1" aria-labelledby="evidenceModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -119,6 +135,35 @@ $no = 1;
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                     <button type="submit" class="btn btn-primary">Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reviewModalLabel">Review Booking</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="backend/booking/review.php" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="uuid" id="reviewUuid" value="">
+                    <div class="mb-3">
+                        <label for="grade" class="form-label">Grade (1-5)</label>
+                        <input type="number" class="form-control" id="grade" name="grade" min="1" max="5" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit Review</button>
                 </div>
             </form>
         </div>
@@ -182,3 +227,41 @@ $no = 1;
         });
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var reviewModal = document.getElementById('reviewModal');
+        reviewModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var uuid = button.getAttribute('data-uuid');
+            var modalUuidInput = document.getElementById('reviewUuid');
+            modalUuidInput.value = uuid;
+        });
+    });
+</script>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var showReviewModal = document.getElementById('showReviewModal');
+        showReviewModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var uuid = button.getAttribute('data-uuid');
+            // var modalUuidInput = document.getElementById('reviewUuid');
+            // modalUuidInput.value = uuid;
+
+            // Fetch existing review data
+            fetch('../backend/booking/get_review.php?uuid=' + uuid)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById('grade').value = data.grade;
+                        document.getElementById('description').value = data.description;
+                    } else {
+                        document.getElementById('grade').value = '';
+                        document.getElementById('description').value = '';
+                    }
+                })
+                .catch(error => console.error('Error fetching review data:', error));
+        });
+    });
+</script> -->

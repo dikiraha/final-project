@@ -114,9 +114,8 @@ session_start();
 
     <script>
         <?php
-        // Check if there's a Toastr message set in session
         if (isset($_SESSION['toastr'])):
-            $type = $_SESSION['toastr']['type']; // success, error, info, warning
+            $type = $_SESSION['toastr']['type'];
             $message = $_SESSION['toastr']['message'];
             unset($_SESSION['toastr']);
         ?>
