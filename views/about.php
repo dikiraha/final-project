@@ -3,12 +3,12 @@ require_once 'classes/Setting.php';
 
 $getSetting = new Setting();
 $setting = $getSetting->list()[0];
-// $owner = $setting['owner'];
-// $photo = $setting['photo'];
-// $about_company = $setting['about_company'];
-// $history_company = $setting['history_company'];
-// $visi = $setting['visi'];
-// $misi = $setting['misi'];
+$owner = $setting['owner'];
+$photo = $setting['photo'];
+$about_company = $setting['about_company'];
+$history_company = $setting['history_company'];
+$visi = $setting['visi'];
+$misi = $setting['misi'];
 ?>
 <!-- About Start -->
 <div class="container-fluid overflow-hidden about py-3">
