@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'method' => $_POST['method'],
         'type' => $type,
         'amount' => $amount,
-        'evidence' => null,
+        'evidence_file' => null,
     ]);
 
     $dataCar = $car->getCarById($car_id);
@@ -97,37 +97,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $interval = $start->diff($end);
     $duration = $interval->days;
 
+    $date_start_format = DateTime::createFromFormat('Y-m-d\TH:i', $date_start);
+    $date_end_format = DateTime::createFromFormat('Y-m-d\TH:i', $date_end);
+    $date_start_formatted = $date_start_format->format('Y-m-d');
+    $date_end_formatted = $date_end_format->format('Y-m-d');
+
     if ($bookingCreate) {
-        // $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
-        // $nomor = "082125008160";
-        // $isi = "📢 *Pemberitahuan Penyewaan Mobil*\n";
-        // $isi .= "\n🎫 *No Booking* : " . $no_booking;
-        // $isi .= "\n👤 *Nama Penyewa* : " . $_SESSION['user_name'];
-        // $isi .= "\n🚗 *Mobil yang Disewa* : " . $dataCar['merk'] . " " . $dataCar['tipe'];
-        // $isi .= "\n🛣️ *Kota Tujuan* : " . $destination;
-        // $isi .= "\n📅 *Tanggal Sewa* : " . $start;
-        // $isi .= "\n📅 *Tanggal Kembali* : " . $end;
-        // $isi .= "\n⏱️ *Durasi Sewa* : " . $duration . " Hari";
-        // $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . $harga_mobil;
-        // $isi .= "\n💲 *Metode Pembayaran* : " . "Rp "  . $_POST['method'];
-        // $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . $amount;
-        // $message = sprintf("----------DIANA RENT CAR----------%c$isi%c--------------------------------------- ", 10, 10);
+        $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
+        $nomor = "082125008160";
+        $isi = "📢 *Pemberitahuan Penyewaan Mobil*\n";
+        $isi .= "\n🎫 *No Booking* : " . $no_booking;
+        $isi .= "\n👤 *Nama Penyewa* : " . $_SESSION['user_name'];
+        $isi .= "\n🚗 *Mobil yang Disewa* : " . $dataCar['merk'] . " " . $dataCar['tipe'];
+        $isi .= "\n🛣️ *Kota Tujuan* : " . $destination;
+        $isi .= "\n📅 *Tanggal Sewa* : " . $date_start_formatted;
+        $isi .= "\n📅 *Tanggal Kembali* : " . $date_end_formatted;
+        $isi .= "\n⏱️ *Durasi Sewa* : " . $duration . " Hari";
+        $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . $harga_mobil;
+        $isi .= "\n💲 *Metode Pembayaran* : " . $_POST['method'];
+        $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . $amount;
 
-        // $curl = curl_init();
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_URL => 'https://app.ruangwa.id/api/send_message',
-        //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_ENCODING => '',
-        //     CURLOPT_MAXREDIRS => 10,
-        //     CURLOPT_TIMEOUT => 0,
-        //     CURLOPT_FOLLOWLOCATION => true,
-        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        //     CURLOPT_CUSTOMREQUEST => 'POST',
-        //     CURLOPT_POSTFIELDS => 'token=' . $token . '&number=' . $nomor . '&message=' . $message,
-        // ));
+        $message = sprintf("----------DIANA RENT CAR----------%c$isi%c--------------------------------------- ", 10, 10);
 
-        // $response = curl_exec($curl);
-        // curl_close($curl);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://app.ruangwa.id/api/send_message',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => 'token=' . $token . '&number=' . $nomor . '&message=' . $message,
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
 
         $_SESSION['toastr'] = [
             'type' => 'success',
