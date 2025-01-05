@@ -8,6 +8,7 @@ require_once '../../vendor/autoload.php';
 
 use Ramsey\Uuid\Uuid;
 
+var_dump("emul");
 $booking = new Booking();
 $payment = new Payment();
 $car = new Car();
