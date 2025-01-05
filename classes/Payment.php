@@ -114,27 +114,34 @@ class Payment
         return $result['total_completed'] ?? 0;
     }
 
-    public function getTotalAmount()
+    public function getTotalAmount($month, $year)
     {
         $sql = "SELECT SUM(tt_payments.amount) + SUM(tt_bookings.total_denda) AS total_amount 
-            FROM " . $this->table . " 
-            INNER JOIN tt_bookings ON tt_bookings.id = " . $this->table . ".booking_id 
-            WHERE tt_bookings.status = 'Selesai'";
+                FROM " . $this->table . " 
+                INNER JOIN tt_bookings ON tt_bookings.id = " . $this->table . ".booking_id 
+                WHERE tt_bookings.status = 'Selesai'
+                AND MONTH(tt_bookings.date_start) = :month
+                AND YEAR(tt_bookings.date_start) = :year";
 
         $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':month', $month, PDO::PARAM_INT);
+        $stmt->bindParam(':year', $year, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_amount'] ?? 0;
     }
 
-    public function getMonthlyPaymentsForCurrentYear()
+    public function getMonthlyPaymentsForCurrentYear($year)
     {
         $query = "SELECT MONTH(tt_bookings.created_at) as month, SUM(tt_payments.amount) as total_amount 
                     FROM tt_payments 
                     INNER JOIN tt_bookings ON tt_bookings.id = tt_payments.booking_id 
-                    WHERE tt_bookings.status = 'Selesai' AND YEAR(tt_bookings.created_at) = YEAR(CURRENT_DATE())
+                    WHERE tt_bookings.status = 'Selesai' 
+                    AND YEAR(tt_bookings.created_at) = :year
+                    AND YEAR(tt_payments.created_at) = :year
                     GROUP BY MONTH(tt_bookings.created_at)";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':year', $year, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

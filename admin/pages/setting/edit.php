@@ -41,6 +41,11 @@ if (!$setting) {
                             <input type="file" class="form-control" id="photo" name="photo" accept="image/*" placeholder="Photo Owner" />
                             <label for="photo">Photo Owner</label>
                             <small class="form-text text-muted">Leave blank if you don't want to change the photo.</small>
+                            <?php if (!empty($setting['photo'])): ?>
+                                <div class="mt-3">
+                                    <img src="./../assets/uploads/owner/<?php echo htmlspecialchars($setting['photo']); ?>" alt="Current Photo" class="img-fluid" style="max-width: 100px;">
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="form-floating form-floating-outline mb-3">
@@ -198,5 +203,18 @@ if (!$setting) {
     const about_footer = document.querySelector('#about_footer');
     about_footer.addEventListener('input', function() {
         autoResizeTextarea(this);
+    });
+</script>
+
+<!-- Include TinyMCE script -->
+<script src="https://cdn.tiny.cloud/1/sz1oi6o8pq1cfgze3fc0htsn882dirr9kgsabr33bapngybz/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<!-- Initialize TinyMCE -->
+<script>
+    tinymce.init({
+        selector: '#agreement_1, #agreement_2, #visi, #misi, #about_company, #history_company, #about_footer',
+        menubar: true,
+        plugins: 'lists link image preview',
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | preview'
     });
 </script>

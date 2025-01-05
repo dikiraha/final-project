@@ -22,6 +22,7 @@ $bookingModel = new Booking();
     <div class="container pb-5">
         <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 800px;">
             <h1 class="display-5 text-capitalize">Tipe <span class="text-primary">Kendaraan</span></h1>
+            <h6><b>"Siapa Cepat, Dia Dapat" <i>(First-Pay-First-Serve)</i></b></h6>
         </div>
         <div class="categories-carousel owl-carousel wow fadeInUp" data-wow-delay="0.1s">
             <?php foreach ($cars as $car): ?>

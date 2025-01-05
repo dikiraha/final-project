@@ -2,13 +2,15 @@
 require_once 'classes/Car.php';
 require_once 'classes/Setting.php';
 require_once 'classes/Profile.php';
+require_once 'classes/Booking.php';
 
 $getCar = new Car();
-$getsetting = new Setting();
+$getSetting = new Setting();
+$getBooking = new Booking();
 
 $uuid = $_GET['uuid'];
 $car = $getCar->getDetail($uuid);
-$setting = $getsetting->getFirstSetting();
+$setting = $getSetting->getFirstSetting();
 
 $profile = null;
 if (isset($_SESSION['user_id'])) {
@@ -97,6 +99,7 @@ if (isset($_SESSION['user_id'])) {
                             <input type="hidden" name="harga_mobil" id="harga_mobil" value="<?php echo htmlspecialchars($car['harga']); ?>">
                             <input type="hidden" name="denda_mobil" id="denda_mobil" value="<?php echo htmlspecialchars($car['denda']); ?>">
                             <div class="row g-4 p-3">
+                                <h6>Gunakan metode pembayaran transfer jika ingin mobil tidak disewa oleh orang lain atau sudah booking</h6>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
                                         <input type="datetime-local" class="form-control" id="date_start" name="date_start" placeholder="Tanggal Pengambilan" required>
@@ -357,6 +360,7 @@ if (isset($_SESSION['user_id'])) {
         var typeContainer = document.getElementById('type-container');
         var transferContainer = document.getElementById('transfer-container');
         var typeSelect = document.getElementById('type');
+        var amountContainer = document.getElementById('amount-container');
 
         if (method === 'Transfer') {
             typeContainer.style.display = 'block';
@@ -366,6 +370,7 @@ if (isset($_SESSION['user_id'])) {
             typeContainer.style.display = 'none';
             transferContainer.style.display = 'none';
             typeSelect.removeAttribute('required');
+            amountContainer.style.display = 'none';
         }
     }
 

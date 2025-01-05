@@ -39,7 +39,7 @@ pushInlineScript('
         <div class="col-12">
             <div class="card overflow-hidden">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">List User</h5>
+                    <h5 class="mb-0">List Users</h5>
                     <small class="text-body float-end">
                         <a href="?views=user_create" class="btn btn-primary btn-sm"><i class="ri-add-fill"></i>Create</a>
                     </small>

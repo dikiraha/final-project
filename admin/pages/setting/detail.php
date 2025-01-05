@@ -1,117 +1,139 @@
 <?php
-require_once '../classes/User.php';
-require_once '../classes/Profile.php';
+require_once '../classes/Setting.php';
 
-$getUser = new User();
-$getProfile = new Profile();
+$getSetting = new Setting();
+
+if (!isset($_GET['uuid'])) {
+    header('Location: ?views=setting_list');
+    exit();
+}
 
 $uuid = $_GET['uuid'];
-$user = $getUser->detail($uuid);
-$profile = $getProfile->getByUserId($user['id']);
-?>
+$setting = $getSetting->edit($uuid);
 
+if (!$setting) {
+    header('Location: ?views=setting_list');
+    exit();
+}
+?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-xl">
             <div class="card mb-6">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Detail User</h5>
+                    <h5 class="mb-0">Detail Setting</h5>
                     <small class="text-body float-end">
-                        <a href="./index.php?views=user_list" class="btn btn-secondary btn-sm">
+                        <a href="./index.php?views=setting_list" class="btn btn-secondary btn-sm">
                             <i class="ri-arrow-left-line"></i> Back
                         </a>
                     </small>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <p class="form-control-plaintext"><?php echo htmlspecialchars($user['name']); ?></p>
+                        <label for="owner" class="form-label">Owner</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['owner']); ?></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="photo" class="form-label">Photo Owner</label>
+                        <?php if (!empty($setting['photo'])): ?>
+                            <p class="form-control-plaintext">
+                                <img src="./../assets/uploads/owner/<?php echo htmlspecialchars($setting['photo']); ?>" alt="Owner Photo" width="100">
+                            </p>
+                        <?php else: ?>
+                            <p class="form-control-plaintext">No photo available</p>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="bank" class="form-label">Nama Bank</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['bank']); ?></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="account_number" class="form-label">Nomor Rekening</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['account_number']); ?></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="account_name" class="form-label">Nama Rekening</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['account_name']); ?></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Alamat</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['address']); ?></p>
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <p class="form-control-plaintext"><?php echo htmlspecialchars($user['email']); ?></p>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['email']); ?></p>
                     </div>
 
                     <div class="mb-3">
-                        <label for="phone_number" class="form-label">No. Handphone</label>
-                        <p class="form-control-plaintext"><?php echo htmlspecialchars($user['phone_number']); ?></p>
+                        <label for="phone_number_1" class="form-label">Nomor Handphone 1</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['phone_number_1']); ?></p>
                     </div>
 
                     <div class="mb-3">
-                        <label for="role" class="form-label">Role</label>
-                        <p class="form-control-plaintext"><?php echo htmlspecialchars($user['role']); ?></p>
+                        <label for="phone_number_2" class="form-label">Nomor Handphone 2</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['phone_number_2'] ?? ''); ?></p>
                     </div>
 
-                    <?php if ($profile): ?>
-                        <h5 class="mt-4">Profile Information</h5>
+                    <div class="mb-3">
+                        <label for="agreement_1" class="form-label">Syarat Lepas Kunci</label>
+                        <div class="form-control-plaintext"><?php echo htmlspecialchars_decode($setting['agreement_1']); ?></div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <p class="form-control-plaintext"><?php echo htmlspecialchars($profile['address']); ?></p>
-                        </div>
+                    <div class="mb-3">
+                        <label for="agreement_2" class="form-label">Poin Ketentuan</label>
+                        <div class="form-control-plaintext"><?php echo htmlspecialchars_decode($setting['agreement_2']); ?></div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="gender" class="form-label">Gender</label>
-                            <p class="form-control-plaintext"><?php echo htmlspecialchars($profile['gender']); ?></p>
-                        </div>
+                    <div class="mb-3">
+                        <label for="visi" class="form-label">Visi</label>
+                        <div class="form-control-plaintext"><?php echo htmlspecialchars_decode($setting['visi']); ?></div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="photo_profile" class="form-label">Photo Profile</label>
-                            <p class="form-control-plaintext">
-                                <img src="../uploads/<?php echo htmlspecialchars($profile['photo_profile']); ?>" alt="Profile Photo" width="100">
-                            </p>
-                        </div>
+                    <div class="mb-3">
+                        <label for="misi" class="form-label">Misi</label>
+                        <div class="form-control-plaintext"><?php echo htmlspecialchars_decode($setting['misi']); ?></div>
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="ktp" class="form-label">KTP</label>
-                            <p class="form-control-plaintext">
-                                <?php
-                                $ktpFile = htmlspecialchars($profile['ktp']);
-                                $fileExtension = pathinfo($ktpFile, PATHINFO_EXTENSION);
-                                if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif'])): ?>
-                                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#ktpModalImage">View KTP</button>
+                    <div class="mb-3">
+                        <label for="about_company" class="form-label">About Company</label>
+                        <div class="form-control-plaintext"><?php echo htmlspecialchars_decode($setting['about_company']); ?></div>
+                    </div>
 
-                            <div class="modal fade" id="ktpModalImage" tabindex="-1" aria-labelledby="ktpModalImageLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ktpModalImageLabel">KTP Image</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <img src="../assets/uploads/ktp/<?php echo $ktpFile; ?>" alt="KTP" class="img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php elseif (strtolower($fileExtension) === 'pdf'): ?>
-                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#ktpModalPDF">View KTP</button>
+                    <div class="mb-3">
+                        <label for="history_company" class="form-label">History Company</label>
+                        <div class="form-control-plaintext"><?php echo htmlspecialchars_decode($setting['history_company']); ?></div>
+                    </div>
 
-                            <div class="modal fade" id="ktpModalPDF" tabindex="-1" aria-labelledby="ktpModalPDFLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="ktpModalPDFLabel">KTP PDF</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <iframe src="../assets/uploads/ktp/<?php echo $ktpFile; ?>" width="100%" height="500px" frameborder="0"></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php else: ?>
-                            <p>Unsupported file type.</p>
-                        <?php endif; ?>
-                        </p>
-                        </div>
+                    <div class="mb-3">
+                        <label for="about_footer" class="form-label">About Footer</label>
+                        <div class="form-control-plaintext"><?php echo htmlspecialchars_decode($setting['about_footer']); ?></div>
+                    </div>
 
-                        <!-- Add other fields similarly -->
+                    <div class="mb-3">
+                        <label for="facebook" class="form-label">Link Facebook</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['facebook'] ?? ''); ?></p>
+                    </div>
 
-                    <?php else: ?>
-                        <p>No profile information available.</p>
-                    <?php endif; ?>
+                    <div class="mb-3">
+                        <label for="instagram" class="form-label">Link Instagram</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['instagram'] ?? ''); ?></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="twitter" class="form-label">Link Twitter</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['twitter'] ?? ''); ?></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tiktok" class="form-label">Link Tiktok</label>
+                        <p class="form-control-plaintext"><?php echo htmlspecialchars($setting['tiktok'] ?? ''); ?></p>
+                    </div>
                 </div>
             </div>
         </div>

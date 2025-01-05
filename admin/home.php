@@ -12,18 +12,37 @@ $paymentModel = new Payment();
 $currentMonth = date('m');
 $currentYear = date('Y');
 
+$startYear = 2024;
+
 $selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('m');
 $selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
+
+$monthsName = [
+    '01' => 'Januari',
+    '02' => 'Februari',
+    '03' => 'Maret',
+    '04' => 'April',
+    '05' => 'Mei',
+    '06' => 'Juni',
+    '07' => 'Juli',
+    '08' => 'Agustus',
+    '09' => 'September',
+    '10' => 'Oktober',
+    '11' => 'November',
+    '12' => 'Desember'
+];
+
+$monthName = $monthsName[$selectedMonth];
 
 $bestCar = $carModel->bestBooking($selectedMonth, $selectedYear);
 
 // $bestCar = $carModel->bestBooking();
 $totalRevenue = $bestCar ? $carModel->getTotalRevenueForCurrentMonth($bestCar['id']) : 0;
-$totalCompletedBookings = $bookingModel->getTotalCompletedBookings();
+$totalCompletedBookings = $bookingModel->getTotalCompletedBookings($selectedMonth, $selectedYear);
 $totalUser = $userModel->getTotalUser();
 $totalCar = $carModel->getTotalCars();
-$totalAmount = $paymentModel->getTotalAmount();
-$monthlyPayments = $paymentModel->getMonthlyPaymentsForCurrentYear();
+$totalAmount = $paymentModel->getTotalAmount($selectedMonth, $selectedYear);
+$monthlyPayments = $paymentModel->getMonthlyPaymentsForCurrentYear($selectedYear);
 
 $months = array_fill(1, 12, 0);
 foreach ($monthlyPayments as $payment) {
@@ -52,26 +71,27 @@ function formatNumber($number)
                             <div class="form-floating form-floating-outline col-md-3">
                                 <select class="form-select" id="month" name="month" aria-label="Bulan">
                                     <option value="" disabled>-- Pilih --</option>
-                                    <option value="01" <?php echo ($currentMonth == '01') ? 'selected' : ''; ?>>Januari</option>
-                                    <option value="02" <?php echo ($currentMonth == '02') ? 'selected' : ''; ?>>Februari</option>
-                                    <option value="03" <?php echo ($currentMonth == '03') ? 'selected' : ''; ?>>Maret</option>
-                                    <option value="04" <?php echo ($currentMonth == '04') ? 'selected' : ''; ?>>April</option>
-                                    <option value="05" <?php echo ($currentMonth == '05') ? 'selected' : ''; ?>>Mei</option>
-                                    <option value="06" <?php echo ($currentMonth == '06') ? 'selected' : ''; ?>>Juni</option>
-                                    <option value="07" <?php echo ($currentMonth == '07') ? 'selected' : ''; ?>>Juli</option>
-                                    <option value="08" <?php echo ($currentMonth == '08') ? 'selected' : ''; ?>>Agustus</option>
-                                    <option value="09" <?php echo ($currentMonth == '09') ? 'selected' : ''; ?>>September</option>
-                                    <option value="10" <?php echo ($currentMonth == '10') ? 'selected' : ''; ?>>Oktober</option>
-                                    <option value="11" <?php echo ($currentMonth == '11') ? 'selected' : ''; ?>>November</option>
-                                    <option value="12" <?php echo ($currentMonth == '12') ? 'selected' : ''; ?>>Desember</option>
+                                    <option value="01" <?php echo ($selectedMonth == '01') ? 'selected' : ''; ?>>Januari</option>
+                                    <option value="02" <?php echo ($selectedMonth == '02') ? 'selected' : ''; ?>>Februari</option>
+                                    <option value="03" <?php echo ($selectedMonth == '03') ? 'selected' : ''; ?>>Maret</option>
+                                    <option value="04" <?php echo ($selectedMonth == '04') ? 'selected' : ''; ?>>April</option>
+                                    <option value="05" <?php echo ($selectedMonth == '05') ? 'selected' : ''; ?>>Mei</option>
+                                    <option value="06" <?php echo ($selectedMonth == '06') ? 'selected' : ''; ?>>Juni</option>
+                                    <option value="07" <?php echo ($selectedMonth == '07') ? 'selected' : ''; ?>>Juli</option>
+                                    <option value="08" <?php echo ($selectedMonth == '08') ? 'selected' : ''; ?>>Agustus</option>
+                                    <option value="09" <?php echo ($selectedMonth == '09') ? 'selected' : ''; ?>>September</option>
+                                    <option value="10" <?php echo ($selectedMonth == '10') ? 'selected' : ''; ?>>Oktober</option>
+                                    <option value="11" <?php echo ($selectedMonth == '11') ? 'selected' : ''; ?>>November</option>
+                                    <option value="12" <?php echo ($selectedMonth == '12') ? 'selected' : ''; ?>>Desember</option>
                                 </select>
                                 <label for="month">Bulan <span class="text-danger">*</span></label>
                             </div>
                             <div class="form-floating form-floating-outline col-md-3">
                                 <select class="form-select" id="year" name="year" aria-label="Tahun">
                                     <option value="" disabled>-- Pilih --</option>
-                                    <option value="2024" <?php echo ($currentYear == '2024') ? 'selected' : ''; ?>>2024</option>
-                                    <option value="2025" <?php echo ($currentYear == '2025') ? 'selected' : ''; ?>>2025</option>
+                                    <?php for ($year = $startYear; $year <= $currentYear; $year++): ?>
+                                        <option value="<?php echo $year; ?>" <?php echo ($selectedYear == $year) ? 'selected' : ''; ?>><?php echo $year; ?></option>
+                                    <?php endfor; ?>
                                 </select>
                                 <label for="year">Tahun <span class="text-danger">*</span></label>
                             </div>
@@ -92,24 +112,26 @@ function formatNumber($number)
                     <!-- <p class="mb-2">78% of target 🚀</p> -->
                     <!-- <a href="javascript:;" class="btn btn-sm btn-primary">View Sales</a> -->
                 </div>
-                <img
-                    src="../assets/uploads/car/<?php echo htmlspecialchars($bestCar['photo'] ?? ''); ?>"
-                    class="position-absolute bottom-0 end-0 me-1 mb-5"
-                    width="150"
-                    alt="Car Photo" />
+                <?php if ($bestCar): ?>
+                    <img
+                        src="../assets/uploads/car/<?php echo htmlspecialchars($bestCar['photo'] ?? ''); ?>"
+                        class="position-absolute bottom-0 end-0 me-1 mb-5"
+                        width="150"
+                        alt="Car Photo" />
+                <?php endif; ?>
             </div>
         </div>
 
-        <div class="col-lg-8">
+        <div class="col-lg-4">
             <div class="card h-100">
                 <div class="card-header">
                     <div class="d-flex align-items-center justify-content-between">
-                        <h5 class="card-title m-0 me-2">Summary</h5>
+                        <h5 class="card-title m-0 me-2">Summary <?php echo htmlspecialchars($monthName . " " . $selectedYear) ?></h5>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row g-6">
-                        <div class="col-md-3 col-6">
+                        <div class="col-md-6 col-6">
                             <div class="d-flex align-items-center">
                                 <div class="avatar">
                                     <div class="avatar-initial bg-primary rounded shadow-xs">
@@ -122,33 +144,7 @@ function formatNumber($number)
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 col-6">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar">
-                                    <div class="avatar-initial bg-success rounded shadow-xs">
-                                        <i class="ri-group-line ri-24px"></i>
-                                    </div>
-                                </div>
-                                <div class="ms-3">
-                                    <p class="mb-0">Pengguna</p>
-                                    <h5 class="mb-0"><?php echo htmlspecialchars(number_format($totalUser)); ?></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar">
-                                    <div class="avatar-initial bg-warning rounded shadow-xs">
-                                        <i class="ri-car-line ri-24px"></i>
-                                    </div>
-                                </div>
-                                <div class="ms-3">
-                                    <p class="mb-0">Mobil</p>
-                                    <h5 class="mb-0"><?php echo htmlspecialchars(number_format($totalCar)); ?></h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-6">
+                        <div class="col-md-6 col-6">
                             <div class="d-flex align-items-center">
                                 <div class="avatar">
                                     <div class="avatar-initial bg-info rounded shadow-xs">
@@ -166,11 +162,51 @@ function formatNumber($number)
             </div>
         </div>
 
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5 class="card-title m-0 me-2">Data Master</h5>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row g-6">
+                        <div class="col-md-6 col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar">
+                                    <div class="avatar-initial bg-success rounded shadow-xs">
+                                        <i class="ri-group-line ri-24px"></i>
+                                    </div>
+                                </div>
+                                <div class="ms-3">
+                                    <p class="mb-0">Pengguna</p>
+                                    <h5 class="mb-0"><?php echo htmlspecialchars(number_format($totalUser)); ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar">
+                                    <div class="avatar-initial bg-warning rounded shadow-xs">
+                                        <i class="ri-car-line ri-24px"></i>
+                                    </div>
+                                </div>
+                                <div class="ms-3">
+                                    <p class="mb-0">Mobil</p>
+                                    <h5 class="mb-0"><?php echo htmlspecialchars(number_format($totalCar)); ?></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-xl-12 col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
-                        <h5 class="mb-1">Pendapatan Bulanan</h5>
+                        <h5 class="mb-1">Pendapatan Bulanan pada Tahun <?php echo htmlspecialchars($selectedYear) ?></h5>
                         <div class="dropdown">
                             <button
                                 class="btn text-muted p-0"

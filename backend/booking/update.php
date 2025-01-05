@@ -11,7 +11,7 @@ $bookingModel = new Booking();
 $booking = $bookingModel->getBookingByUuid($uuid);
 $getDriver = $booking['driver_id'];
 if ($getDriver == null) {
-    $driver_id = $_POST['driver_id'];
+    $driver_id = null;
 } else {
     $driver_id = $getDriver;
 }
@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'driver_id' => $driver_id,
         'status' => $_POST['status'],
         'total_denda' => $total_denda,
+        'note' => $_POST['note'],
     ];
 
     $updatePayment = [
@@ -69,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isi = "Booking sudah dikonfirmasi Admin nih\n";
         $isi .= "\nNo Booking : " . $booking['no_booking'];
         $isi .= "\nStatus : " . $_POST['status'];
+        $isi .= "\nNote : " . $_POST['note'];
         $message = sprintf("----------DIANA RENT CAR----------%c$isi%c--------------------------------------- ", 10, 10);
 
         $curl = curl_init();

@@ -111,12 +111,16 @@ class Booking
         return $stmt->execute([$uuid]);
     }
 
-    public function getTotalCompletedBookings()
+    public function getTotalCompletedBookings($month, $year)
     {
         $query = "SELECT COUNT(*) as total_completed 
                     FROM " . $this->table . " 
-                    WHERE status = 'Selesai'";
+                    WHERE status = 'Selesai' 
+                    AND MONTH(date_start) = :month 
+                    AND YEAR(date_start) = :year";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':month', $month, PDO::PARAM_INT);
+        $stmt->bindParam(':year', $year, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result['total_completed'] ?? 0;

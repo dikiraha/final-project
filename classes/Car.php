@@ -110,7 +110,7 @@ class Car
         // Prepare the base query
         $query = "SELECT car_id, COUNT(*) as booking_count 
                     FROM tt_bookings 
-                    WHERE 1";
+                    WHERE status = 'Selesai'";
 
         if ($month) {
             $query .= " AND MONTH(date_start) = :month";
