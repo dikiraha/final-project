@@ -290,10 +290,14 @@ $uuid = $_GET['uuid'];
                                         <div class="form-floating form-floating-outline mb-3">
                                             <select name="status" class="form-select" id="status" required>
                                                 <option value="">-- Pilih --</option>
-                                                <option value="Disetujui" <?php echo ($booking['status'] == 'Disetujui') ? 'selected' : ''; ?>>Disetujui</option>
-                                                <option value="Ditolak" <?php echo ($booking['status'] == 'Ditolak') ? 'selected' : ''; ?>>Ditolak</option>
-                                                <option value="Berjalan" <?php echo ($booking['status'] == 'Berjalan') ? 'selected' : ''; ?>>Berjalan</option>
-                                                <option value="Selesai" <?php echo ($booking['status'] == 'Selesai') ? 'selected' : ''; ?>>Selesai</option>
+                                                <?php if ($booking['status'] == 'Menunggu Konfirmasi'): ?>
+                                                    <option value="Disetujui" <?php echo ($booking['status'] == 'Disetujui') ? 'selected' : ''; ?>>Disetujui</option>
+                                                    <option value="Ditolak" <?php echo ($booking['status'] == 'Ditolak') ? 'selected' : ''; ?>>Ditolak</option>
+                                                <?php elseif ($booking['status'] == 'Disetujui'): ?>
+                                                    <option value="Berjalan" <?php echo ($booking['status'] == 'Berjalan') ? 'selected' : ''; ?>>Berjalan</option>
+                                                <?php elseif ($booking['status'] == 'Berjalan'): ?>
+                                                    <option value="Selesai" <?php echo ($booking['status'] == 'Selesai') ? 'selected' : ''; ?>>Selesai</option>
+                                                <?php endif; ?>
                                             </select>
                                             <label for="status">Status Booking <span class="text-danger">*</span></label>
                                         </div>
@@ -304,9 +308,9 @@ $uuid = $_GET['uuid'];
                                             <label for="km_before">Total KM Mobil Sebelumnya <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="form-floating form-floating-outline mb-3">
-                                            <input type="text" class="form-control" id="km_display" name="km_display" placeholder="Total KM Mobil" oninput="formatKm(this)" required />
+                                            <input type="text" class="form-control" id="km_display" name="km_display" placeholder="Total KM Mobil Setelahnya" oninput="formatKm(this)" required />
                                             <input type="hidden" id="km" name="km" />
-                                            <label for="km_display">Total KM Mobil <span class="text-danger">*</span></label>
+                                            <label for="km_display">Total KM Mobil Setelahnya <span class="text-danger">*</span></label>
                                         </div>
                                     <?php endif; ?>
                                     <?php
@@ -328,7 +332,7 @@ $uuid = $_GET['uuid'];
                                         </div>
                                     <?php endif; ?>
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary">Submit Konfirmasi</button>
+                                        <button type="submit" id="submitBtn" class="btn btn-primary">Submit Konfirmasi</button>
                                     </div>
                                 </form>
                             </div>
@@ -390,4 +394,21 @@ $uuid = $_GET['uuid'];
         input.value = formattedValue;
         document.getElementById('km').value = value;
     }
+</script>
+
+<script>
+    document.getElementById('submitBtn').addEventListener('click', function(event) {
+        // Ambil nilai km_before dan km_display
+        var kmBefore = parseInt(document.getElementById('km_before').value.replace(/[^\d]/g, '')); // Menghapus pemisah ribuan
+        var kmDisplay = parseInt(document.getElementById('km_display').value.replace(/[^\d]/g, '')); // Menghapus pemisah ribuan
+
+        // Periksa apakah km_display lebih besar dari km_before
+        if (kmDisplay <= kmBefore) {
+            alert('Total KM Mobil Setelahnya harus lebih besar dari Total KM Mobil Sebelumnya.');
+            event.preventDefault(); // Mencegah form dikirim jika validasi gagal
+            return false;
+        }
+
+        // Jika validasi lolos, form akan dikirim
+    });
 </script>
