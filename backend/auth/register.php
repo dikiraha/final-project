@@ -9,11 +9,42 @@ use Ramsey\Uuid\Uuid;
 $user = new User();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = $_POST['email'];
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
-    $name = $_POST['name'];
-    $phone_number = $_POST['phone_number'];
+    $name = trim($_POST['name']);
+    $phone_number = trim($_POST['phone_number']);
 
+    // Inisialisasi pesan error
+    $errors = [];
+
+    // Validasi email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "Format email tidak valid.";
+    }
+
+    // Validasi password (minimal 8 karakter, ada huruf besar, kecil, dan angka)
+    if (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/', $password)) {
+        $errors[] = "Password harus minimal 8 karakter, mengandung huruf besar, huruf kecil, dan angka.";
+    }
+
+    // Validasi nama (tidak boleh kosong)
+    if (empty($name)) {
+        $errors[] = "Nama tidak boleh kosong.";
+    }
+
+    // Validasi nomor telepon Indonesia
+    if (!preg_match('/^08\d{8,11}$/', $phone_number)) {
+        $errors[] = "Nomor telepon harus dimulai dengan 08 dan memiliki panjang 10-13 digit.";
+    }
+
+    // Cek apakah ada error
+    if (!empty($errors)) {
+        $_SESSION['register_error'] = implode('<br>', $errors);
+        header('Location: ../../auth/register.php');
+        exit;
+    }
+
+    // Cek apakah email sudah digunakan
     $existingUser = $user->getByEmail($email);
     if ($existingUser) {
         $_SESSION['register_error'] = "Email sudah digunakan!";
@@ -21,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // Generate UUID dan hash password
     $uuid = Uuid::uuid4()->toString();
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
     $role = 'user';

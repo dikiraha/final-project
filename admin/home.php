@@ -9,7 +9,15 @@ $bookingModel = new Booking();
 $userModel = new User();
 $paymentModel = new Payment();
 
-$bestCar = $carModel->bestBooking();
+$currentMonth = date('m');
+$currentYear = date('Y');
+
+$selectedMonth = isset($_GET['month']) ? $_GET['month'] : date('m');
+$selectedYear = isset($_GET['year']) ? $_GET['year'] : date('Y');
+
+$bestCar = $carModel->bestBooking($selectedMonth, $selectedYear);
+
+// $bestCar = $carModel->bestBooking();
 $totalRevenue = $bestCar ? $carModel->getTotalRevenueForCurrentMonth($bestCar['id']) : 0;
 $totalCompletedBookings = $bookingModel->getTotalCompletedBookings();
 $totalUser = $userModel->getTotalUser();
@@ -35,7 +43,46 @@ function formatNumber($number)
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row gy-6">
-        <!-- Congratulations card -->
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-body text-nowrap">
+                    <h6>Filter</h6>
+                    <form action="index.php" method="GET">
+                        <div class="row">
+                            <div class="form-floating form-floating-outline col-md-3">
+                                <select class="form-select" id="month" name="month" aria-label="Bulan">
+                                    <option value="" disabled>-- Pilih --</option>
+                                    <option value="01" <?php echo ($currentMonth == '01') ? 'selected' : ''; ?>>Januari</option>
+                                    <option value="02" <?php echo ($currentMonth == '02') ? 'selected' : ''; ?>>Februari</option>
+                                    <option value="03" <?php echo ($currentMonth == '03') ? 'selected' : ''; ?>>Maret</option>
+                                    <option value="04" <?php echo ($currentMonth == '04') ? 'selected' : ''; ?>>April</option>
+                                    <option value="05" <?php echo ($currentMonth == '05') ? 'selected' : ''; ?>>Mei</option>
+                                    <option value="06" <?php echo ($currentMonth == '06') ? 'selected' : ''; ?>>Juni</option>
+                                    <option value="07" <?php echo ($currentMonth == '07') ? 'selected' : ''; ?>>Juli</option>
+                                    <option value="08" <?php echo ($currentMonth == '08') ? 'selected' : ''; ?>>Agustus</option>
+                                    <option value="09" <?php echo ($currentMonth == '09') ? 'selected' : ''; ?>>September</option>
+                                    <option value="10" <?php echo ($currentMonth == '10') ? 'selected' : ''; ?>>Oktober</option>
+                                    <option value="11" <?php echo ($currentMonth == '11') ? 'selected' : ''; ?>>November</option>
+                                    <option value="12" <?php echo ($currentMonth == '12') ? 'selected' : ''; ?>>Desember</option>
+                                </select>
+                                <label for="month">Bulan <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="form-floating form-floating-outline col-md-3">
+                                <select class="form-select" id="year" name="year" aria-label="Tahun">
+                                    <option value="" disabled>-- Pilih --</option>
+                                    <option value="2024" <?php echo ($currentYear == '2024') ? 'selected' : ''; ?>>2024</option>
+                                    <option value="2025" <?php echo ($currentYear == '2025') ? 'selected' : ''; ?>>2025</option>
+                                </select>
+                                <label for="year">Tahun <span class="text-danger">*</span></label>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12 col-lg-4">
             <div class="card">
                 <div class="card-body text-nowrap">
@@ -52,9 +99,7 @@ function formatNumber($number)
                     alt="Car Photo" />
             </div>
         </div>
-        <!--/ Congratulations card -->
 
-        <!-- Transactions -->
         <div class="col-lg-8">
             <div class="card h-100">
                 <div class="card-header">
@@ -120,9 +165,7 @@ function formatNumber($number)
                 </div>
             </div>
         </div>
-        <!--/ Transactions -->
 
-        <!-- Monthly Overview card -->
         <div class="col-xl-12 col-md-12">
             <div class="card">
                 <div class="card-header">

@@ -105,14 +105,33 @@ class Car
         return $result['total_km'] ?? 0;
     }
 
-    public function bestBooking()
+    public function bestBooking($month = null, $year = null)
     {
+        // Prepare the base query
         $query = "SELECT car_id, COUNT(*) as booking_count 
                     FROM tt_bookings 
-                    GROUP BY car_id 
+                    WHERE 1";
+
+        if ($month) {
+            $query .= " AND MONTH(date_start) = :month";
+        }
+        if ($year) {
+            $query .= " AND YEAR(date_start) = :year";
+        }
+
+        $query .= " GROUP BY car_id 
                     ORDER BY booking_count DESC 
                     LIMIT 1";
+
         $stmt = $this->conn->prepare($query);
+
+        if ($month) {
+            $stmt->bindParam(':month', $month, PDO::PARAM_STR);
+        }
+        if ($year) {
+            $stmt->bindParam(':year', $year, PDO::PARAM_INT);
+        }
+
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 

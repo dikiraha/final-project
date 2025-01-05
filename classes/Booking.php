@@ -145,7 +145,7 @@ class Booking
 
     public function getBookingsByUserId($user_id)
     {
-        $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE user_id = :user_id");
+        $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE user_id = :user_id" . " ORDER BY created_at DESC");
         $query->execute(['user_id' => $user_id]);
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }

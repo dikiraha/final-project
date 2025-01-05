@@ -67,7 +67,7 @@ $profile = $getProfile->getByUserId($user['id']);
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-group">
                                         <label for="photo_profile">Photo Profile <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" style="background-color: white;" id="photo_profile" name="photo_profile" accept="image/*">
+                                        <input type="file" class="form-control" style="background-color: white;" id="photo_profile" name="photo_profile" accept="image/*" required>
                                         <span>Format file: gambar (.jpg, .png, .jpeg, dll)</span>
                                         <br>
                                         <?php if (!empty($profile['photo_profile'])): ?>

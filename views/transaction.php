@@ -55,12 +55,15 @@ $no = 1;
                 <br>
                 <b>dan Kirim Bukti Pembayaran pada Pesanan Saya</b>
                 <div class="row g-5">
-                    <div class="card p-2">
+                    <div class="d-flex justify-content-end">
+                        <button id="print-pdf" class="btn btn-primary">Download PDF</button>
+                    </div>
+                    <div class="card p-2" id="invoice">
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-3">
                                     <center>
-                                        <img src="assets/img/drc.png" alt="" height="100">
+                                        <img src="assets/img/drc.png" alt="" class="img-fluid">
                                     </center>
                                 </div>
                                 <div class="col-md-9">
@@ -246,3 +249,17 @@ $no = 1;
         </div>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+<script>
+    document.getElementById('print-pdf').addEventListener('click', function() {
+        var invoiceContent = document.getElementById('invoice');
+
+        var bookingNumber = "<?php echo htmlspecialchars($booking['no_booking']); ?>";
+
+        html2pdf()
+            .from(invoiceContent)
+            .save('INVOICE-' + bookingNumber + '.pdf');
+    });
+</script>

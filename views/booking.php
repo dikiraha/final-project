@@ -111,15 +111,15 @@ if (isset($_SESSION['user_id'])) {
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="destination" name="destination" placeholder="Tujuan Kota" required>
-                                        <label for="destination">Destinasi <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="destination" name="destination" placeholder="Kota Tujuan" required>
+                                        <label for="destination">Destinasi (Kota Tujuan) <span class="text-danger">*</span></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <label class="form-label">Dengan Supir? <span class="text-danger">*</span></label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="is_driver" id="supir_ya" value="Iya" required>
-                                        <label class="form-check-label" for="supir_ya">Ya</label>
+                                        <label class="form-check-label" for="supir_ya">Ya (+ Rp 150.000/hari)</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="is_driver" id="supir_tidak" value="Tidak" required>
@@ -170,10 +170,16 @@ if (isset($_SESSION['user_id'])) {
                                     </div>
                                 </div>
                                 <input type="hidden" name="total_harga" id="total_harga" value="0">
-                                <div class="col-12">
+                                <div class="col-12" id="booking" style="display: none;">
                                     <button type="button" class="btn btn-primary w-100 py-3" onclick="validateForm()">
                                         Booking dan Pembayaran
                                     </button>
+                                </div>
+
+                                <div class="col-12" id="edit_profile" style="display: none;">
+                                    <a href="?views=edit_profile" class="btn btn-primary w-100 py-3">
+                                        Lengkapi Profile
+                                    </a>
                                 </div>
                             </div>
                         </form>
@@ -210,47 +216,47 @@ if (isset($_SESSION['user_id'])) {
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
+        var isProfile = <?php echo isset($profile) && $profile ? 'true' : 'false'; ?>;
+
+        if (!isProfile) {
+            document.getElementById('edit_profile').style.display = 'block';
+            document.getElementById('booking').disabled = true;
+        } else {
+            document.getElementById('edit_profile').style.display = 'none';
+            document.getElementById('booking').style.display = 'block';
+        }
+
+        var form = document.querySelector("form");
+        var formElements = form.querySelectorAll("input, select, button, textarea");
+
+        if (!isLoggedIn || !isProfile) {
+            // Disable all form elements
+            formElements.forEach(function(element) {
+                element.disabled = true;
+            });
+
+            // Show appropriate alert based on the condition
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: !isLoggedIn ?
+                    'Anda harus login terlebih dahulu.' : 'Anda harus melengkapi data diri terlebih dahulu.',
+                showCancelButton: true,
+                confirmButtonText: !isLoggedIn ? 'Login' : 'Edit Profil',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = !isLoggedIn ? 'auth/login.php' : '?views=edit_profile';
+                }
+            });
+        }
+    });
+
     function validateForm() {
         var form = document.querySelector('form');
         var isValid = form.checkValidity();
-
-        // Check if the user is logged in
-        var isLoggedIn = <?php echo isset($_SESSION['user_id']) ? 'true' : 'false'; ?>;
-
-        // Check if the profile is complete
-        var isProfile = <?php echo isset($profile) && $profile ? 'true' : 'false'; ?>;
-
-        if (!isLoggedIn) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: 'Anda harus login terlebih dahulu.',
-                showCancelButton: true,
-                confirmButtonText: 'Login',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'auth/login.php';
-                }
-            });
-            return;
-        }
-
-        if (!isProfile) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oops...',
-                text: 'Anda harus lengkapi data diri terlebih dahulu.',
-                showCancelButton: true,
-                confirmButtonText: 'Edit Profile',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '?views=edit_profile';
-                }
-            });
-            return;
-        }
 
         if (isValid) {
             var modal = new bootstrap.Modal(document.getElementById('agreementModal'));
@@ -278,6 +284,7 @@ if (isset($_SESSION['user_id'])) {
     });
 </script>
 
+
 <script>
     document.getElementById('date_start').addEventListener('input', function(e) {
         var time = new Date(e.target.value).getHours();
@@ -294,6 +301,52 @@ if (isset($_SESSION['user_id'])) {
             e.target.setCustomValidity('Mohon pilih waktu dari jam 07:00 sampai 22:00.');
         } else {
             e.target.setCustomValidity('');
+        }
+    });
+</script>
+
+<script>
+    // Validasi ketika user mengisi tanggal pengembalian
+    document.getElementById('date_end').addEventListener('change', function() {
+        const dateStart = document.getElementById('date_start').value;
+        const dateEnd = this.value;
+
+        if (dateStart) {
+            const startDate = new Date(dateStart);
+            const endDate = new Date(dateEnd);
+
+            if (endDate <= startDate) {
+                this.value = '';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Tanggal Pengembalian Salah!',
+                    text: 'Tanggal pengembalian harus lebih dari tanggal pengambilan.',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#d33',
+                });
+            }
+        }
+    });
+
+    // Validasi ketika user mengisi tanggal pengambilan setelah tanggal pengembalian
+    document.getElementById('date_start').addEventListener('change', function() {
+        const dateStart = this.value;
+        const dateEnd = document.getElementById('date_end').value;
+
+        if (dateEnd) {
+            const startDate = new Date(dateStart);
+            const endDate = new Date(dateEnd);
+
+            if (startDate >= endDate) {
+                this.value = '';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Tanggal Pengambilan Salah!',
+                    text: 'Tanggal pengambilan harus kurang dari tanggal pengembalian.',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#d33',
+                });
+            }
         }
     });
 </script>

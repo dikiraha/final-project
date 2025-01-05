@@ -2,6 +2,7 @@
 session_start();
 require_once '../../classes/Booking.php';
 require_once '../../classes/Payment.php';
+require_once '../../classes/Car.php';
 
 require_once '../../vendor/autoload.php';
 
@@ -9,6 +10,7 @@ use Ramsey\Uuid\Uuid;
 
 $booking = new Booking();
 $payment = new Payment();
+$car = new Car();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bookingUuid = Uuid::uuid4()->toString();
@@ -88,11 +90,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'evidence' => null,
     ]);
 
+    $dataCar = $car->getCarById($car_id);
+
+    $start = new DateTime($date_start);
+    $end = new DateTime($date_end);
+    $interval = $start->diff($end);
+    $duration = $interval->days;
+
     if ($bookingCreate) {
         $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
         $nomor = "082125008160";
-        $isi = "Ada Tunggu Konfirmasi Baru nih\n";
-        $isi .= "\nNo Booking : " . $no_booking;
+        $isi = "📢 *Pemberitahuan Penyewaan Mobil*\n";
+        $isi .= "\n🎫 *No Booking* : " . $no_booking;
+        $isi .= "\n👤 *Nama Penyewa* : " . $_SESSION['user_name'];
+        $isi .= "\n🚗 *Mobil yang Disewa* : " . $dataCar['merk'] . " " . $dataCar['tipe'];
+        $isi .= "\n🛣️ *Kota Tujuan* : " . $destination;
+        $isi .= "\n📅 *Tanggal Sewa* : " . $start;
+        $isi .= "\n📅 *Tanggal Kembali* : " . $end;
+        $isi .= "\n⏱️ *Durasi Sewa* : " . $duration . " Hari";
+        $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . $harga_mobil;
+        $isi .= "\n💲 *Metode Pembayaran* : " . "Rp "  . $_POST['method'];
+        $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . $amount;
         $message = sprintf("----------DIANA RENT CAR----------%c$isi%c--------------------------------------- ", 10, 10);
 
         $curl = curl_init();

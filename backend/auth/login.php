@@ -3,7 +3,6 @@ require_once '../../classes/User.php';
 
 session_start();
 
-// Jika sudah login, redirect berdasarkan peran
 if (isset($_SESSION['user_role'])) {
     if ($_SESSION['user_role'] === 'admin' || $_SESSION['user_role'] === 'driver') {
         header('Location: ../admin/index.php');
@@ -26,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_role'] = $userData['role'];
         $_SESSION['user_name'] = $userData['name'];
 
-        // Redirect berdasarkan role
         if ($userData['role'] === 'admin' || $userData['role'] === 'driver') {
             header('Location: ../../admin/index.php');
         } else {

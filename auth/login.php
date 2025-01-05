@@ -82,18 +82,8 @@ if (isset($_SESSION['user_role'])) {
                                 <?php echo htmlspecialchars($loginError); ?>
                             </div>
                         <?php endif; ?>
-                        <!-- @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif -->
                         <form id="formAuthentication" class="mb-3" method="post"
                             action="../backend/auth/login.php">
-                            <!-- @csrf -->
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="email" name="email"
                                     placeholder="email@email.com" autofocus required />
@@ -113,15 +103,6 @@ if (isset($_SESSION['user_role'])) {
                                     </div>
                                 </div>
                             </div>
-                            <!-- {{-- <div class="mb-3 d-flex justify-content-between">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
-                                </div>
-                                <a href="auth-forgot-password-basic.html" class="float-end mb-1">
-                                    <span>Forgot Password?</span>
-                                </a>
-                            </div> --}} -->
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" id="loginButton" type="submit">Login</button>
                             </div>
@@ -133,6 +114,12 @@ if (isset($_SESSION['user_role'])) {
                                 <span>Buat akun</span>
                             </a>
                         </p>
+                        <!-- <p class="text-center">
+                            <span>Lupa password?</span>
+                            <a href="register.php">
+                                <span>Reset</span>
+                            </a>
+                        </p> -->
                     </div>
                 </div>
                 <!-- /Login -->

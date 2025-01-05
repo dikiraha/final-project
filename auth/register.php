@@ -72,66 +72,68 @@ if (isset($_SESSION['user_role'])) {
                             </span>
                         </a>
                     </div>
-                    <!-- /Logo -->
-
                     <div class="card-body mt-2">
                         <h4 class="mb-5 text-center">Diana Rent Car</h4>
-
                         <?php if ($registerError): ?>
                             <div class="alert alert-danger">
                                 <?php echo htmlspecialchars($registerError); ?>
                             </div>
                         <?php endif; ?>
-                        <!-- @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @endif -->
                         <form id="formAuthentication" class="mb-3" method="post"
                             action="../backend/auth/register.php">
-                            <!-- @csrf -->
                             <div class="form-floating form-floating-outline mb-3">
                                 <input type="text" class="form-control" id="name" name="name"
                                     placeholder="Nama Lengkap" autofocus required onkeyup="formatFullName(this)" />
                                 <label for="name">Nama Lengkap <span class="text-danger">*</span></label>
                             </div>
                             <div class="form-floating form-floating-outline mb-3">
-                                <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="email@email.com" required />
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="email@email.com"
+                                    required
+                                    oninput="validateEmail(this)" />
                                 <label for="email">Email <span class="text-danger">*</span></label>
+                                <div id="emailError" class="text-danger" style="display: none;">Email tidak valid.</div>
                             </div>
                             <div class="form-floating form-floating-outline mb-3">
-                                <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                    placeholder="08xxxxxxxxxx" required />
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="phone_number"
+                                    name="phone_number"
+                                    placeholder="08xxxxxxxxxx"
+                                    required
+                                    oninput="validatePhoneNumber(this)" />
                                 <label for="phone_number">No Handphone <span class="text-danger">*</span></label>
+                                <div id="phoneError" class="text-danger" style="display: none;">Nomor handphone tidak valid.</div>
                             </div>
                             <div class="mb-5">
                                 <div class="form-password-toggle">
                                     <div class="input-group input-group-merge">
                                         <div class="form-floating form-floating-outline">
-                                            <input type="password" id="password" class="form-control" name="password"
+                                            <input
+                                                type="password"
+                                                id="password"
+                                                class="form-control"
+                                                name="password"
                                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                                aria-describedby="password" required />
+                                                aria-describedby="password"
+                                                required
+                                                oninput="validatePassword(this)" />
                                             <label for="password">Password <span class="text-danger">*</span></label>
                                         </div>
-                                        <span class="input-group-text cursor-pointer"><i
-                                                class="mdi mdi-eye-off-outline"></i></span>
+                                        <span class="input-group-text cursor-pointer" onclick="togglePasswordVisibility()">
+                                            <i id="password-icon" class="mdi mdi-eye-off-outline"></i>
+                                        </span>
+                                    </div>
+                                    <div id="passwordError" class="text-danger mt-1" style="display: none;">
+                                        Password harus memiliki minimal 8 karakter, termasuk huruf besar, huruf kecil, dan angka.
                                     </div>
                                 </div>
                             </div>
-                            <!-- {{-- <div class="mb-3 d-flex justify-content-between">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember-me" />
-                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
-                                </div>
-                                <a href="auth-forgot-password-basic.html" class="float-end mb-1">
-                                    <span>Forgot Password?</span>
-                                </a>
-                            </div> --}} -->
                             <div class="mb-3">
                                 <button class="btn btn-primary d-grid w-100" id="loginButton" type="submit">Daftar</button>
                             </div>
@@ -212,6 +214,74 @@ if (isset($_SESSION['user_role'])) {
                 words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
             }
             element.value = words.join(" ");
+        }
+    </script>
+
+    <script>
+        function validateEmail(input) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailError = document.getElementById('emailError');
+
+            if (input.value === '' || emailPattern.test(input.value)) {
+                emailError.style.display = 'none'; // Email valid atau kosong
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+            } else {
+                emailError.style.display = 'block'; // Email tidak valid
+                input.classList.remove('is-valid');
+                input.classList.add('is-invalid');
+            }
+        }
+    </script>
+
+    <script>
+        function validatePhoneNumber(input) {
+            // Regex untuk validasi nomor handphone Indonesia
+            const phonePattern = /^08\d{8,11}$/;
+            const phoneError = document.getElementById('phoneError');
+
+            if (input.value === '' || phonePattern.test(input.value)) {
+                phoneError.style.display = 'none'; // Nomor valid atau kosong
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+            } else {
+                phoneError.style.display = 'block'; // Nomor tidak valid
+                input.classList.remove('is-valid');
+                input.classList.add('is-invalid');
+            }
+        }
+    </script>
+
+    <script>
+        function validatePassword(input) {
+            // Regex untuk validasi password
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+            const passwordError = document.getElementById('passwordError');
+
+            if (passwordPattern.test(input.value)) {
+                passwordError.style.display = 'none'; // Password valid
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+            } else {
+                passwordError.style.display = 'block'; // Password tidak valid
+                input.classList.remove('is-valid');
+                input.classList.add('is-invalid');
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('password-icon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.classList.remove('mdi-eye-off-outline');
+                passwordIcon.classList.add('mdi-eye-outline');
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.classList.remove('mdi-eye-outline');
+                passwordIcon.classList.add('mdi-eye-off-outline');
+            }
         }
     </script>
 </body>
