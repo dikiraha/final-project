@@ -18,8 +18,9 @@ class Booking
                     ORDER BY 
                     CASE 
                         WHEN status = 'Menunggu Konfirmasi' THEN 1 
-                        WHEN status = 'Disetujui' THEN 2 
-                        WHEN status = 'Berjalan' THEN 3 
+                        WHEN status = 'Belum Bayar' THEN 3 
+                        WHEN status = 'Disetujui' THEN 3 
+                        WHEN status = 'Berjalan' THEN 4
                         ELSE 4 
                     END,
                     no_booking ASC";

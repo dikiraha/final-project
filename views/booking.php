@@ -16,6 +16,9 @@ $profile = null;
 if (isset($_SESSION['user_id'])) {
     $getProfile = new Profile();
     $profile = $getProfile->getByUserId($_SESSION['user_id']);
+    if ($profile) {
+        $bgWhite = "bg-white";
+    }
 }
 ?>
 
@@ -100,16 +103,16 @@ if (isset($_SESSION['user_id'])) {
                                 <input type="hidden" name="harga_mobil" id="harga_mobil" value="<?php echo htmlspecialchars($car['harga']); ?>">
                                 <input type="hidden" name="denda_mobil" id="denda_mobil" value="<?php echo htmlspecialchars($car['denda']); ?>">
                                 <div class="row g-4 p-3">
-                                    <h6>Gunakan metode pembayaran transfer jika ingin mobil tidak disewa oleh orang lain atau sudah booking</h6>
+                                    <h6 class="text-danger">*Gunakan metode pembayaran transfer jika ingin mobil tidak disewa oleh orang lain atau sudah booking. <i>(First-Pay-First-Serve)</i></h6>
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control bg-white" id="date_start" name="date_start" placeholder="Tanggal Pengambilan" required>
+                                            <input type="text" class="form-control <?php echo htmlspecialchars($bgWhite) ?>" id="date_start" name="date_start" placeholder="Tanggal Pengambilan" required>
                                             <label for="date_start">Tanggal Pengambilan <span class="text-danger">*</span></label>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="form-floating">
-                                            <input type="text" class="form-control bg-white" id="date_end" name="date_end" placeholder="Tanggal Pengembalian" required>
+                                            <input type="text" class="form-control <?php echo htmlspecialchars($bgWhite) ?>" id="date_end" name="date_end" placeholder="Tanggal Pengembalian" required>
                                             <label for="date_end">Tanggal Pengembalian <span class="text-danger">*</span></label>
                                         </div>
                                     </div>
@@ -179,15 +182,16 @@ if (isset($_SESSION['user_id'])) {
                                             Booking dan Pembayaran
                                         </button>
                                     </div>
-
                                     <div class="col-12" id="edit_profile" style="display: none;">
-                                        <a href="?views=edit_profile" class="btn btn-primary w-100 py-3">
-                                            <?php if ($_SESSION): ?>
+                                        <?php if ($_SESSION): ?>
+                                            <a href="?views=edit_profile" class="btn btn-primary w-100 py-3">
                                                 Lengkapi Profile
-                                            <?php else: ?>
+                                            </a>
+                                        <?php else: ?>
+                                            <a href="auth/login.php" class="btn btn-primary w-100 py-3">
                                                 Login
-                                            <?php endif; ?>
-                                        </a>
+                                            </a>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </form>
