@@ -154,6 +154,15 @@ class Booking
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getBookingsByStatuses(array $statuses)
+    {
+        $placeholders = implode(',', array_fill(0, count($statuses), '?'));
+        $query = "SELECT * FROM " . $this->table . " WHERE status IN ($placeholders)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($statuses);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getBookingsByCarId($car_id)
     {
         $query = $this->conn->prepare("SELECT * FROM " . $this->table . " WHERE car_id = :car_id");
@@ -171,5 +180,15 @@ class Booking
             $data['status'],
             $uuid
         ]);
+    }
+
+    public function getBookingsByCarAndStatuses($carId, array $statuses)
+    {
+        $placeholders = implode(',', array_fill(0, count($statuses), '?'));
+        $query = "SELECT * FROM " . $this->table . " WHERE car_id = ? AND status IN ($placeholders)";
+        $stmt = $this->conn->prepare($query);
+        $params = array_merge([$carId], $statuses);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

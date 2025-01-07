@@ -22,9 +22,26 @@ if ($booking) {
 
     $profileModel = new Profile();
     $profile = $profileModel->getByUserId($user['id']);
+
+    // Check for overlapping bookings
+    $bookedDateStart = new DateTime($booking['date_start']);
+    $bookedDateEnd = new DateTime($booking['date_end']);
+    $booked = false;
+
+    $overlappingBookings = $bookingModel->getBookingsByCarAndStatuses($car['id'], ['Disetujui', 'Berjalan']);
+    foreach ($overlappingBookings as $overlappingBooking) {
+        $overlappingStart = new DateTime($overlappingBooking['date_start']);
+        $overlappingEnd = new DateTime($overlappingBooking['date_end']);
+
+        if (($bookedDateStart <= $overlappingEnd) && ($bookedDateEnd >= $overlappingStart)) {
+            $booked = true;
+            break;
+        }
+    }
 } else {
     include "./pages/error.php";
 }
+
 ?>
 <?php if ($booking): ?>
     <div class="container-xxl flex-grow-1 container-p-y">
@@ -40,6 +57,11 @@ if ($booking) {
                         </small>
                     </div>
                     <div class="card-body table-responsive">
+                        <?php if ($booked): ?>
+                            <div class="alert alert-danger" role="alert">
+                                Tanggal Sudah Dibooking, mohon di Tolak
+                            </div>
+                        <?php endif; ?>
                         <table class="table table-borderless table-striped table-hover" width="100">
                             <tbody>
                                 <tr>

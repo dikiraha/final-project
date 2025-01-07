@@ -97,10 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $interval = $start->diff($end);
     $duration = $interval->days;
 
-    $date_start_format = DateTime::createFromFormat('Y-m-d\TH:i', $date_start);
-    $date_end_format = DateTime::createFromFormat('Y-m-d\TH:i', $date_end);
-    $date_start_formatted = $date_start_format->format('Y-m-d');
-    $date_end_formatted = $date_end_format->format('Y-m-d');
+    // $date_start_format = DateTime::createFromFormat('Y-m-d\TH:i', $date_start);
+    // $date_end_format = DateTime::createFromFormat('Y-m-d\TH:i', $date_end);
+    // $date_start_formatted = $date_start->format('Y-m-d');
+    // $date_end_formatted = $date_end->format('Y-m-d');
 
     if ($bookingCreate) {
         $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
@@ -110,8 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isi .= "\n👤 *Nama Penyewa* : " . $_SESSION['user_name'];
         $isi .= "\n🚗 *Mobil yang Disewa* : " . $dataCar['merk'] . " " . $dataCar['tipe'];
         $isi .= "\n🛣️ *Kota Tujuan* : " . $destination;
-        $isi .= "\n📅 *Tanggal Sewa* : " . $date_start_formatted;
-        $isi .= "\n📅 *Tanggal Kembali* : " . $date_end_formatted;
+        $isi .= "\n📅 *Tanggal Sewa* : " . $_POST['date_start'];
+        $isi .= "\n📅 *Tanggal Kembali* : " . $_POST['date_end'];
         $isi .= "\n⏱️ *Durasi Sewa* : " . $duration . " Hari";
         $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . $harga_mobil;
         $isi .= "\n💲 *Metode Pembayaran* : " . $_POST['method'];

@@ -103,13 +103,13 @@ if (isset($_SESSION['user_id'])) {
                                     <h6>Gunakan metode pembayaran transfer jika ingin mobil tidak disewa oleh orang lain atau sudah booking</h6>
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="form-floating">
-                                            <input type="datetime-local" class="form-control" id="date_start" name="date_start" placeholder="Tanggal Pengambilan" required>
+                                            <input type="text" class="form-control bg-white" id="date_start" name="date_start" placeholder="Tanggal Pengambilan" required>
                                             <label for="date_start">Tanggal Pengambilan <span class="text-danger">*</span></label>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="form-floating">
-                                            <input type="datetime-local" class="form-control" id="date_end" name="date_end" placeholder="Tanggal Pengembalian" required>
+                                            <input type="text" class="form-control bg-white" id="date_end" name="date_end" placeholder="Tanggal Pengembalian" required>
                                             <label for="date_end">Tanggal Pengembalian <span class="text-danger">*</span></label>
                                         </div>
                                     </div>
@@ -182,7 +182,11 @@ if (isset($_SESSION['user_id'])) {
 
                                     <div class="col-12" id="edit_profile" style="display: none;">
                                         <a href="?views=edit_profile" class="btn btn-primary w-100 py-3">
-                                            Lengkapi Profile
+                                            <?php if ($_SESSION): ?>
+                                                Lengkapi Profile
+                                            <?php else: ?>
+                                                Login
+                                            <?php endif; ?>
                                         </a>
                                     </div>
                                 </div>
@@ -469,6 +473,85 @@ if (isset($_SESSION['user_id'])) {
 
             document.getElementById('date_start').addEventListener('change', validateTimeRange);
             document.getElementById('date_end').addEventListener('change', validateTimeRange);
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('views/get_booked_dates.php')
+                .then(response => response.json())
+                .then(bookedDates => {
+                    const dateStartInput = document.getElementById('date_start');
+                    const dateEndInput = document.getElementById('date_end');
+
+                    function disableBookedDates(date) {
+                        const formattedDate = date.toISOString().split('T')[0];
+                        return bookedDates.includes(formattedDate);
+                    }
+
+                    function validateDateRange(startDate, endDate) {
+                        const start = new Date(startDate);
+                        const end = new Date(endDate);
+                        const dateRange = [];
+
+                        while (start <= end) {
+                            dateRange.push(new Date(start));
+                            start.setDate(start.getDate() + 1);
+                        }
+
+                        for (let date of dateRange) {
+                            if (disableBookedDates(date)) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+
+                    const today = new Date().toISOString().split('T')[0];
+
+                    flatpickr(dateStartInput, {
+                        enableTime: true,
+                        dateFormat: "Y-m-d H:i",
+                        minDate: today,
+                        disable: bookedDates.map(date => new Date(date)),
+                        time_24hr: true,
+                        onChange: function(selectedDates, dateStr, instance) {
+                            const endDate = dateEndInput.value;
+                            if (endDate && !validateDateRange(dateStr, endDate)) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Tanggal sudah dibooking!',
+                                    text: 'Silahkan pilih tanggal yang lain!',
+                                    confirmButtonText: 'OK',
+                                    confirmButtonColor: '#d33',
+                                });
+                                instance.clear();
+                            }
+                        }
+                    });
+
+                    flatpickr(dateEndInput, {
+                        enableTime: true,
+                        dateFormat: "Y-m-d H:i",
+                        minDate: today,
+                        disable: bookedDates.map(date => new Date(date)),
+                        time_24hr: true,
+                        onChange: function(selectedDates, dateStr, instance) {
+                            const startDate = dateStartInput.value;
+                            if (startDate && !validateDateRange(startDate, dateStr)) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Tanggal sudah dibooking!',
+                                    text: 'Silahkan pilih tanggal yang lain!',
+                                    confirmButtonText: 'OK',
+                                    confirmButtonColor: '#d33',
+                                });
+                                instance.clear();
+                            }
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching booked dates:', error));
         });
     </script>
 <?php else: ?>
