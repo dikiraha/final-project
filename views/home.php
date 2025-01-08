@@ -170,7 +170,7 @@ $bookingModel = new Booking();
                     </div>
                     <div class="counter-counting my-3">
                         <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?= $totalReviews ?></span>
-                        <span class="h1 fw-bold text-white">+</span>
+                        <span class="h1 fw-bold text-white"></span>
                     </div>
                     <h4 class="text-white mb-0">Pelanggan Senang</h4>
                 </div>
@@ -183,7 +183,7 @@ $bookingModel = new Booking();
                     </div>
                     <div class="counter-counting my-3">
                         <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?= $totalCars ?></span>
-                        <span class="h1 fw-bold text-white">+</span>
+                        <span class="h1 fw-bold text-white"></span>
                     </div>
                     <h4 class="text-white mb-0">Jumlah Mobil</h4>
                 </div>
@@ -192,11 +192,11 @@ $bookingModel = new Booking();
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.7s">
                 <div class="counter-item text-center">
                     <div class="counter-item-icon mx-auto">
-                        <i class="fas fa-clock fa-2x text-white"></i>
+                        <i class="fas fa-gauge-simple-high fa-2x text-white"></i>
                     </div>
                     <div class="counter-counting my-3">
                         <span class="text-white fs-2 fw-bold" data-toggle="counter-up"><?= number_format($totalKilometers) ?></span>
-                        <span class="h1 fw-bold text-white">+</span>
+                        <span class="h1 fw-bold text-white"></span>
                     </div>
                     <h4 class="text-white mb-0">Total kilometer</h4>
                 </div>
@@ -213,7 +213,7 @@ $bookingModel = new Booking();
             <h1 class="display-5 text-capitalize mb-3">Layanan <span class="text-primary">Utama</span></h1>
         </div>
         <div class="row g-4">
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+            <!-- <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item p-4">
                     <div class="service-icon mb-4">
                         <i class="fa fa-phone-alt fa-2x text-white"></i>
@@ -221,7 +221,7 @@ $bookingModel = new Booking();
                     <h5 class="mb-3">Reservasi Telepon</h5>
                     <p class="mb-0">Bisa pesan layanan kami dengan mudah melalui telepon.</p>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="service-item p-4">
                     <div class="service-icon mb-4">
@@ -240,7 +240,7 @@ $bookingModel = new Booking();
                     <p class="mb-0">Sewa langsung ke owner. Layanan fleksibel untuk perjalanan satu arah sesuai kebutuhan Anda.</p>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+            <!-- <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="service-item p-4">
                     <div class="service-icon mb-4">
                         <i class="fa fa-umbrella fa-2x text-white"></i>
@@ -248,8 +248,8 @@ $bookingModel = new Booking();
                     <h5 class="mb-3">Asuransi Jiwa</h5>
                     <p class="mb-0">Perjalanan Anda dilindungi dengan asuransi jiwa untuk keamanan ekstra.</p>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+            </div> -->
+            <!-- <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="service-item p-4">
                     <div class="service-icon mb-4">
                         <i class="fa fa-tag fa-2x text-white"></i>
@@ -257,7 +257,7 @@ $bookingModel = new Booking();
                     <h5 class="mb-3">Kualitas Terbaik dengan Harga Minimal</h5>
                     <p class="mb-0">Dapatkan kualitas layanan terbaik tanpa harus menguras kantong Anda.</p>
                 </div>
-            </div>
+            </div> -->
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
                 <div class="service-item p-4">
                     <div class="service-icon mb-4">
@@ -281,15 +281,15 @@ $bookingModel = new Booking();
         <div class="row g-4">
             <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="steps-item p-4 mb-4">
-                    <h4>Pilih Mobil</h4>
-                    <p class="mb-0">Pilih mobil yang sesuai dengan kebutuhan dan preferensi Anda.</p>
+                    <h4>Daftar dan Lengkapi Data Diri</h4>
+                    <p class="mb-0">Membuat akun dan Lakukan upload data diri untuk persyaratan.</p>
                     <div class="setps-number">01.</div>
                 </div>
             </div>
-            <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="col-lg-3 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="steps-item p-4 mb-4">
-                    <h4>Isi Data Diri</h4>
-                    <p class="mb-0">Lakukan upload data diri untuk persyaratan </p>
+                    <h4>Pilih Mobil</h4>
+                    <p class="mb-0">Pilih mobil yang sesuai dengan kebutuhan dan preferensi Anda.</p>
                     <div class="setps-number">02.</div>
                 </div>
             </div>

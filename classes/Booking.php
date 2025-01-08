@@ -131,7 +131,7 @@ class Booking
     {
         $query = "SELECT COUNT(*) as total_completed 
                     FROM " . $this->table . " 
-                    WHERE status = 'Menunggu Konfirmasi'";
+                    WHERE status IN ('Menunggu Konfirmasi', 'Belum Bayar')";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -155,12 +155,12 @@ class Booking
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getBookingsByStatuses(array $statuses)
+    public function getBookingsByStatusesAndUuid(array $statuses, $uuid)
     {
         $placeholders = implode(',', array_fill(0, count($statuses), '?'));
-        $query = "SELECT * FROM " . $this->table . " WHERE status IN ($placeholders)";
+        $query = "SELECT * FROM " . $this->table . " WHERE status IN ($placeholders) AND car_id = (SELECT id FROM tm_cars WHERE uuid = ?)";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute($statuses);
+        $stmt->execute(array_merge($statuses, [$uuid]));
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

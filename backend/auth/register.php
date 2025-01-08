@@ -52,6 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    $existingPhoneNumber = $user->getByPhoneNumber($phone_number);
+    if ($existingPhoneNumber) {
+        $_SESSION['register_error'] = "Nomor Handphone sudah digunakan!";
+        header('Location: ../../auth/register.php');
+        exit;
+    }
+
     // Generate UUID dan hash password
     $uuid = Uuid::uuid4()->toString();
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);

@@ -1,5 +1,13 @@
 <?php
 session_start();
+$view = isset($_GET['views']) ? $_GET['views'] : 'home';
+
+$login_required = ['edit_profile', 'transaction', 'transaction_list'];
+
+if (in_array($view, $login_required) && !isset($_SESSION['user_uuid'])) {
+    header('Location: ./auth/login.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +52,9 @@ session_start();
     <!-- Date Picker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
+    <!-- Crop Image -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+
     <style>
         .nav-bar {
             background: linear-gradient(to bottom, #ffffff, #f0f0f0);
@@ -52,6 +63,20 @@ session_start();
 
         .navbar {
             border-bottom: 2px solid #ddd;
+        }
+
+        .img-container {
+            max-width: 100%;
+            max-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            max-height: 100%;
         }
     </style>
 </head>
@@ -104,6 +129,9 @@ session_start();
 
     <!-- Date Picker -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Crop Image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
     <script>
         $(document).ready(function() {

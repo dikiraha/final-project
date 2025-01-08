@@ -22,30 +22,45 @@ class Profile
 
     public function saveOrUpdate($data)
     {
-        $existingProfile = $this->getByUserId($data['user_uuid']);
+        $existingProfile = $this->getByUserId($data['user_id']);
         if ($existingProfile) {
             $query = "UPDATE " . $this->table . "
-                      SET 
-                          address = :address,
-                          gender = :gender,
-                          photo_profile = :photo_profile,
-                          ktp = :ktp,
-                          sim = :sim,
-                          kk = :kk,
-                          buku_nikah = :buku_nikah,
-                          akte = :akte,
-                          ijazah = :ijazah,
-                          id_card = :id_card,
-                          surat_keterangan = :surat_keterangan,
-                          slip_gaji = :slip_gaji,
-                          bpjs = :bpjs
-                      WHERE user_uuid = :user_uuid";
+                    SET 
+                        address = :address,
+                        gender = :gender,
+                        photo_profile = :photo_profile,
+                        ktp = :ktp,
+                        sim = :sim,
+                        kk = :kk,
+                        buku_nikah = :buku_nikah,
+                        akte = :akte,
+                        ijazah = :ijazah,
+                        id_card = :id_card,
+                        surat_keterangan = :surat_keterangan,
+                        slip_gaji = :slip_gaji,
+                        bpjs = :bpjs
+                    WHERE user_id = :user_id";
 
             $stmt = $this->conn->prepare($query);
+
+            $stmt->bindParam(':address', $data['address']);
+            $stmt->bindParam(':gender', $data['gender']);
+            $stmt->bindParam(':photo_profile', $data['photo_profile']);
+            $stmt->bindParam(':ktp', $data['ktp']);
+            $stmt->bindParam(':sim', $data['sim']);
+            $stmt->bindParam(':kk', $data['kk']);
+            $stmt->bindParam(':buku_nikah', $data['buku_nikah']);
+            $stmt->bindParam(':akte', $data['akte']);
+            $stmt->bindParam(':ijazah', $data['ijazah']);
+            $stmt->bindParam(':id_card', $data['id_card']);
+            $stmt->bindParam(':surat_keterangan', $data['surat_keterangan']);
+            $stmt->bindParam(':slip_gaji', $data['slip_gaji']);
+            $stmt->bindParam(':bpjs', $data['bpjs']);
+            $stmt->bindParam(':user_id', $data['user_id']);
         } else {
             $query = "INSERT INTO " . $this->table . " 
-                    (uuid, user_id, address, gender, photo_profile, ktp, sim, kk, buku_nikah, akte, ijazah, id_card, surat_keterangan, slip_gaji, bpjs) VALUES 
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                (uuid, user_id, address, gender, photo_profile, ktp, sim, kk, buku_nikah, akte, ijazah, id_card, surat_keterangan, slip_gaji, bpjs) VALUES 
+                (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $stmt = $this->conn->prepare($query);
 
@@ -67,21 +82,6 @@ class Profile
                 $data['bpjs']
             ]);
         }
-
-        // $stmt->bindParam(':user_uuid', $data['user_uuid']);
-        // $stmt->bindParam(':address', $data['address']);
-        // $stmt->bindParam(':gender', $data['gender']);
-        // $stmt->bindParam(':photo_profile', $data['photo_profile']);
-        // $stmt->bindParam(':ktp', $data['ktp']);
-        // $stmt->bindParam(':sim', $data['sim']);
-        // $stmt->bindParam(':kk', $data['kk']);
-        // $stmt->bindParam(':buku_nikah', $data['buku_nikah']);
-        // $stmt->bindParam(':akte', $data['akte']);
-        // $stmt->bindParam(':ijazah', $data['ijazah']);
-        // $stmt->bindParam(':id_card', $data['id_card']);
-        // $stmt->bindParam(':surat_keterangan', $data['surat_keterangan']);
-        // $stmt->bindParam(':slip_gaji', $data['slip_gaji']);
-        // $stmt->bindParam(':bpjs', $data['bpjs']);
 
         try {
             return $stmt->execute();

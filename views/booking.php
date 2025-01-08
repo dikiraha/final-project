@@ -482,9 +482,18 @@ if (isset($_SESSION['user_id'])) {
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('views/get_booked_dates.php')
+            const urlParams = new URLSearchParams(window.location.search);
+            const uuid = urlParams.get('uuid');
+
+            fetch(`views/get_booked_dates.php?uuid=${uuid}`)
                 .then(response => response.json())
-                .then(bookedDates => {
+                .then(data => {
+                    if (data.error) {
+                        console.error('Error fetching booked dates:', data.error);
+                        return;
+                    }
+
+                    const bookedDates = data;
                     const dateStartInput = document.getElementById('date_start');
                     const dateEndInput = document.getElementById('date_end');
 

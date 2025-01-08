@@ -100,6 +100,14 @@ class User
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getByPhoneNumber($phone_number)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE phone_number = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$phone_number]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getTotalUser()
     {
         $query = "SELECT COUNT(*) as total_user 

@@ -66,8 +66,8 @@ $profile = $getProfile->getByUserId($user['id']);
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-group">
-                                        <label for="photo_profile">Photo Profile <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" style="background-color: white;" id="photo_profile" name="photo_profile" accept="image/*" required>
+                                        <label for="photo_profile">Photo Profile <?php echo empty($profile['photo_profile']) ? '<span class="text-danger">*</span>' : ''; ?></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="photo_profile" name="photo_profile" accept="image/*" <?php echo empty($profile['photo_profile']) ? 'required' : ''; ?>>
                                         <span>Format file: gambar (.jpg, .png, .jpeg, dll)</span>
                                         <br>
                                         <?php if (!empty($profile['photo_profile'])): ?>
@@ -79,8 +79,8 @@ $profile = $getProfile->getByUserId($user['id']);
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-group">
-                                        <label for="ktp">KTP <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" style="background-color: white;" id="ktp" name="ktp" accept="image/*,.pdf" required>
+                                        <label for="ktp">KTP <?php echo empty($profile['photo_profile']) ? '<span class="text-danger">*</span>' : ''; ?></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="ktp" name="ktp" accept="image/*,.pdf" <?php echo empty($profile['ktp']) ? 'required' : ''; ?>>
                                         <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
                                         <br>
                                         <?php if (!empty($profile['ktp'])): ?>
@@ -92,8 +92,8 @@ $profile = $getProfile->getByUserId($user['id']);
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-group">
-                                        <label for="sim">SIM A <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" style="background-color: white;" id="sim" name="sim" accept="image/*,.pdf" required>
+                                        <label for="sim">SIM A <?php echo empty($profile['sim']) ? '<span class="text-danger">*</span>' : ''; ?></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="sim" name="sim" accept="image/*,.pdf" <?php echo empty($profile['sim']) ? 'required' : ''; ?>>
                                         <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
                                         <br>
                                         <?php if (!empty($profile['sim'])): ?>
@@ -105,8 +105,8 @@ $profile = $getProfile->getByUserId($user['id']);
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-group">
-                                        <label for="kk">Kartu Keluarga <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" style="background-color: white;" id="kk" name="kk" accept="image/*,.pdf" required>
+                                        <label for="kk">Kartu Keluarga <?php echo empty($profile['kk']) ? '<span class="text-danger">*</span>' : ''; ?></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="kk" name="kk" accept="image/*,.pdf" <?php echo empty($profile['kk']) ? 'required' : ''; ?>>
                                         <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
                                         <br>
                                         <?php if (!empty($profile['kk'])): ?>
@@ -131,8 +131,8 @@ $profile = $getProfile->getByUserId($user['id']);
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-group">
-                                        <label for="akte">Akte Kelahiran <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" style="background-color: white;" id="akte" name="akte" accept="image/*,.pdf" required>
+                                        <label for="akte">Akte Kelahiran <?php echo empty($profile['akte']) ? '<span class="text-danger">*</span>' : ''; ?></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="akte" name="akte" accept="image/*,.pdf" <?php echo empty($profile['akte']) ? 'required' : ''; ?>>
                                         <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
                                         <br>
                                         <?php if (!empty($profile['akte'])): ?>
@@ -144,8 +144,8 @@ $profile = $getProfile->getByUserId($user['id']);
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-group">
-                                        <label for="ijazah">Ijazah Terakhir Min. SMA / Sederajat <span class="text-danger">*</span></label>
-                                        <input type="file" class="form-control" style="background-color: white;" id="ijazah" name="ijazah" accept="image/*,.pdf" required>
+                                        <label for="ijazah">Ijazah Terakhir Min. SMA / Sederajat <?php echo empty($profile['ijazah']) ? '<span class="text-danger">*</span>' : ''; ?></label>
+                                        <input type="file" class="form-control" style="background-color: white;" id="ijazah" name="ijazah" accept="image/*,.pdf" <?php echo empty($profile['ijazah']) ? 'required' : ''; ?>>
                                         <span>Format file : .pdf atau gambar (.jpg, .png, .jpeg, dll)</span>
                                         <br>
                                         <?php if (!empty($profile['ijazah'])): ?>
@@ -245,6 +245,26 @@ $profile = $getProfile->getByUserId($user['id']);
     </div>
 </div>
 
+<div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cropModalLabel">Crop Image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="img-container">
+                    <img id="image" src="" alt="Image for cropping">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="cropButton">Crop</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const viewModal = document.getElementById('viewModal');
@@ -288,6 +308,51 @@ $profile = $getProfile->getByUserId($user['id']);
     const address = document.querySelector('#address');
     address.addEventListener('input', function() {
         autoResizeTextarea(this);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const photoInput = document.getElementById('photo_profile');
+        const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
+        const image = document.getElementById('image');
+        let cropper;
+
+        photoInput.addEventListener('change', function(event) {
+            const files = event.target.files;
+            if (files && files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    image.src = e.target.result;
+                    cropModal.show();
+                    if (cropper) {
+                        cropper.destroy();
+                    }
+                    cropper = new Cropper(image, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                    });
+                };
+                reader.readAsDataURL(files[0]);
+            }
+        });
+
+        document.getElementById('cropButton').addEventListener('click', function() {
+            const canvas = cropper.getCroppedCanvas({
+                width: 500,
+                height: 500,
+            });
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const croppedImage = new File([blob], photoInput.files[0].name, {
+                    type: 'image/jpeg'
+                });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(croppedImage);
+                photoInput.files = dataTransfer.files;
+                cropModal.hide();
+            }, 'image/jpeg');
+        });
     });
 </script>
 

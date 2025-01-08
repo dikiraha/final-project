@@ -300,7 +300,7 @@ if ($booking) {
                                             <div class="form-floating form-floating-outline mb-3">
                                                 <select name="status" class="form-select" id="status" required>
                                                     <option value="">-- Pilih --</option>
-                                                    <?php if ($booking['status'] == 'Menunggu Konfirmasi'): ?>
+                                                    <?php if ($booking['status'] == 'Menunggu Konfirmasi' || $booking['status'] == 'Belum Bayar'): ?>
                                                         <option value="Disetujui" <?php echo ($booking['status'] == 'Disetujui') ? 'selected' : ''; ?>>Disetujui</option>
                                                         <option value="Ditolak" <?php echo ($booking['status'] == 'Ditolak') ? 'selected' : ''; ?>>Ditolak</option>
                                                     <?php elseif ($booking['status'] == 'Disetujui'): ?>

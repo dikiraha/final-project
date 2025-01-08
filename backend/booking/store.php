@@ -72,8 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $booking_id = $booking->getBookingByUuid($bookingUuid);
 
     if ($_POST['method'] == 'Transfer') {
-        $amount = $_POST['amount_hidden'];
         $type = $_POST['type'];
+        if ($type == 'Lunas') {
+            $amount = $total_harga;
+        } else {
+            $amount = $_POST['amount_hidden'] !== '' ? $_POST['amount_hidden'] : null;
+        }
     } else {
         $amount = null;
         $type = null;
@@ -113,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isi .= "\n📅 *Tanggal Sewa* : " . $_POST['date_start'];
         $isi .= "\n📅 *Tanggal Kembali* : " . $_POST['date_end'];
         $isi .= "\n⏱️ *Durasi Sewa* : " . $duration . " Hari";
-        $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . $harga_mobil;
+        $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . $total_harga;
         $isi .= "\n💲 *Metode Pembayaran* : " . $_POST['method'];
         $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . $amount;
 
