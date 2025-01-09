@@ -97,7 +97,7 @@ if (isset($_SESSION['user_id'])) {
                 <div class="card p-2 shadow">
                     <div class="row wow fadeInUp" data-wow-delay="0.1s">
                         <div class="col-md-12">
-                            <form action="backend/booking/store.php" method="POST">
+                            <form action="backend/booking/store.php" method="POST" id="formBooking">
                                 <input type="hidden" name="car_id" id="car_id" value="<?php echo htmlspecialchars($car['id']); ?>">
                                 <input type="hidden" name="car_uuid" id="car_uuid" value="<?php echo htmlspecialchars($car['uuid']); ?>">
                                 <input type="hidden" name="harga_mobil" id="harga_mobil" value="<?php echo htmlspecialchars($car['harga']); ?>">
@@ -221,7 +221,7 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="confirmAgreement">Submit</button>
+                    <button type="button" class="btn btn-primary" id="modalSubmitButton">Submit</button>
                 </div>
             </div>
         </div>
@@ -282,20 +282,41 @@ if (isset($_SESSION['user_id'])) {
             }
         }
 
-        document.getElementById('confirmAgreement').addEventListener('click', function() {
+        document.getElementById('modalSubmitButton').addEventListener('click', function() {
             var isAgreeChecked = document.getElementById('is_agree').checked;
+            var modalSubmitButton = document.getElementById('modalSubmitButton');
+            var spinner = '<i class="fa fa-spinner spin"></i>';
+            var originalText = modalSubmitButton.innerHTML; // Simpan teks asli tombol
+
             if (isAgreeChecked) {
+                modalSubmitButton.setAttribute('disabled', 'true');
+                modalSubmitButton.innerHTML = spinner;
                 document.querySelector('form').submit();
             } else {
+                // Tampilkan Swal
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Anda harus menyetujui ketentuan yang diberikan.'
+                }).then(() => {
+                    // Kembalikan tombol setelah Swal selesai
+                    modalSubmitButton.removeAttribute('disabled');
+                    modalSubmitButton.innerHTML = originalText;
                 });
             }
         });
-    </script>
 
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('formBooking');
+            var modalSubmitButton = document.getElementById('modalSubmitButton');
+
+            modalSubmitButton.addEventListener('click', function() {
+                var spinner = '<i class="fa fa-spinner spin"></i>';
+                modalSubmitButton.setAttribute('disabled', 'true');
+                modalSubmitButton.innerHTML = spinner;
+            });
+        });
+    </script>
 
     <script>
         document.getElementById('date_start').addEventListener('input', function(e) {

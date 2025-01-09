@@ -107,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $date_end_formatted = $date_end->format('Y-m-d');
 
     if ($bookingCreate) {
+        // Start Notif Whatsapp
         $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
         $nomor = "082125008160";
         $isi = "📢 *Pemberitahuan Penyewaan Mobil*\n";
@@ -139,6 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $response = curl_exec($curl);
         curl_close($curl);
+        // End Notif Whatsapp
 
         $_SESSION['toastr'] = [
             'type' => 'success',

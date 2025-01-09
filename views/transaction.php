@@ -179,7 +179,7 @@ if ($booking && $user_id == $booking['user_id']) {
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>Uang Muka</td>
+                                                <td>Uang Muka (Nominal Sudah Bayar)</td>
                                                 <td>:
                                                     <?php
                                                     echo 'Rp ' . number_format($payment['amount'] ?? 0, 0, ',', '.');
@@ -189,9 +189,12 @@ if ($booking && $user_id == $booking['user_id']) {
                                             <tr>
                                                 <?php
                                                 $sisa = $booking['total_harga'] - $payment['amount'];
+                                                if ($sisa > 0) {
+                                                    $kurang = 'text-danger';
+                                                }
                                                 ?>
                                                 <td>Sisa</td>
-                                                <td>:
+                                                <td class="<?php echo $kurang; ?>">:
                                                     <?php
                                                     echo 'Rp ' . number_format($sisa ?? 0, 0, ',', '.');
                                                     ?>
@@ -203,12 +206,16 @@ if ($booking && $user_id == $booking['user_id']) {
                                             </tr>
                                             <tr>
                                                 <?php
-                                                $sisa = $booking['total_harga'] - $payment['amount'];
+                                                if ($booking['total_harga'] == $payment['amount']) {
+                                                    $status_pembayaran = '<b class="text-success">(LUNAS)</b>';
+                                                } else {
+                                                    $status_pembayaran = '<b class="text-danger">(BELUM LUNAS)</b>';
+                                                }
                                                 ?>
                                                 <td>Total Biaya</td>
                                                 <td>:
                                                     <?php
-                                                    echo 'Rp ' . number_format($booking['total_harga'] ?? 0, 0, ',', '.');
+                                                    echo 'Rp ' . number_format($booking['total_harga'] ?? 0, 0, ',', '.') . " " . $status_pembayaran;
                                                     ?>
                                                 </td>
                                             </tr>
@@ -237,8 +244,8 @@ if ($booking && $user_id == $booking['user_id']) {
                                             <td style="width: 50%;">Owner</td>
                                         </tr>
                                         <tr>
-                                            <td style="height: 50px;"></td>
-                                            <td style="height: 50px;"></td>
+                                            <td style="height: 25px;"></td>
+                                            <td style="height: 25px;"></td>
                                         </tr>
                                         <tr class="text-center">
                                             <td style="width: 50%;"><?php echo htmlspecialchars($user['name']); ?></td>
