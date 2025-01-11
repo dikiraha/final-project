@@ -59,10 +59,12 @@ if (isset($_SESSION['user_id'])) {
                             </div>
                             <hr>
                             <div class="form-group">
-                                <i class="fa fa-users text-dark"></i> 1 - <?php echo htmlspecialchars($car['jumlah_kursi']); ?> Penumpang &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-door-closed text-dark"></i> <?php echo htmlspecialchars($car['jumlah_pintu']); ?> Pintu &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa fa-tachometer text-dark"></i> <?php echo formatKm($car['km']); ?> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <i class="fa-solid fa-gas-pump text-dark"></i> <?php echo htmlspecialchars($car['jenis_bensin']); ?>
+                                <div class="row">
+                                    <div class="col-md-12"><i class="fa fa-users text-dark"></i> 1 - <?php echo htmlspecialchars($car['jumlah_kursi']); ?> Penumpang</div>
+                                    <div class="col-md-12"><i class="fa fa-door-closed text-dark"></i> <?php echo htmlspecialchars($car['jumlah_pintu']); ?> Pintu</div>
+                                    <div class="col-md-12"><i class="fa fa-tachometer text-dark"></i> <?php echo formatKm($car['km']); ?></div>
+                                    <div class="col-md-12"><i class="fa-solid fa-gas-pump text-dark"></i> <?php echo htmlspecialchars($car['jenis_bensin']); ?></div>
+                                </div>
                             </div>
                             <hr>
                             <div class="form-group">
