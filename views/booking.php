@@ -551,6 +551,8 @@ if (isset($_SESSION['user_id'])) {
                         minDate: today,
                         disable: bookedDates.map(date => new Date(date)),
                         time_24hr: true,
+                        defaultHour: 7,
+                        defaultMinute: 0,
                         onChange: function(selectedDates, dateStr, instance) {
                             const endDate = dateEndInput.value;
                             if (endDate && !validateDateRange(dateStr, endDate)) {
@@ -572,6 +574,8 @@ if (isset($_SESSION['user_id'])) {
                         minDate: today,
                         disable: bookedDates.map(date => new Date(date)),
                         time_24hr: true,
+                        defaultHour: 7,
+                        defaultMinute: 0,
                         onChange: function(selectedDates, dateStr, instance) {
                             const startDate = dateStartInput.value;
                             if (startDate && !validateDateRange(startDate, dateStr)) {

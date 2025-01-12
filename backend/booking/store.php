@@ -110,7 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Start Notif Whatsapp
         $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
         $nomor = "082125008160";
-        $isi = "📢 *Pemberitahuan Penyewaan Mobil*\n";
+        $isi = "📢 *DIANA RENT CAR*\n";
+        $isi .= "\n📢 *Pemberitahuan Penyewaan Mobil*\n";
         $isi .= "\n🎫 *No Booking* : " . $no_booking;
         $isi .= "\n👤 *Nama Penyewa* : " . $_SESSION['user_name'];
         $isi .= "\n🚗 *Mobil yang Disewa* : " . $dataCar['merk'] . " " . $dataCar['tipe'];

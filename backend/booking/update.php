@@ -67,10 +67,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nomor = $user['phone_number'];
 
         $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
-        $isi = "Booking sudah dikonfirmasi Admin nih\n";
-        $isi .= "\nNo Booking : " . $booking['no_booking'];
-        $isi .= "\nStatus : " . $_POST['status'];
+
+        $isi = "📢 *DIANA RENT CAR*\n";
+        $isi .= "\n📢 *Pemberitahuan Penyewaan Mobil*\n";
         $isi .= "\nNote : " . $_POST['note'];
+        $isi .= "\nStatus : " . $_POST['status'];
+
+        $isi .= "\n🎫 *No Booking* : " . $no_booking;
+        $isi .= "\n👤 *Nama Penyewa* : " . $_SESSION['user_name'];
+        $isi .= "\n🚗 *Mobil yang Disewa* : " . $dataCar['merk'] . " " . $dataCar['tipe'];
+        $isi .= "\n🛣️ *Kota Tujuan* : " . $destination;
+        $isi .= "\n📅 *Tanggal Sewa* : " . $_POST['date_start'];
+        $isi .= "\n📅 *Tanggal Kembali* : " . $_POST['date_end'];
+        $isi .= "\n⏱️ *Durasi Sewa* : " . $duration . " Hari";
+        $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . $total_harga;
+        $isi .= "\n💲 *Metode Pembayaran* : " . $_POST['method'];
+        $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . $amount;
         $message = sprintf("----------DIANA RENT CAR----------%c$isi%c--------------------------------------- ", 10, 10);
 
         $curl = curl_init();
