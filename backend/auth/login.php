@@ -28,7 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($userData['role'] === 'admin' || $userData['role'] === 'driver') {
             header('Location: ../../admin/index.php');
         } else {
-            header('Location: ../../index.php');
+            if (isset($_SESSION['redirect_url'])) {
+                $redirect_url = $_SESSION['redirect_url'];
+                unset($_SESSION['redirect_url']);
+                header("Location: $redirect_url");
+            } else {
+                header('Location: ../../index.php');
+            }
         }
         exit;
     } else {

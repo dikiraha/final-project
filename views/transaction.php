@@ -202,6 +202,8 @@ if ($booking && $user_id == $booking['user_id']) {
                                                     $status_transfer = '<b class="text-success">(SUDAH TRANSFER)</b>';
                                                 } elseif ($payment['method'] == 'Transfer' && $payment['evidence_file'] == null) {
                                                     $status_transfer = '<b class="text-danger">(BELUM TRANSFER)</b>';
+                                                } elseif ($booking['total_harga'] == $payment['amount']) {
+                                                    $status_transfer = '<b class="text-success">(SUDAH BAYAR)</b>';
                                                 } else {
                                                     $status_transfer = '<b class="text-danger">(BELUM BAYAR)</b>';
                                                 }
@@ -301,7 +303,7 @@ if ($booking && $user_id == $booking['user_id']) {
                         <input type="hidden" name="uuid" id="modalUuid" value="">
                         <input type="hidden" name="views" value="transaction">
                         <div class="mb-3">
-                            <label for="evidenceFile" class="form-label">Upload Bukti Transfer (PDF/Gambar)</label>
+                            <label for="evidenceFile" class="form-label">Upload Bukti Transfer (PDF/Gambar) <span class="text-danger">*</span></label>
                             <input type="file" class="form-control" style="background-color: white;" id="evidenceFile" name="evidence_file" accept=".pdf,image/*" required>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ require_once '../../vendor/autoload.php';
 
 use Ramsey\Uuid\Uuid;
 
+var_dump($_POST);
 $modelBooking = new Booking();
 $booking = $modelBooking->getBookingByUuid($_POST['uuid']);
 

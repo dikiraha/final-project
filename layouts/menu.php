@@ -30,6 +30,9 @@ if (isset($_GET['views'])) {
         case 'transaction_list':
             include "views/transaction_list.php";
             break;
+        case 'review':
+            include "views/review.php";
+            break;
         default:
             include "views/error.php";
     }

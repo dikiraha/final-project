@@ -104,6 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($booking['total_harga'] != $payment['amount']) {
                 $isi .= "\n\n*Harap lakukan pelunasan pada alamat diatas";
             }
+        } elseif ($_POST['status'] == 'Selesai') {
+            $isi .= "\n\n *Mohon isi Link Ulasan* : ";
+            $isi .= "\nhttps://dianarentcar.my.id/?views=review&uuid=" . $booking['uuid'];
         }
         $message = sprintf("----------DIANA RENT CAR----------%c$isi%c-------------------------------------- ", 10, 10);
 
@@ -117,7 +120,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => 'token=' . $token . '&number=' . $nomor . '&message=' . $message,
+            CURLOPT_POSTFIELDS => 'token=' . urlencode($token) .
+                '&number=' . urlencode($nomor) .
+                '&message=' . urlencode($message),
         ));
 
         $response = curl_exec($curl);
@@ -152,7 +157,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => 'token=' . $token . '&number=' . $phone_number_driver . '&message=' . $message,
+                CURLOPT_POSTFIELDS => 'token=' . urlencode($token) .
+                    '&number=' . urlencode($nomor) .
+                    '&message=' . urlencode($message),
             ));
 
             $response = curl_exec($curl);
