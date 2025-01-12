@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => 'token=' . urlencode($token) .
-                    '&number=' . urlencode($nomor) .
+                    '&number=' . urlencode($phone_number_driver) .
                     '&message=' . urlencode($message),
             ));
 

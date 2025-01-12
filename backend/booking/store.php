@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isi .= "\n💲 *Metode Pembayaran* : " . $_POST['method'];
         $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . number_format($amount, 0, ',', '.');
 
-        $message = sprintf("----------DIANA RENT CAR----------%c$isi%c--------------------------------------- ", 10, 10);
+        $message = sprintf("----------DIANA RENT CAR----------%c$isi%c-------------------------------------- ", 10, 10);
         $message = urlencode($message);
 
         $curl = curl_init();
