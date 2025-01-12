@@ -34,8 +34,10 @@ if ($booking) {
         $overlappingEnd = new DateTime($overlappingBooking['date_end']);
 
         if (($bookedDateStart <= $overlappingEnd) && ($bookedDateEnd >= $overlappingStart)) {
-            $booked = true;
-            break;
+            if ($booking['status'] == 'Belum Bayar' || $booking['status'] == 'Menunggu Konfirmasi') {
+                $booked = true;
+                break;
+            }
         }
     }
 } else {
@@ -131,48 +133,62 @@ if ($booking) {
                                     return number_format($angka, 0, ',', '.') . ' KM';
                                 }
                                 ?>
-                                <tr>
-                                    <td><b>Total Harga</b></td>
-                                    <td>: <?php echo formatRupiah($booking['total_harga']); ?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Metode Pembayaran</b></td>
-                                    <td>: <?php echo htmlspecialchars($payment['method']); ?></td>
-                                </tr>
-                                <?php if ($payment['method'] === 'Transfer'): ?>
+                                <?php if ($_SESSION['user_role'] == 'admin'): ?>
                                     <tr>
-                                        <td><b>Tipe Pembayaran</b></td>
-                                        <td>: <?php echo htmlspecialchars($payment['type'] ?? ''); ?></td>
+                                        <td><b>Total Harga</b></td>
+                                        <td>: <?php echo formatRupiah($booking['total_harga']); ?></td>
                                     </tr>
-                                <?php endif; ?>
-                                <tr>
-                                    <td><b>Bayar</b></td>
-                                    <td>: <?php echo formatRupiah($payment['amount'] ?? '0'); ?></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Sisa Bayar</b></td>
-                                    <td>: <?php echo formatRupiah($booking['total_harga'] - $payment['amount'] ?? ''); ?></td>
-                                </tr>
-                                <?php if ($payment['method'] === 'Transfer'): ?>
                                     <tr>
-                                        <td><b>Bukti Pembayaran</b></td>
-                                        <td>:
-                                            <button type="button"
-                                                class="btn btn-info btn-sm mx-1 btn-view-evidence"
-                                                data-uuid="<?php echo urlencode($payment['uuid']); ?>"
-                                                data-file="<?php echo htmlspecialchars($payment['evidence_file']); ?>"
-                                                data-bs-toggle="modal" data-bs-target="#viewEvidenceModal">
-                                                Lihat Bukti
-                                            </button>
-                                        </td>
+                                        <td><b>Metode Pembayaran</b></td>
+                                        <td>: <?php echo htmlspecialchars($payment['method']); ?></td>
                                     </tr>
+                                    <?php if ($payment['method'] === 'Transfer'): ?>
+                                        <tr>
+                                            <td><b>Tipe Pembayaran</b></td>
+                                            <td>: <?php echo htmlspecialchars($payment['type'] ?? ''); ?></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                    <tr>
+                                        <td><b>Bayar</b></td>
+                                        <td>: <?php echo formatRupiah($payment['amount'] ?? '0'); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Sisa Bayar</b></td>
+                                        <td>: <?php echo formatRupiah($booking['total_harga'] - $payment['amount'] ?? ''); ?></td>
+                                    </tr>
+                                    <?php if ($payment['method'] === 'Transfer'): ?>
+                                        <tr>
+                                            <td><b>Bukti Pembayaran</b></td>
+                                            <td>:
+                                                <?php if ($payment['evidence_file']): ?>
+                                                    <button type="button"
+                                                        class="btn btn-info btn-sm mx-1 btn-view-evidence"
+                                                        data-uuid="<?php echo urlencode($payment['uuid']); ?>"
+                                                        data-file="<?php echo htmlspecialchars($payment['evidence_file']); ?>"
+                                                        data-bs-toggle="modal" data-bs-target="#viewEvidenceModal">
+                                                        Lihat Bukti
+                                                    </button>
+                                                <?php else: ?>
+                                                    <span class="badge bg-warning">Belum Transfer</span>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </tbody>
                         </table>
 
-                        <?php if ($profile): ?>
+                        <?php if ($profile && $_SESSION['user_role'] == 'admin'): ?>
                             <h5 class="mt-4">Persyaratan Lepas Kunci</h5>
                             <?php
+                            function formatType($type)
+                            {
+                                $formatted = str_replace('_', ' ', $type);  // Ganti underscore dengan spasi
+                                $formatted = ucwords($formatted);           // Ubah huruf pertama setiap kata menjadi kapital
+
+                                return $formatted;
+                            }
+
                             function renderDocumentModal($type, $filePath)
                             {
                                 if (empty($filePath)) {
@@ -183,7 +199,7 @@ if ($booking) {
                                 $fileName = htmlspecialchars($filePath);
                                 $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
                                 $modalId = $type . 'Modal';
-                                $modalLabel = ucfirst($type) . ' Document';
+                                $modalLabel = formatType($type) . ' Document';
 
                                 if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif'])) {
                                     echo "<button type='button' class='btn btn-info' data-bs-toggle='modal' data-bs-target='#{$modalId}'>View</button>";
@@ -268,11 +284,7 @@ if ($booking) {
                                     </tr>
                                     <tr>
                                         <td><b>Surat Pengangkatan / Surat Kontrak</b></td>
-                                        <td>: <?php renderDocumentModal('id_card', $profile['id_card']); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Slip Gaji</b></td>
-                                        <td>: <?php renderDocumentModal('slip_gaji', $profile['slip_gaji']); ?></td>
+                                        <td>: <?php renderDocumentModal('surat_keterangan', $profile['surat_keterangan']); ?></td>
                                     </tr>
                                     <tr>
                                         <td><b>Slip Gaji</b></td>
@@ -284,7 +296,7 @@ if ($booking) {
                                     </tr>
                                 </tbody>
                             </table>
-                        <?php else: ?>
+                        <?php elseif (!$profile && $_SESSION['user_role'] == 'admin'): ?>
                             <p>No profile information available.</p>
                         <?php endif; ?>
                         <?php
@@ -323,24 +335,13 @@ if ($booking) {
 
                                             <?php if ($sisa > 0): ?>
                                                 <div class="form-floating form-floating-outline mb-3">
-                                                    <input type="text" class="form-control" id="remaining_amount_display" name="remaining_amount_display" placeholder="Sisa Pembayaran" oninput="formatAmount(this)" required />
+                                                    <input type="text" class="form-control" id="remaining_amount_display" name="remaining_amount_display" placeholder="Nominal yang sudah dibayarkan lagi" oninput="formatAmount(this)" />
                                                     <input type="hidden" id="remaining_amount" name="remaining_amount" />
-                                                    <label for="remaining_amount_display">Sisa Pembayaran <span class="text-danger">*</span></label>
+                                                    <label for="remaining_amount_display">Sisa Pembayaran/Pelunasan <span class="text-danger">*</span></label>
                                                 </div>
                                             <?php endif; ?>
                                         </div>
 
-                                        <?php if ($booking['status'] == 'Berjalan'): ?>
-                                            <div class="form-floating form-floating-outline mb-3">
-                                                <input type="text" class="form-control" id="km_before" name="km_before" value="<?php echo htmlspecialchars(number_format($car['km'], 0, ',', '.')); ?>" readonly />
-                                                <label for="km_before">Total KM Mobil Sebelumnya <span class="text-danger">*</span></label>
-                                            </div>
-                                            <div class="form-floating form-floating-outline mb-3">
-                                                <input type="text" class="form-control" id="km_display" name="km_display" placeholder="Total KM Mobil Setelahnya" oninput="formatKm(this)" required />
-                                                <input type="hidden" id="km" name="km" />
-                                                <label for="km_display">Total KM Mobil Setelahnya <span class="text-danger">*</span></label>
-                                            </div>
-                                        <?php endif; ?>
                                         <?php
                                         $drivers = $userModel->getDrivers();
                                         ?>
@@ -359,10 +360,27 @@ if ($booking) {
                                                 </div>
                                             </div>
                                         <?php endif; ?>
+
+                                        <?php if ($booking['status'] == 'Berjalan'): ?>
+                                            <div class="col-md-12" style="display: none;" id="km_before_container">
+                                                <div class="form-floating form-floating-outline mb-3">
+                                                    <input type="text" class="form-control" id="km_before" name="km_before" value="<?php echo htmlspecialchars(number_format($car['km'], 0, ',', '.')); ?>" readonly />
+                                                    <label for="km_before">Total KM Mobil Sebelumnya <span class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12" style="display: none;" id="km_container">
+                                                <div class="form-floating form-floating-outline mb-3">
+                                                    <input type="text" class="form-control" id="km_display" name="km_display" placeholder="Total KM Mobil Setelahnya" oninput="formatKm(this)" required />
+                                                    <input type="hidden" id="km" name="km" />
+                                                    <label for="km_display">Total KM Mobil Setelahnya <span class="text-danger">*</span></label>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+
                                         <div class="col-md-12">
                                             <div class="form-floating form-floating-outline mb-3">
-                                                <textarea class="form-control" id="note" name="note" placeholder="Note" required></textarea>
-                                                <label for="note">Catatan <span class="text-danger">*</span></label>
+                                                <textarea class="form-control" id="note" name="note" placeholder="Catatan tambahan untuk client"></textarea>
+                                                <label for="note">Catatan</label>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -451,13 +469,22 @@ if ($booking) {
             const selectedValue = this.value;
             const remainingAmountContainer = document.getElementById('remaining_amount_container');
             const driverContainer = document.getElementById('driver_id_container');
+            const kmBeforeContainer = document.getElementById('km_before_container');
+            const kmContainer = document.getElementById('km_container');
             const remainingAmountInput = document.getElementById('remaining_amount_display');
             const driverInput = document.getElementById('driver_id');
 
-            if (selectedValue === 'Disetujui') {
+            if (selectedValue === 'Berjalan') {
                 remainingAmountContainer.style.display = 'block';
-                driverContainer.style.display = 'block';
                 remainingAmountInput.setAttribute('required', 'required');
+                driverInput.removeAttribute('required');
+            } else if (selectedValue === 'Disetujui') {
+                driverContainer.style.display = 'block';
+                remainingAmountInput.removeAttribute('required');
+            } else if (selectedValue === 'Selesai') {
+                kmBeforeContainer.style.display = 'block';
+                kmContainer.style.display = 'block';
+                remainingAmountInput.removeAttribute('required');
             } else {
                 remainingAmountContainer.style.display = 'none';
                 driverContainer.style.display = 'none';

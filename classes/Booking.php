@@ -18,13 +18,35 @@ class Booking
                     ORDER BY 
                     CASE 
                         WHEN status = 'Menunggu Konfirmasi' THEN 1 
-                        WHEN status = 'Belum Bayar' THEN 3 
+                        WHEN status = 'Belum Bayar' THEN 2
                         WHEN status = 'Disetujui' THEN 3 
                         WHEN status = 'Berjalan' THEN 4
-                        ELSE 4 
+                        WHEN status = 'Ditolak' THEN 5
+                        ELSE 6
                     END,
                     no_booking ASC";
         $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function listDriver($id)
+    {
+        $query = "SELECT * FROM " . $this->table . " 
+                    WHERE driver_id = :id
+                    ORDER BY 
+                    CASE 
+                        WHEN status = 'Menunggu Konfirmasi' THEN 1 
+                        WHEN status = 'Belum Bayar' THEN 2
+                        WHEN status = 'Disetujui' THEN 3 
+                        WHEN status = 'Berjalan' THEN 4
+                        WHEN status = 'Ditolak' THEN 5
+                        ELSE 6
+                    END,
+                    no_booking ASC";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 

@@ -59,8 +59,26 @@ if ($booking && $user_id == $booking['user_id']) {
                     <br>
                     <b>dan Kirim Bukti Pembayaran pada Pesanan Saya</b>
                     <div class="row g-5">
-                        <div class="d-flex justify-content-end">
-                            <button id="print-pdf" class="btn btn-primary">Download PDF</button>
+                        <div class="d-flex justify-content-between">
+                            <button id="print-pdf" class="btn btn-primary"><i class="fa fa-file-pdf text-white"></i> Download PDF</button>
+                            <?php if ($payment['method'] == 'Transfer'): ?>
+                                <?php if (!empty($payment['evidence_file'])): ?>
+                                    <button type="button"
+                                        class="btn btn-info btn-view-evidence text-white"
+                                        data-uuid="<?php echo urlencode($payment['uuid']); ?>"
+                                        data-file="<?php echo htmlspecialchars($payment['evidence_file']); ?>"
+                                        data-bs-toggle="modal" data-bs-target="#viewEvidenceModal">
+                                        <i class="fa fa-circle-info text-white"></i> Lihat Bukti
+                                    </button>
+                                <?php else: ?>
+                                    <button type="button"
+                                        class="btn btn-success btn-evidence"
+                                        data-uuid="<?php echo urlencode($payment['uuid']); ?>"
+                                        data-bs-toggle="modal" data-bs-target="#evidenceModal">
+                                        <i class="fa fa-money-bill-transfer text-white"></i> Kirim bukti transfer
+                                    </button>
+                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                         <div class="card p-2" id="invoice">
                             <div class="card-header">
@@ -119,7 +137,7 @@ if ($booking && $user_id == $booking['user_id']) {
                                                     $is_driver = "Tidak pakai driver";
                                                 } else {
                                                     if (($booking['driver_id']) == null) {
-                                                        $driver_id = " - (Akan diinfokan kembali)";
+                                                        $driver_id = " - (Menunggu Konfirmasi)";
                                                     } else {
                                                         $driver_id = " - " . ($driver['name']);
                                                     }
@@ -179,10 +197,19 @@ if ($booking && $user_id == $booking['user_id']) {
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <?php
+                                                if ($payment['method'] == 'Transfer' && $payment['evidence_file'] !== null) {
+                                                    $status_transfer = '<b class="text-success">(SUDAH TRANSFER)</b>';
+                                                } elseif ($payment['method'] == 'Transfer' && $payment['evidence_file'] == null) {
+                                                    $status_transfer = '<b class="text-danger">(BELUM TRANSFER)</b>';
+                                                } else {
+                                                    $status_transfer = '<b class="text-danger">(BELUM BAYAR)</b>';
+                                                }
+                                                ?>
                                                 <td>Uang Muka (Nominal Sudah Bayar)</td>
                                                 <td>:
                                                     <?php
-                                                    echo 'Rp ' . number_format($payment['amount'] ?? 0, 0, ',', '.');
+                                                    echo 'Rp ' . number_format($payment['amount'] ?? 0, 0, ',', '.') . " " . $status_transfer;
                                                     ?>
                                                 </td>
                                             </tr>
@@ -260,6 +287,91 @@ if ($booking && $user_id == $booking['user_id']) {
             </div>
         </div>
     </div>
+
+    <!-- Transfer Modal -->
+    <div class="modal fade" id="evidenceModal" tabindex="-1" aria-labelledby="evidenceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="evidenceModalLabel">Kirim Bukti Transfer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="backend/booking/evidence.php" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="uuid" id="modalUuid" value="">
+                        <input type="hidden" name="views" value="transaction">
+                        <div class="mb-3">
+                            <label for="evidenceFile" class="form-label">Upload Bukti Transfer (PDF/Gambar)</label>
+                            <input type="file" class="form-control" style="background-color: white;" id="evidenceFile" name="evidence_file" accept=".pdf,image/*" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Kirim</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lihat Bukti Transfer -->
+    <div class="modal fade" id="viewEvidenceModal" tabindex="-1" aria-labelledby="viewEvidenceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewEvidenceModalLabel">Lihat Bukti Transfer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <div id="evidenceContent"></div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalElement = document.getElementById('evidenceModal');
+            const modalUuidInput = document.getElementById('modalUuid');
+            const evidenceButtons = document.querySelectorAll('.btn-evidence');
+
+            evidenceButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const uuid = button.getAttribute('data-uuid');
+                    modalUuidInput.value = uuid;
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var viewEvidenceButtons = document.querySelectorAll('.btn-view-evidence');
+            viewEvidenceButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    var file = button.getAttribute('data-file');
+                    var evidenceContent = document.getElementById('evidenceContent');
+                    evidenceContent.innerHTML = '';
+
+                    if (file.endsWith('.pdf')) {
+                        evidenceContent.innerHTML = '<embed src="assets/uploads/evidence/' + file + '" type="application/pdf" width="100%" height="600px" />';
+                    } else {
+                        evidenceContent.innerHTML = '<img src="assets/uploads/evidence/' + file + '" class="img-fluid" />';
+                    }
+                });
+            });
+
+            var evidenceModal = document.getElementById('evidenceModal');
+            evidenceModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var uuid = button.getAttribute('data-uuid');
+                var modalUuidInput = document.getElementById('modalUuid');
+                modalUuidInput.value = uuid;
+            });
+        });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>

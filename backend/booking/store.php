@@ -48,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $harga_mobil = $_POST['harga_mobil'];
     $denda_mobil = $_POST['denda_mobil'];
     if ($_POST['method'] == 'Cash') {
-        $status = 'Menunggu Konfirmasi';
-    } else {
         $status = 'Belum Bayar';
+    } else {
+        $status = 'Menunggu Konfirmasi';
     }
 
     $bookingCreate = $booking->create([
@@ -110,7 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Start Notif Whatsapp
         $token = "BtPvgC8xZUwYc8rQSeGBfxK8XKppEnSdDU8HKuZdfBqB9fDMUx";
         $nomor = "082125008160";
-        $isi = "📢 *DIANA RENT CAR*\n";
+        $amount = $amount ?? 0;
+
         $isi .= "\n📢 *Pemberitahuan Penyewaan Mobil*\n";
         $isi .= "\n🎫 *No Booking* : " . $no_booking;
         $isi .= "\n👤 *Nama Penyewa* : " . $_SESSION['user_name'];
@@ -119,9 +120,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isi .= "\n📅 *Tanggal Sewa* : " . $_POST['date_start'];
         $isi .= "\n📅 *Tanggal Kembali* : " . $_POST['date_end'];
         $isi .= "\n⏱️ *Durasi Sewa* : " . $duration . " Hari";
-        $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . $total_harga;
+        $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . number_format($total_harga, 0, ',', '.');
         $isi .= "\n💲 *Metode Pembayaran* : " . $_POST['method'];
-        $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . $amount;
+        $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . number_format($amount, 0, ',', '.');
 
         $message = sprintf("----------DIANA RENT CAR----------%c$isi%c--------------------------------------- ", 10, 10);
         $message = urlencode($message);

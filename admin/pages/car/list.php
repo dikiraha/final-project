@@ -192,8 +192,29 @@ pushInlineScript('
                     .then(data => {
                         // Isi modal dengan data
                         detailContent.innerHTML = `
-                            <p><strong>Merk:</strong> ${data.merk}</p>
-                            <p><strong>Tipe:</strong> ${data.tipe}</p>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="d-flex justify-content-center">
+                                        <img src="./../assets/uploads/car/${data.photo}" alt="Car Photo" width="50%">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <table class="table table-borderless table-striped table-hover mt-3 text-black">
+                                        <tr>
+                                            <td>Merk</td>
+                                            <td>:</td>
+                                            <td>${data.merk}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tipe</td>
+                                            <td>:</td>
+                                            <td>${data.tipe}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
                             <p><strong>Jumlah Kursi:</strong> ${data.jumlah_kursi}</p>
                             <p><strong>Jumlah Pintu:</strong> ${data.jumlah_pintu}</p>
                             <p><strong>Warna:</strong> ${data.warna}</p>
@@ -204,7 +225,6 @@ pushInlineScript('
                             <p><strong>Harga:</strong> ${data.harga}</p>
                             <p><strong>Denda:</strong> ${data.denda}</p>
                             <p><strong>Transmisi:</strong> ${data.transmisi}</p>
-                            <img src="./../assets/uploads/car/${data.photo}" alt="Car Photo" width="100">
                         `;
                     })
                     .catch(error => {

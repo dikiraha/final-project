@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../../classes/Booking.php';
 require_once '../../classes/Review.php';
 
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'booking_id' => $booking['id'],
         'car_id' => $booking['car_id'],
         'user_id' => $booking['user_id'],
-        'grade' => $_POST['grade'],
+        'grade' => $_POST['rating'],
         'description' => $_POST['description'],
     ]);
 

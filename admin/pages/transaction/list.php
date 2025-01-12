@@ -3,8 +3,16 @@ require_once '../classes/Booking.php';
 require_once '../classes/Car.php';
 require_once '../classes/Payment.php';
 
+$session_id = $_SESSION['user_id'];
+$session_role = $_SESSION['user_role'];
+
 $bookingModel = new Booking();
-$bookings = $bookingModel->list();
+if ($session_role == 'admin') {
+    $bookings = $bookingModel->list();
+} elseif ($session_role == 'driver') {
+    $bookings = $bookingModel->listDriver($session_id);
+}
+
 
 $carModel = new Car();
 
