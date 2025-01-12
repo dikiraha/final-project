@@ -211,20 +211,59 @@ pushInlineScript('
                                             <td>:</td>
                                             <td>${data.tipe}</td>
                                         </tr>
+                                        <tr>
+                                            <td>Jumlah Kursi</td>
+                                            <td>:</td>
+                                            <td>${data.jumlah_kursi}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jumlah Pintu</td>
+                                            <td>:</td>
+                                            <td>${data.jumlah_pintu}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Warna</td>
+                                            <td>:</td>
+                                            <td>${data.warna}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>No Plat</td>
+                                            <td>:</td>
+                                            <td>${data.no_plat}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tahun</td>
+                                            <td>:</td>
+                                            <td>${data.tahun}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>KM</td>
+                                            <td>:</td>
+                                            <td>${data.km}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jenis Bensin</td>
+                                            <td>:</td>
+                                            <td>${data.jenis_bensin}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Harga</td>
+                                            <td>:</td>
+                                            <td>${data.harga}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Denda</td>
+                                            <td>:</td>
+                                            <td>${data.denda}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Transmisi</td>
+                                            <td>:</td>
+                                            <td>${data.transmisi}</td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
-                            
-                            <p><strong>Jumlah Kursi:</strong> ${data.jumlah_kursi}</p>
-                            <p><strong>Jumlah Pintu:</strong> ${data.jumlah_pintu}</p>
-                            <p><strong>Warna:</strong> ${data.warna}</p>
-                            <p><strong>No Plat:</strong> ${data.no_plat}</p>
-                            <p><strong>Tahun:</strong> ${data.tahun}</p>
-                            <p><strong>KM:</strong> ${data.km}</p>
-                            <p><strong>Jenis Bensin:</strong> ${data.jenis_bensin}</p>
-                            <p><strong>Harga:</strong> ${data.harga}</p>
-                            <p><strong>Denda:</strong> ${data.denda}</p>
-                            <p><strong>Transmisi:</strong> ${data.transmisi}</p>
                         `;
                     })
                     .catch(error => {
