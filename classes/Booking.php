@@ -1,15 +1,16 @@
 <?php
 require_once 'Database.php';
 
-class Booking
+class Booking extends Database
 {
-    private $conn;
+    // private $conn;
     private $table = 'tt_bookings';
 
     public function __construct()
     {
-        $db = new Database();
-        $this->conn = $db->connect();
+        // $db = new Database();
+        // $this->conn = $db->connect();
+        $this->conn = $this->connect();
     }
 
     public function list()
@@ -25,6 +26,16 @@ class Booking
                         ELSE 6
                     END,
                     no_booking ASC";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getBookingOnProgress()
+    {
+        $query = "SELECT * FROM " . $this->table . " 
+                    WHERE status = 'Berjalan'
+                    ORDER BY 
+                    date_end ASC";
         $stmt = $this->conn->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

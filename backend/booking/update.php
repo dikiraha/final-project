@@ -43,9 +43,18 @@ $date_end = new DateTime($booking['date_end'], $timezone);
 
 if ($now > $date_end) {
     $interval = $now->diff($date_end);
-    $hours_overdue = $interval->h + ($interval->days * 24);
+    $lateMinutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
+
+    if ($lateMinutes <= 60) {
+        $hours_overdue = 1;
+    } else {
+        $hours_overdue = ceil($lateMinutes / 60);
+    }
+
+    // Hitung total denda
     $total_denda = $booking['denda_mobil'] * $hours_overdue;
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $updateBooking = [
@@ -93,9 +102,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isi .= "\n📅 *Tanggal Sewa* : " . $booking['date_start'];
         $isi .= "\n📅 *Tanggal Kembali* : " . $booking['date_end'];
         $isi .= "\n⏱️ *Durasi Sewa* : " . $duration . " Hari";
-        $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . number_format($booking['total_harga'], 0, ',', '.');
-        $isi .= "\n💲 *Metode Pembayaran* : " . $payment['method'];
-        $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . number_format($newAmount, 0, ',', '.');
+        if ($_POST['status'] != 'Selesai') {
+            $isi .= "\n💲 *Harga Mobil* : " . "Rp "  . number_format($booking['total_harga'], 0, ',', '.');
+            $isi .= "\n💲 *Metode Pembayaran* : " . $payment['method'];
+            $isi .= "\n💲 *Total Pembayaran* : " . "Rp "  . number_format($newAmount, 0, ',', '.');
+        }
 
         if ($_POST['status'] == 'Disetujui') {
             $isi .= "\n\n📍 *Alamat Pengambilan* : " . $setting['address'];
@@ -105,6 +116,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $isi .= "\n\n*Harap lakukan pelunasan pada alamat diatas";
             }
         } elseif ($_POST['status'] == 'Selesai') {
+            $isi .= "\n💲 *Denda Perjam* : " . "Rp "  . number_format($booking['denda_mobil'], 0, ',', '.');
+            $isi .= "\n⏱️ *Waktu Telat* : " . $hours_overdue . " Jam";
+            $isi .= "\n💲 *Total Denda* : " . "Rp "  . number_format($total_denda, 0, ',', '.');
+
             $isi .= "\n\n *Mohon isi Link Ulasan* : ";
             $isi .= "\nhttps://dianarentcar.my.id/?views=review&uuid=" . $booking['uuid'];
         }

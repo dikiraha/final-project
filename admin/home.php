@@ -9,6 +9,9 @@ $bookingModel = new Booking();
 $userModel = new User();
 $paymentModel = new Payment();
 
+$bookingOnProgress = $bookingModel->getBookingOnProgress();
+$no = 1;
+
 $currentMonth = date('m');
 $currentYear = date('Y');
 
@@ -35,8 +38,6 @@ $monthsName = [
 $monthName = $monthsName[$selectedMonth];
 
 $bestCar = $carModel->bestBooking($selectedMonth, $selectedYear);
-
-// $bestCar = $carModel->bestBooking();
 $totalRevenue = $bestCar ? $carModel->getTotalRevenueForCurrentMonth($bestCar['id']) : 0;
 $totalCompletedBookings = $bookingModel->getTotalCompletedBookings($selectedMonth, $selectedYear);
 $totalUser = $userModel->getTotalUser();
@@ -60,6 +61,25 @@ function formatNumber($number)
     }
 }
 ?>
+
+<?php
+pushInlineScript('
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#bookingProgressTable").DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+    </script>
+');
+?>
+
 <?php if ($_SESSION['user_role'] == 'admin'): ?>
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row gy-6">
@@ -99,6 +119,12 @@ function formatNumber($number)
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-primary">Filter</button>
                                 </div>
+                                <div class="col-md-3">
+                                    <div class="d-flex justify-content-end">
+                                        <div id="current-time" class="display-6 mb-0">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -110,8 +136,6 @@ function formatNumber($number)
                         <h5 class="card-title mb-0 flex-wrap text-nowrap"><?php echo htmlspecialchars($bestCar['merk'] ?? ''); ?> <?php echo htmlspecialchars($bestCar['tipe'] ?? ''); ?> 🎉</h5>
                         <p class="mb-2">Best car of the month</p>
                         <h4 class="text-primary mb-0">Rp <?php echo htmlspecialchars(number_format($totalRevenue, 2)); ?></h4>
-                        <!-- <p class="mb-2">78% of target 🚀</p> -->
-                        <!-- <a href="javascript:;" class="btn btn-sm btn-primary">View Sales</a> -->
                     </div>
                     <?php if ($bestCar): ?>
                         <img
@@ -207,23 +231,124 @@ function formatNumber($number)
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-between">
+                            <h5 class="mb-1">Tracking Mobil</h5>
+                        </div>
+                    </div>
+                    <div class="card-body pt-lg-2">
+                        <div class="table-responsive">
+                            <table id="bookingProgressTable" class="table table-bordered table-striped table-sm" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>No. Booking</th>
+                                        <th>Mobil</th>
+                                        <th>No Plat</th>
+                                        <th>Tanggal Pengambilan</th>
+                                        <th>Tanggal Pengembalian</th>
+                                        <th>Status</th>
+                                        <th>Denda Perjam</th>
+                                        <th>Total Denda</th>
+                                        <th>Kontak User</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    ?>
+                                    <?php foreach ($bookingOnProgress as $booking): ?>
+                                        <?php
+                                        $car = $carModel->getCarById($booking['car_id']);
+                                        $payment = $paymentModel->getPaymentByBookingId($booking['id']);
+                                        if (!function_exists('formatRupiah')) {
+                                            function formatRupiah($angka)
+                                            {
+                                                return 'Rp ' . number_format($angka, 0, ',', '.');
+                                            }
+                                        }
+
+                                        ?>
+                                        <tr>
+                                            <td class="text-center"><?php echo $no++; ?></td>
+                                            <td><?php echo htmlspecialchars($booking['no_booking']); ?></td>
+                                            <td><?php echo htmlspecialchars($car['merk'] . " " . $car['tipe'] . " " . $car['tahun']); ?></td>
+                                            <td><?php echo htmlspecialchars($car['no_plat']); ?></td>
+                                            <td>
+                                                <?php
+                                                echo htmlspecialchars((new DateTime($booking['date_start']))->format('d-m-Y H:i'));
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                echo htmlspecialchars((new DateTime($booking['date_end']))->format('d-m-Y H:i'));
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $timezone = new DateTimeZone('Asia/Jakarta');
+
+                                                $dateEnd = new DateTime($booking['date_end'], $timezone);
+                                                $now = new DateTime('now', $timezone);
+
+                                                if ($dateEnd > $now) {
+                                                    $status = 'Berjalan';
+                                                    $color = 'info';
+                                                    $lateTime = null;
+                                                } else {
+                                                    $status = 'Telat';
+                                                    $color = 'danger';
+
+                                                    $interval = $now->diff($dateEnd);
+                                                    $lateMinutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
+
+                                                    $lateTime = ceil($lateMinutes / 60);
+                                                }
+                                                ?>
+                                                <span class="badge bg-<?php echo $color; ?>">
+                                                    <?php echo htmlspecialchars($status); ?>
+                                                </span>
+                                                <br>
+                                                <?php if ($lateTime !== null): ?>
+                                                    <small>(<?php echo $lateTime; ?> jam)</small>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><?php echo $booking['denda_mobil'] !== null ? formatRupiah($booking['denda_mobil']) : 'Rp. 0'; ?></td>
+                                            <td>
+                                                <?php
+                                                if ($booking['denda_mobil'] !== null && $lateTime !== null) {
+                                                    $totalDenda = $booking['denda_mobil'] * $lateTime;
+                                                    echo formatRupiah($totalDenda);
+                                                } else {
+                                                    echo 'Rp. 0';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $user = $userModel->getById($booking['user_id']);
+
+                                                $phoneNumber = $user['phone_number'];
+                                                if (substr($phoneNumber, 0, 1) === '0') {
+                                                    $phoneNumber = '62' . substr($phoneNumber, 1);
+                                                }
+                                                ?>
+                                                <a href="https://wa.me/<?php echo htmlspecialchars($phoneNumber); ?>" target="_blank">
+                                                    <i class="mdi mdi-whatsapp"></i> <?php echo htmlspecialchars($user['phone_number']); ?>
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
                             <h5 class="mb-1">Pendapatan Bulanan pada Tahun <?php echo htmlspecialchars($selectedYear) ?></h5>
-                            <div class="dropdown">
-                                <button
-                                    class="btn text-muted p-0"
-                                    type="button"
-                                    id="weeklyOverviewDropdown"
-                                    data-bs-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i class="ri-more-2-line ri-24px"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="weeklyOverviewDropdown">
-                                    <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                                    <a class="dropdown-item" href="javascript:void(0);">Update</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="card-body pt-lg-2">
@@ -257,5 +382,28 @@ function formatNumber($number)
                 }
             }
         });
+    </script>
+
+    <script>
+        function updateTime() {
+            const timeElement = document.getElementById('current-time');
+            const now = new Date();
+
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            const formattedTime = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+
+            timeElement.textContent = formattedTime;
+        }
+
+        setInterval(updateTime, 1000);
+
+        updateTime();
     </script>
 <?php endif; ?>

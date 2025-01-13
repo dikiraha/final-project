@@ -1,7 +1,8 @@
 <?php
 require_once 'Database.php';
+require_once 'Profile.php';
 
-class User
+class User extends Profile
 {
     private $conn;
     private $table = 'users';
@@ -10,6 +11,21 @@ class User
     {
         $db = new Database();
         $this->conn = $db->connect();
+    }
+
+    public function getByUserId($userId)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $profile = parent::getByUserId($userId);
+            $user['profile'] = $profile;
+        }
+
+        return $user;
     }
 
     public function list()

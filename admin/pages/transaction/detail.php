@@ -306,6 +306,44 @@ if ($booking) {
                             <?php if ($booking['status'] !== 'Selesai' && $booking['status'] !== 'Ditolak'): ?>
                                 <h5 class="mt-4">Konfirmasi Pesanan</h5>
                                 <div class="row">
+                                    <?php
+                                    $date_end = $booking['date_end'];
+                                    $timezone = new DateTimeZone('Asia/Jakarta');
+                                    $now = new DateTime('now', $timezone);
+                                    $dateEnd = new DateTime($booking['date_end'], $timezone);
+
+                                    if ($dateEnd < $now) {
+                                        $interval = $dateEnd->diff($now);
+
+                                        $lateMinutes = ($interval->days * 24 * 60) + ($interval->h * 60) + $interval->i;
+
+                                        if ($lateMinutes <= 60) {
+                                            $lateHours = 1;
+                                        } else {
+                                            $lateHours = ceil($lateMinutes / 60);
+                                        }
+                                    } else {
+                                        $lateHours = 0;
+                                    }
+
+                                    $total_denda = $booking['denda_mobil'] * $lateHours;
+                                    ?>
+                                    <?php if ($booking['status'] == 'Berjalan'): ?>
+                                        <table class="table table-borderless table-striped table-hover mb-3" width="100">
+                                            <tr>
+                                                <td width="200px">Denda Perjam</td>
+                                                <td>: <?php echo htmlspecialchars(formatRupiah($booking['denda_mobil'])) ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">Waktu Telat</td>
+                                                <td>: <?php echo htmlspecialchars($lateHours) ?> Jam</td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">Total Denda</td>
+                                                <td>: <?php echo htmlspecialchars(formatRupiah($total_denda)) ?></td>
+                                            </tr>
+                                        </table>
+                                    <?php endif; ?>
                                     <form action="../backend/booking/update.php" method="POST">
                                         <input type="hidden" name="uuid" value="<?php echo htmlspecialchars($booking['uuid']); ?>">
                                         <div class="col-md-12">

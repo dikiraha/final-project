@@ -107,10 +107,9 @@ class Car
 
     public function bestBooking($month = null, $year = null)
     {
-        // Prepare the base query
-        $query = "SELECT car_id, COUNT(*) as booking_count 
-                    FROM tt_bookings 
-                    WHERE status = 'Selesai'";
+        $query = "SELECT car_id, SUM(total_harga) as total_revenue 
+                FROM tt_bookings 
+                WHERE status = 'Selesai'";
 
         if ($month) {
             $query .= " AND MONTH(date_start) = :month";
@@ -120,13 +119,13 @@ class Car
         }
 
         $query .= " GROUP BY car_id 
-                    ORDER BY booking_count DESC 
-                    LIMIT 1";
+                ORDER BY total_revenue DESC 
+                LIMIT 1";
 
         $stmt = $this->conn->prepare($query);
 
         if ($month) {
-            $stmt->bindParam(':month', $month, PDO::PARAM_STR);
+            $stmt->bindParam(':month', $month, PDO::PARAM_INT);
         }
         if ($year) {
             $stmt->bindParam(':year', $year, PDO::PARAM_INT);
@@ -141,6 +140,11 @@ class Car
             $carStmt = $this->conn->prepare($carQuery);
             $carStmt->execute([$carId]);
             $car = $carStmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($car) {
+                $car['total_revenue'] = $result['total_revenue'];
+            }
+
             return $car;
         }
 

@@ -22,7 +22,6 @@ $no = 1;
 ?>
 
 <?php
-// Tambahkan file CSS dan JS untuk halaman ini
 pushInlineStyle("
     body {
         background-color: #f0f8ff;
@@ -36,7 +35,7 @@ pushInlineScript('
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $("#appTable").DataTable({
+            $("#transactionTable").DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
@@ -66,7 +65,7 @@ pushInlineScript('
                     <?php endif; ?>
                 </div>
                 <div class="table-responsive" style="padding: 0 1.25rem 2rem 1.25rem;">
-                    <table id="appTable" class="table table-bordered table-striped table-sm" width="100%">
+                    <table id="transactionTable" class="table table-bordered table-striped table-sm" width="100%">
                         <thead>
                             <tr>
                                 <th>No</th>

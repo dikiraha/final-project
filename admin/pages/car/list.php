@@ -7,7 +7,6 @@ $no = 1;
 ?>
 
 <?php
-// Tambahkan file CSS dan JS untuk halaman ini
 pushInlineStyle("
     body {
         background-color: #f0f8ff;
