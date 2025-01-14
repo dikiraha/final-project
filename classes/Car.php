@@ -14,6 +14,13 @@ class Car
 
     public function list()
     {
+        $query = "SELECT * FROM " . $this->table . " ORDER BY merk ASC";
+        $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function listActive()
+    {
         $query = "SELECT * FROM " . $this->table . " WHERE status = 'Active' ORDER BY merk ASC";
         $stmt = $this->conn->query($query);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

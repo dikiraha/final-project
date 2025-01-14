@@ -3,7 +3,7 @@ require_once 'classes/Car.php';
 require_once 'classes/Booking.php';
 
 $carModel = new Car();
-$cars = $carModel->list();
+$cars = $carModel->listActive();
 
 $bookingModel = new Booking();
 ?>

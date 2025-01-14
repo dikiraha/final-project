@@ -6,7 +6,7 @@ require_once 'classes/User.php';
 require_once 'classes/Profile.php';
 
 $carModel = new Car();
-$cars = $carModel->list();
+$cars = $carModel->listActive();
 $totalCars = $carModel->getTotalCars();
 $totalKilometers = $carModel->getTotalKilometers();
 
