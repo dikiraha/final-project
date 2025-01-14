@@ -1,7 +1,9 @@
 <?php
 require_once '../classes/User.php';
+require_once '../classes/Profile.php';
 
 $userModel = new User();
+$profileModel = new Profile();
 
 $users = $userModel->list();
 $no = 1;
@@ -57,12 +59,19 @@ pushInlineScript('
                         </thead>
                         <tbody>
                             <?php foreach ($users as $user): ?>
+                                <?php
+                                $profile = $profileModel->getByUserId($user['id']);
+                                ?>
                                 <tr>
                                     <td class="text-center"><?php echo $no++; ?></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="avatar avatar-sm me-4">
-                                                <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                                <?php if ($profile && $profile['photo_profile']): ?>
+                                                    <img src="../assets/uploads/photo_profile/<?php echo htmlspecialchars($profile['photo_profile']) ?>" alt="Avatar" class="rounded-circle" />
+                                                <?php else: ?>
+                                                    <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />
+                                                <?php endif; ?>
                                             </div>
                                             <div>
                                                 <h6 class="mb-0 text-truncate"><?php echo htmlspecialchars($user['name']); ?></h6>

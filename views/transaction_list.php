@@ -195,7 +195,9 @@ $no = 1;
             </div>
             <div class="modal-body">
                 <center>
-                    <div id="evidenceContent"></div>
+                    <div id="evidenceContent">
+                        <img src="assets/uploads/evidence/076120a9-8cae-4789-b94b-e8b79cb8f8aa_bpjs.jpg" class="img-fluid">
+                    </div>
                 </center>
             </div>
         </div>
@@ -362,28 +364,28 @@ $no = 1;
 
 <!-- Script Lihat Bukti Transfer -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var viewEvidenceButtons = document.querySelectorAll('.btn-view-evidence');
-        viewEvidenceButtons.forEach(function(button) {
-            button.addEventListener('click', function() {
-                var file = button.getAttribute('data-file');
-                var evidenceContent = document.getElementById('evidenceContent');
-                evidenceContent.innerHTML = '';
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = document.getElementById("viewEvidenceModal");
+        const evidenceContent = document.getElementById("evidenceContent");
+
+        const transactionTable = document.getElementById("transactionListTable");
+        transactionTable.addEventListener("click", function(event) {
+            const target = event.target;
+
+            if (target.classList.contains("btn-view-evidence")) {
+                const file = target.getAttribute("data-file");
+                const filePath = "assets/uploads/evidence/" + file;
+
+                evidenceContent.innerHTML = "";
 
                 if (file.endsWith('.pdf')) {
-                    evidenceContent.innerHTML = '<embed src="assets/uploads/evidence/' + file + '" type="application/pdf" width="100%" height="600px" />';
+                    evidenceContent.innerHTML = '<embed src="' + filePath + '" type="application/pdf" width="100%" height="600px" />';
+                } else if (file.match(/\.(jpeg|jpg|gif|png)$/)) {
+                    evidenceContent.innerHTML = '<img src="' + filePath + '" alt="Evidence Image" width="100%" height="auto" />';
                 } else {
-                    evidenceContent.innerHTML = '<img src="assets/uploads/evidence/' + file + '" class="img-fluid" />';
+                    evidenceContent.textContent = "File tidak dapat ditampilkan.";
                 }
-            });
-        });
-
-        var evidenceModal = document.getElementById('viewEvidenceModal');
-        evidenceModal.addEventListener('show.bs.modal', function(event) {
-            var button = event.relatedTarget;
-            var uuid = button.getAttribute('data-uuid');
-            var modalUuidInput = document.getElementById('modalUuid');
-            if (modalUuidInput) modalUuidInput.value = uuid;
+            }
         });
     });
 </script>
@@ -401,47 +403,39 @@ $no = 1;
 </script>
 
 <!-- Script Lihat Ulasan -->
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const reviewButtons = document.querySelectorAll('.btn-view-review');
-
-        reviewButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const uuid = this.getAttribute('data-uuid');
-                const reviewContent = document.getElementById('reviewContent');
-                reviewContent.textContent = uuid;
-            });
-        });
-    });
-</script> -->
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const reviewButtons = document.querySelectorAll('.btn-view-review');
-        reviewButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const uuid = this.getAttribute('data-uuid');
-                const reviewContent = document.getElementById('reviewContent');
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = document.getElementById("viewEvidenceModal");
+        const reviewContent = document.getElementById("reviewContent");
 
-                reviewContent.innerHTML = 'Memuat ulasan...';
+        const transactionTable = document.getElementById("transactionListTable");
 
-                fetch('views/get_review.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `uuid=${encodeURIComponent(uuid)}`,
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            reviewContent.innerHTML = `<span class="text-danger">${data.error}</span>`;
-                        } else {
-                            const grade = data.grade;
-                            let emojiSVG = '';
+        if (transactionTable) {
+            transactionTable.addEventListener("click", function(event) {
+                const target = event.target;
 
-                            if (grade === 0 || grade == null) {
-                                emojiSVG = `
+                if (target && target.classList.contains("btn-view-review")) {
+                    const uuid = target.getAttribute("data-uuid");
+
+                    reviewContent.innerHTML = 'Memuat Ulasan...';
+
+                    fetch('views/get_review.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: `uuid=${encodeURIComponent(uuid)}`,
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.error) {
+                                reviewContent.innerHTML = `<span class="text-danger">${data.error}</span>`;
+                            } else {
+                                const grade = data.grade;
+                                let emojiSVG = '';
+                                console.log(grade);
+                                if (grade == 0 || grade == null) {
+                                    emojiSVG = `
                                     <svg class="rating-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <circle cx="256" cy="256" r="256" fill="#ffd93b" />
                                         <path d="M512 256c0 141.44-114.64 256-256 256-80.48 0-152.32-37.12-199.28-95.28 43.92 35.52 99.84 56.72 160.72 56.72 141.36 0 256-114.56 256-256 0-60.88-21.2-116.8-56.72-160.72C474.8 103.68 512 175.52 512 256z" fill="#f4c534" />
@@ -454,8 +448,8 @@ $no = 1;
                                         <path d="M370.56 344.4c0 7.696-6.224 13.92-13.92 13.92H155.36c-7.616 0-13.92-6.224-13.92-13.92s6.304-13.92 13.92-13.92h201.296c7.696.016 13.904 6.224 13.904 13.92z" fill="#3e4347" />
                                     </svg>
                                 `;
-                            } else if (grade === 1) {
-                                emojiSVG = `
+                                } else if (grade == 1) {
+                                    emojiSVG = `
                                     <svg class="rating-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <circle cx="256" cy="256" r="256" fill="#ffd93b" />
                                         <path d="M512 256A256 256 0 0 1 56.7 416.7a256 256 0 0 0 360-360c58.1 47 95.3 118.8 95.3 199.3z" fill="#f4c534" />
@@ -470,8 +464,8 @@ $no = 1;
                                         <path d="M131.6 241.1c3.2 3.2 9.9 1.7 14.9-3.2 4.8-4.8 6.2-11.5 3-14.7-3.3-3.4-10-2-14.9 2.9-4.9 5-6.4 11.7-3 15z" fill="#fff" />
                                     </svg>
                                 `;
-                            } else if (grade === 2) {
-                                emojiSVG = `
+                                } else if (grade == 2) {
+                                    emojiSVG = `
                                     <svg class="rating-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <circle cx="256" cy="256" r="256" fill="#ffd93b" />
                                         <path d="M512 256A256 256 0 0 1 56.7 416.7a256 256 0 0 0 360-360c58.1 47 95.3 118.8 95.3 199.3z" fill="#f4c534" />
@@ -486,8 +480,8 @@ $no = 1;
                                         <ellipse transform="rotate(-135 182.1 246.7)" cx="182.1" cy="246.7" rx="10" ry="6.5" fill="#fff" />
                                     </svg>
                                 `;
-                            } else if (grade === 3) {
-                                emojiSVG = `
+                                } else if (grade == 3) {
+                                    emojiSVG = `
                                     <svg class="rating-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <circle cx="256" cy="256" r="256" fill="#ffd93b" />
                                         <path d="M407.7 352.8a163.9 163.9 0 0 1-303.5 0c-2.3-5.5 1.5-12 7.5-13.2a780.8 780.8 0 0 1 288.4 0c6 1.2 9.9 7.7 7.6 13.2z" fill="#3e4347" />
@@ -505,8 +499,8 @@ $no = 1;
                                         <ellipse transform="scale(-1) rotate(45 454 -421.3)" cx="174.5" cy="188" rx="12" ry="8.1" fill="#fff" />
                                     </svg>
                                 `;
-                            } else if (grade === 4) {
-                                emojiSVG = `
+                                } else if (grade == 4) {
+                                    emojiSVG = `
                                     <svg class="rating-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <circle cx="256" cy="256" r="256" fill="#ffd93b" />
                                         <path d="M512 256A256 256 0 0 1 56.7 416.7a256 256 0 0 0 360-360c58.1 47 95.3 118.8 95.3 199.3z" fill="#f4c534" />
@@ -520,8 +514,8 @@ $no = 1;
                                         <path d="M256 438.5c25.7 0 50-7.5 71.7-19.5-9-33.7-40.7-43.3-62.6-31.7-29.7 15.8-62.8-4.7-75.6 34.3 20.3 10.4 42.8 17 66.5 17z" fill="#e24b4b" />
                                     </svg>
                                 `;
-                            } else if (grade === 5) {
-                                emojiSVG = `
+                                } else if (grade == 5) {
+                                    emojiSVG = `
                                     <svg class="rating-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <g fill="#ffd93b">
                                             <circle cx="256" cy="256" r="256" />
@@ -541,47 +535,48 @@ $no = 1;
                                         <path d="M290.3 434.8c-1 3.4-5.8 5.2-11 3.9s-8.4-5.1-7.4-8.7c.8-3.3 5.7-5 10.7-3.8 5.1 1.4 8.5 5.3 7.7 8.6z" fill="#fff" opacity=".2" />
                                     </svg>
                                 `;
-                            }
+                                }
 
-                            reviewContent.innerHTML = `
-                            <div class="mb-3">
-                                <div class="feedback">
-                                    <div class="rating">
-                                        <div class="rating">
-                                            <input type="radio" name="rating" id="rating-5-review" value="5" ${data.grade == 5 ? 'checked' : ''}>
-                                            <label for="rating-5"></label>
-
-                                            <input type="radio" name="rating" id="rating-4-review" value="4" ${data.grade == 4 ? 'checked' : ''}>
-                                            <label for="rating-4"></label>
-
-                                            <input type="radio" name="rating" id="rating-3-review" value="3" ${data.grade == 3 ? 'checked' : ''}>
-                                            <label for="rating-3"></label>
-
-                                            <input type="radio" name="rating" id="rating-2-review" value="2" ${data.grade == 2 ? 'checked' : ''}>
-                                            <label for="rating-2"></label>
-
-                                            <input type="radio" name="rating" id="rating-1-review" value="1" ${data.grade == 1 ? 'checked' : ''}>
-                                            <label for="rating-1"></label>
-                                        </div>
-                                        <div class="emoji-wrapper">
-                                            <div class="emoji">
-                                                ${emojiSVG}
+                                reviewContent.innerHTML = `
+                                    <div class="mb-3">
+                                        <div class="feedback">
+                                            <div class="rating">
+                                                <div class="rating">
+                                                    <input type="radio" name="rating" id="rating-5-review" value="5" ${data.grade == 5 ? 'checked' : ''}>
+                                                    <label for="rating-5"></label>
+                                    
+                                                    <input type="radio" name="rating" id="rating-4-review" value="4" ${data.grade == 4 ? 'checked' : ''}>
+                                                    <label for="rating-4"></label>
+                                    
+                                                    <input type="radio" name="rating" id="rating-3-review" value="3" ${data.grade == 3 ? 'checked' : ''}>
+                                                    <label for="rating-3"></label>
+                                    
+                                                    <input type="radio" name="rating" id="rating-2-review" value="2" ${data.grade == 2 ? 'checked' : ''}>
+                                                    <label for="rating-2"></label>
+                                    
+                                                    <input type="radio" name="rating" id="rating-1-review" value="1" ${data.grade == 1 ? 'checked' : ''}>
+                                                    <label for="rating-1"></label>
+                                                </div>
+                                                <div class="emoji-wrapper">
+                                                    <div class="emoji">
+                                                        ${emojiSVG}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Description</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" disabled>${data.description}</textarea>
-                            </div>
-                        `;
-                        }
-                    })
-                    .catch(error => {
-                        reviewContent.innerHTML = `<span class="text-danger">Gagal memuat ulasan.</span>`;
-                    });
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3" disabled>${data.description}</textarea>
+                                    </div>
+                                `;
+                            }
+                        })
+                        .catch(error => {
+                            reviewContent.innerHTML = `<span class="text-danger">Gagal memuat ulasan.</span>`;
+                        });
+                }
             });
-        });
+        }
     });
 </script>
