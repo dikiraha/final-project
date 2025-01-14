@@ -486,72 +486,73 @@ if ($booking) {
         }
     </script>
 
-    <script>
-        document.getElementById('submitBtn').addEventListener('click', function(event) {
-            var status = document.getElementById('status').value;
-            if (status === 'Selesai') {
-                var kmBefore = parseInt(document.getElementById('km_before').value.replace(/[^\d]/g, ''));
-                var kmDisplay = parseInt(document.getElementById('km_display').value.replace(/[^\d]/g, ''));
+    <?php if ($booking['status'] != 'Selesai'): ?>
+        <script>
+            document.getElementById('submitBtn').addEventListener('click', function(event) {
+                var status = document.getElementById('status').value;
+                if (status === 'Selesai') {
+                    var kmBefore = parseInt(document.getElementById('km_before').value.replace(/[^\d]/g, ''));
+                    var kmDisplay = parseInt(document.getElementById('km_display').value.replace(/[^\d]/g, ''));
 
-                if (kmDisplay <= kmBefore) {
-                    alert('Total KM Mobil Setelahnya harus lebih besar dari Total KM Mobil Sebelumnya.');
-                    event.preventDefault();
-                    return false;
+                    if (kmDisplay <= kmBefore) {
+                        alert('Total KM Mobil Setelahnya harus lebih besar dari Total KM Mobil Sebelumnya.');
+                        event.preventDefault();
+                        return false;
+                    }
                 }
+            });
+        </script>
+
+        <script>
+            document.getElementById('status').addEventListener('change', function() {
+                const selectedValue = this.value;
+                const remainingAmountContainer = document.getElementById('remaining_amount_container');
+                const driverContainer = document.getElementById('driver_id_container');
+                const kmBeforeContainer = document.getElementById('km_before_container');
+                const kmContainer = document.getElementById('km_container');
+                const remainingAmountInput = document.getElementById('remaining_amount_display');
+                const driverInput = document.getElementById('driver_id');
+
+                if (selectedValue === 'Berjalan') {
+                    remainingAmountContainer.style.display = 'block';
+                    remainingAmountInput.setAttribute('required', 'required');
+                    driverInput.removeAttribute('required');
+                } else if (selectedValue === 'Disetujui') {
+                    driverContainer.style.display = 'block';
+                    remainingAmountInput.removeAttribute('required');
+                } else if (selectedValue === 'Selesai') {
+                    kmBeforeContainer.style.display = 'block';
+                    kmContainer.style.display = 'block';
+                    remainingAmountInput.removeAttribute('required');
+                } else {
+                    remainingAmountContainer.style.display = 'none';
+                    driverContainer.style.display = 'none';
+                    remainingAmountInput.removeAttribute('required');
+                    driverInput.removeAttribute('required');
+                }
+            });
+        </script>
+
+        <script>
+            function autoResizeTextarea(textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = (textarea.scrollHeight) + 'px';
             }
-        });
-    </script>
 
-    <script>
-        document.getElementById('status').addEventListener('change', function() {
-            const selectedValue = this.value;
-            const remainingAmountContainer = document.getElementById('remaining_amount_container');
-            const driverContainer = document.getElementById('driver_id_container');
-            const kmBeforeContainer = document.getElementById('km_before_container');
-            const kmContainer = document.getElementById('km_container');
-            const remainingAmountInput = document.getElementById('remaining_amount_display');
-            const driverInput = document.getElementById('driver_id');
-
-            if (selectedValue === 'Berjalan') {
-                remainingAmountContainer.style.display = 'block';
-                remainingAmountInput.setAttribute('required', 'required');
-                driverInput.removeAttribute('required');
-            } else if (selectedValue === 'Disetujui') {
-                driverContainer.style.display = 'block';
-                remainingAmountInput.removeAttribute('required');
-            } else if (selectedValue === 'Selesai') {
-                kmBeforeContainer.style.display = 'block';
-                kmContainer.style.display = 'block';
-                remainingAmountInput.removeAttribute('required');
-            } else {
-                remainingAmountContainer.style.display = 'none';
-                driverContainer.style.display = 'none';
-                remainingAmountInput.removeAttribute('required');
-                driverInput.removeAttribute('required');
-            }
-        });
-    </script>
-
-    <script>
-        function autoResizeTextarea(textarea) {
-            textarea.style.height = 'auto';
-            textarea.style.height = (textarea.scrollHeight) + 'px';
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const textareas = document.querySelectorAll('textarea');
-            textareas.forEach(function(textarea) {
-                autoResizeTextarea(textarea);
-                textarea.addEventListener('input', function() {
+            document.addEventListener('DOMContentLoaded', function() {
+                const textareas = document.querySelectorAll('textarea');
+                textareas.forEach(function(textarea) {
                     autoResizeTextarea(textarea);
+                    textarea.addEventListener('input', function() {
+                        autoResizeTextarea(textarea);
+                    });
                 });
             });
-        });
 
-        const note = document.querySelector('#note');
-        note.addEventListener('input', function() {
-            autoResizeTextarea(this);
-        });
-    </script>
-
+            const note = document.querySelector('#note');
+            note.addEventListener('input', function() {
+                autoResizeTextarea(this);
+            });
+        </script>
+    <?php endif; ?>
 <?php endif; ?>
