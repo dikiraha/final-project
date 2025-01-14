@@ -57,7 +57,7 @@ $tiktok = $setting['tiktok'];
                     </div>
                 </div>
             </div>
-            <div class="col-xl-12 wow fadeInUp" data-wow-delay="0.1s">
+            <!-- <div class="col-xl-12 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="bg-secondary p-5 rounded">
                     <h4 class="text-primary mb-4">Kirim Pesan Anda</h4>
                     <form>
@@ -105,7 +105,7 @@ $tiktok = $setting['tiktok'];
                         </div>
                     </form>
                 </div>
-            </div>
+            </div> -->
             <!-- <div class="col-12 col-xl-5 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="p-5 bg-light rounded">
                     <div class="bg-white rounded p-4 mb-4">

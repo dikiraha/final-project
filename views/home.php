@@ -329,6 +329,8 @@ $bookingModel = new Booking();
                 $profile = $modelProfile->getByUserId($review['user_id']);
 
                 $car = $carModel->getCarById($review['car_id']);
+
+                $createdAt = new DateTime($review['created_at']);
                 ?>
                 <div class="testimonial-item">
                     <div class="testimonial-quote"><i class="fa fa-quote-right fa-2x"></i></div>
@@ -336,7 +338,7 @@ $bookingModel = new Booking();
                         <img src="assets/uploads/photo_profile/<?php echo htmlspecialchars($profile['photo_profile']) ?>" class="img-fluid">
                         <div class="ms-4">
                             <h4><?php echo htmlspecialchars($user['name']); ?></h4>
-                            <p><?php echo htmlspecialchars($car['merk'] . " " . $car['tipe']); ?></p>
+                            <p><?php echo htmlspecialchars($car['merk'] . " " . $car['tipe']); ?> (<?php echo $createdAt->format('d M Y'); ?>)</p>
                             <div class="d-flex text-primary">
                                 <?php for ($i = 1; $i <= 5; $i++): ?>
                                     <i class="fas fa-star<?php echo $i <= $review['grade'] ? '' : ' text-body'; ?>"></i>
