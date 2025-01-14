@@ -45,7 +45,7 @@ class Review
 
     public function getTotalReviews()
     {
-        $sql = "SELECT COUNT(*) AS total FROM " . $this->table;
+        $sql = "SELECT COUNT(*) AS total FROM " . $this->table . " WHERE grade > 3";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
