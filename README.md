@@ -61,11 +61,11 @@ git clone https://github.com/dikiraha/final-project.git
 
 2. Konfigurasi Database
 
-- Buat database baru di MySQL, misalnya diana_rent_car.
-- Import file diana_rent_car.sql yang terdapat di folder database.
+- Buat database baru di MySQL, misalnya dianarentcar.
+- Import file dianarentcar.sql yang terdapat di folder database.
 
 3. Konfigurasi Koneksi Database
-   Edit file classes/Database.php dan sesuaikan dengan pengaturan server:
+   Copy file classes/DatabaseExample.php menjadi classes/Database.php dan sesuaikan dengan pengaturan server:
 
 ```bash
 private $host = 'localhost';
@@ -86,8 +86,8 @@ private $password = '';
 - Login melalui http://localhost/final-project/login.
 
 ```bash
-email   : admin@drc.ocm
-password: admin
+email   : admin@dianarentcar.my.id
+password: 123
 ```
 
 - Kelola data mobil, pengguna, dan penyewaan.
